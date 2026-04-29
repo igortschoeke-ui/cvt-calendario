@@ -12,7 +12,7 @@
       --cvt-green:#1aa36e;
       --cvt-green-dark:#137a53;
       --cvt-green-soft:#ebfaf4;
-      --cvt-gray-0:#f4f6f8;
+      --cvt-gray-0:#353839;
       --cvt-gray-1:#eef2f4;
       --cvt-gray-2:#d7dfe3;
       --cvt-gray-3:#95a3ad;
@@ -28,10 +28,7 @@
       margin:0;
       font-family:Arial,Helvetica,sans-serif;
       color:var(--cvt-gray-5);
-      background:
-        radial-gradient(circle at top right,rgba(255,122,0,.07),transparent 24%),
-        radial-gradient(circle at top left,rgba(26,163,110,.07),transparent 26%),
-        var(--cvt-gray-0);
+      background:#353839;
     }
     .login-screen{
       min-height:100vh;
@@ -354,6 +351,54 @@
     .list-date{font-weight:700;background:var(--cvt-gray-1);border-radius:14px;padding:12px;text-align:center;line-height:1.5;border:1px solid var(--cvt-gray-2)}
     .list-content{line-height:1.55;color:var(--cvt-gray-4)}
     .list-content strong{color:var(--cvt-gray-5)}
+    .payment-summary{
+      display:grid;
+      grid-template-columns:1fr 260px;
+      gap:16px;
+      align-items:stretch;
+    }
+    .payment-list{
+      display:grid;
+      gap:10px;
+    }
+    .payment-item{
+      border:1px solid var(--cvt-gray-2);
+      background:var(--white);
+      border-radius:16px;
+      padding:14px;
+      line-height:1.5;
+      color:var(--cvt-gray-4);
+    }
+    .payment-item strong{
+      color:var(--cvt-gray-5);
+    }
+    .payment-total{
+      border-radius:18px;
+      padding:18px;
+      background:linear-gradient(180deg,var(--cvt-green-soft),#ffffff);
+      border:1px solid rgba(26,163,110,.22);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:8px;
+    }
+    .payment-total span{
+      color:var(--cvt-gray-4);
+      font-size:13px;
+      font-weight:700;
+    }
+    .payment-total strong{
+      color:var(--cvt-green-dark);
+      font-size:32px;
+      line-height:1;
+    }
+    .payment-note{
+      color:var(--cvt-gray-4);
+      font-size:13px;
+      line-height:1.5;
+      margin-top:10px;
+    }
+
     .export-controls{
       display:flex;
       align-items:end;
@@ -440,7 +485,7 @@
     .plantao-select-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .plantao-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px}
     @media(max-width:980px){.upload-area{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.calendar{gap:8px}.day{min-height:155px}}
-    @media(max-width:700px){
+    @media(max-width:700px){.payment-summary{grid-template-columns:1fr}
       .page{padding:14px}.hero{padding:20px}.hero h1{font-size:28px}.stats{grid-template-columns:1fr}.controls{padding:14px}
       .calendar{display:block}.weekday{display:none}.day{margin-bottom:10px;min-height:auto}.day.other-month{display:none}.month-title{min-width:100%}.list-item{grid-template-columns:1fr}.edit-row,.plantao-select-row{grid-template-columns:1fr}
     }
@@ -526,6 +571,26 @@
         <div id="calendar" class="calendar"></div>
       </div>
       <div id="emptyMessage" class="empty-message" style="margin-top:16px;">Nenhum evento carregado ainda.</div>
+    </div>
+
+    <div class="panel" id="brigadistaPaymentPanel" style="display:none;">
+      <div class="list-header">
+        <h2 class="panel-title" style="margin:0;">Resumo para emissão de nota</h2>
+        <p>Valores referentes aos plantões em que você está escalado no mês exibido.</p>
+      </div>
+
+      <div class="payment-summary">
+        <div id="paymentList" class="payment-list"></div>
+
+        <div class="payment-total">
+          <span>Total estimado no mês</span>
+          <strong id="paymentTotal">R$ 0,00</strong>
+        </div>
+      </div>
+
+      <div class="payment-note">
+        Valores considerados: Sábado 13h às 22:30h = R$ 264,00; Sábado 22:30h às 10:30h = R$ 340,00; Domingo 10:30h às 22:30h = R$ 304,00.
+      </div>
     </div>
 
     <div class="panel treinamento-only" id="trainingListPanel">
@@ -680,6 +745,10 @@
     const emptyMessage = document.getElementById('emptyMessage');
     const eventListEl = document.getElementById('eventList');
     const trainingListPanel = document.getElementById('trainingListPanel');
+    const brigadistaPaymentPanel = document.getElementById('brigadistaPaymentPanel');
+    const paymentList = document.getElementById('paymentList');
+    const paymentTotal = document.getElementById('paymentTotal');
+
     const monthTitle = document.getElementById('monthTitle');
     const monthSelect = document.getElementById('monthSelect');
     const yearSelect = document.getElementById('yearSelect');
@@ -897,6 +966,10 @@
         else if (isAdminPlantao) trainingListPanel.style.display = 'none';
         else trainingListPanel.style.display = usuarioTemPerfil('instrutor') ? 'block' : 'none';
       }
+      if (brigadistaPaymentPanel) {
+        brigadistaPaymentPanel.style.display = (!isAdminGeral && usuarioTemPerfil('brigadista')) ? 'block' : 'none';
+      }
+
       if (clearBtn) clearBtn.style.display = isAdminGeral ? 'inline-block' : 'none';
       if (editBtn) editBtn.style.display = 'none';
       if (saveEditBtn) saveEditBtn.style.display = 'none';
@@ -1251,6 +1324,7 @@
 
       updateStats(monthEvents, freeDays);
       renderEventList(monthEvents);
+      renderPaymentPanel(monthEvents);
       emptyMessage.style.display = allEvents.length > 0 ? 'none' : 'block';
     }
 
@@ -1397,6 +1471,88 @@
       statBusyDays.textContent = Object.keys(diasComAtividade).length;
       statFreeDays.textContent = freeDays;
       statCompanies.textContent = Object.keys(empresasUnicas).length;
+    }
+
+    function renderPaymentPanel(monthEvents) {
+      if (!brigadistaPaymentPanel || !paymentList || !paymentTotal) return;
+
+      if (!usuarioLogado || usuarioLogado.tipo === 'admin' || usuarioLogado.tipo === 'admin_plantao' || !usuarioTemPerfil('brigadista')) {
+        paymentList.innerHTML = '';
+        paymentTotal.textContent = 'R$ 0,00';
+        return;
+      }
+
+      const nomeLogado = normalizarTexto(usuarioLogado.nomeInstrutor);
+
+      const plantoesDoBrigadista = monthEvents
+        .filter(function(event) {
+          return event.plantao === true &&
+            normalizarTexto(event.instrutor).includes(nomeLogado);
+        })
+        .sort(function(a, b) {
+          return a.start - b.start;
+        });
+
+      paymentList.innerHTML = '';
+
+      if (plantoesDoBrigadista.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'empty-message';
+        empty.textContent = 'Nenhum plantão aprovado para você neste mês.';
+        paymentList.appendChild(empty);
+        paymentTotal.textContent = formatCurrencyBRL(0);
+        return;
+      }
+
+      let total = 0;
+
+      plantoesDoBrigadista.forEach(function(event) {
+        const valor = getValorPlantao(event);
+        total += valor;
+
+        const item = document.createElement('div');
+        item.className = 'payment-item';
+
+        item.innerHTML =
+          '<strong>' + formatDate(event.start) + ' • ' + formatTimeRange(event.start, event.end) + '</strong><br>' +
+          'Plantão: ' + escapeHTML(getLabelPlantao(event)) + '<br>' +
+          'Equipe: ' + escapeHTML(event.instrutor || 'Não informado') + '<br>' +
+          '<strong>Valor: ' + formatCurrencyBRL(valor) + '</strong>';
+
+        paymentList.appendChild(item);
+      });
+
+      paymentTotal.textContent = formatCurrencyBRL(total);
+    }
+
+    function getValorPlantao(event) {
+      if (event.plantaoShiftKey === 'sabado_tarde') return 264;
+      if (event.plantaoShiftKey === 'sabado_noite') return 340;
+      if (event.plantaoShiftKey === 'domingo_dia') return 304;
+
+      const startDay = event.start ? event.start.getDay() : -1;
+      const startHour = event.start ? event.start.getHours() : -1;
+      const startMinute = event.start ? event.start.getMinutes() : -1;
+
+      if (startDay === 6 && startHour === 13) return 264;
+      if (startDay === 6 && startHour === 22 && startMinute === 30) return 340;
+      if (startDay === 0 && startHour === 10 && startMinute === 30) return 304;
+
+      return 0;
+    }
+
+    function getLabelPlantao(event) {
+      if (event.plantaoShiftKey === 'sabado_tarde') return 'Sábado das 13h às 22:30h';
+      if (event.plantaoShiftKey === 'sabado_noite') return 'Sábado das 22:30h às 10:30h';
+      if (event.plantaoShiftKey === 'domingo_dia') return 'Domingo das 10:30h às 22:30h';
+      return 'Plantão';
+    }
+
+    function formatCurrencyBRL(value) {
+      return value.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
     }
 
     function renderEventList(monthEvents) {
