@@ -330,54 +330,6 @@
     .list-date{font-weight:700;background:var(--cvt-gray-1);border-radius:14px;padding:12px;text-align:center;line-height:1.5;border:1px solid var(--cvt-gray-2)}
     .list-content{line-height:1.55;color:var(--cvt-gray-4)}
     .list-content strong{color:var(--cvt-gray-5)}
-    .payment-summary{
-      display:grid;
-      grid-template-columns:1fr 260px;
-      gap:16px;
-      align-items:stretch;
-    }
-    .payment-list{
-      display:grid;
-      gap:10px;
-    }
-    .payment-item{
-      border:1px solid var(--cvt-gray-2);
-      background:var(--white);
-      border-radius:16px;
-      padding:14px;
-      line-height:1.5;
-      color:var(--cvt-gray-4);
-    }
-    .payment-item strong{
-      color:var(--cvt-gray-5);
-    }
-    .payment-total{
-      border-radius:18px;
-      padding:18px;
-      background:linear-gradient(180deg,var(--cvt-green-soft),#ffffff);
-      border:1px solid rgba(26,163,110,.22);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap:8px;
-    }
-    .payment-total span{
-      color:var(--cvt-gray-4);
-      font-size:13px;
-      font-weight:700;
-    }
-    .payment-total strong{
-      color:var(--cvt-green-dark);
-      font-size:32px;
-      line-height:1;
-    }
-    .payment-note{
-      color:var(--cvt-gray-4);
-      font-size:13px;
-      line-height:1.5;
-      margin-top:10px;
-    }
-
     .export-controls{
       display:flex;
       align-items:end;
@@ -420,7 +372,7 @@
     .modal p strong{color:var(--cvt-gray-5)}
     .modal-actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .edit-form{display:none;margin-top:18px;border-top:1px solid var(--cvt-gray-2);padding-top:18px}
-    .edit-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .edit-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
     .error{
       display:none;
       background:#fff1f1;
@@ -464,7 +416,7 @@
     .plantao-select-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .plantao-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px}
     @media(max-width:980px){.upload-area{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.calendar{gap:8px}.day{min-height:155px}}
-    @media(max-width:700px){.payment-summary{grid-template-columns:1fr}
+    @media(max-width:700px){
       .page{padding:14px}.hero{padding:20px}.hero h1{font-size:28px}.stats{grid-template-columns:1fr}.controls{padding:14px}
       .calendar{display:block}.weekday{display:none}.day{margin-bottom:10px;min-height:auto}.day.other-month{display:none}.month-title{min-width:100%}.list-item{grid-template-columns:1fr}.edit-row,.plantao-select-row{grid-template-columns:1fr}
     }
@@ -552,26 +504,6 @@
       <div id="emptyMessage" class="empty-message" style="margin-top:16px;">Nenhum evento carregado ainda.</div>
     </div>
 
-    <div class="panel" id="brigadistaPaymentPanel" style="display:none;">
-      <div class="list-header">
-        <h2 class="panel-title" style="margin:0;">Resumo para emissão de nota</h2>
-        <p>Valores referentes aos plantões em que você está escalado no mês exibido.</p>
-      </div>
-
-      <div class="payment-summary">
-        <div id="paymentList" class="payment-list"></div>
-
-        <div class="payment-total">
-          <span>Total estimado no mês</span>
-          <strong id="paymentTotal">R$ 0,00</strong>
-        </div>
-      </div>
-
-      <div class="payment-note">
-        Valores considerados: Sábado 13h às 22:30h = R$ 264,00; Sábado 22:30h às 10:30h = R$ 340,00; Domingo 10:30h às 22:30h = R$ 304,00.
-      </div>
-    </div>
-
     <div class="panel treinamento-only" id="trainingListPanel">
       <div class="list-header">
         <h2 class="panel-title" style="margin:0;">Lista de treinamentos do mês</h2>
@@ -627,6 +559,10 @@
           <div class="form-group">
             <label for="editInstrutor2">Instrutor/Plantonista 2</label>
             <select id="editInstrutor2"></select>
+          </div>
+          <div class="form-group">
+            <label for="editInstrutor3">Instrutor/Plantonista 3</label>
+            <select id="editInstrutor3"></select>
           </div>
         </div>
         <div class="form-group">
@@ -720,10 +656,6 @@
     const emptyMessage = document.getElementById('emptyMessage');
     const eventListEl = document.getElementById('eventList');
     const trainingListPanel = document.getElementById('trainingListPanel');
-    const brigadistaPaymentPanel = document.getElementById('brigadistaPaymentPanel');
-    const paymentList = document.getElementById('paymentList');
-    const paymentTotal = document.getElementById('paymentTotal');
-
     const monthTitle = document.getElementById('monthTitle');
     const monthSelect = document.getElementById('monthSelect');
     const yearSelect = document.getElementById('yearSelect');
@@ -762,6 +694,7 @@
     const editTema = document.getElementById('editTema');
     const editInstrutor1 = document.getElementById('editInstrutor1');
     const editInstrutor2 = document.getElementById('editInstrutor2');
+    const editInstrutor3 = document.getElementById('editInstrutor3');
     const editData = document.getElementById('editData');
     const editInicio = document.getElementById('editInicio');
     const editFim = document.getElementById('editFim');
@@ -940,11 +873,6 @@
         else if (isAdminPlantao) trainingListPanel.style.display = 'none';
         else trainingListPanel.style.display = usuarioTemPerfil('instrutor') ? 'block' : 'none';
       }
-
-      if (brigadistaPaymentPanel) {
-        brigadistaPaymentPanel.style.display = (!isAdminGeral && usuarioTemPerfil('brigadista')) ? 'block' : 'none';
-      }
-
       if (clearBtn) clearBtn.style.display = isAdminGeral ? 'inline-block' : 'none';
       if (editBtn) editBtn.style.display = 'none';
       if (saveEditBtn) saveEditBtn.style.display = 'none';
@@ -1108,7 +1036,7 @@
       const dataValue = getExcelValue(row, ['DATA','Data','data']);
       const horarioValue = getExcelValue(row, ['HORARIO','Horário','Horario','horario']);
       const empresa = getExcelValue(row, ['EMPRESA','Empresa','empresa']);
-      const instrutor = getExcelValue(row, ['INSTRUTOR','Instrutor','instrutor']);
+      const instrutor = normalizarListaNomes(getExcelValue(row, ['INSTRUTOR','Instrutor','instrutor']));
       const tema = getExcelValue(row, ['TEMA','Tema','tema']);
 
       if (!dataValue && !horarioValue && !empresa && !instrutor && !tema) return null;
@@ -1221,6 +1149,20 @@
       return { inicio: normalizarHora(matches[0]), fim: matches[1] ? normalizarHora(matches[1]) : '' };
     }
 
+    function normalizarListaNomes(valor) {
+      if (!valor) return '';
+
+      return String(valor)
+        .split(/\s*(?:,|\/|;|\+|&|\be\b)\s*/i)
+        .map(function(nome) {
+          return nome.trim();
+        })
+        .filter(function(nome) {
+          return nome.length > 0;
+        })
+        .join(' / ');
+    }
+
     function normalizarHora(valor) {
       const partes = String(valor).split(':');
       const hora = String(parseInt(partes[0],10)).padStart(2,'0');
@@ -1285,7 +1227,6 @@
 
       updateStats(monthEvents, freeDays);
       renderEventList(monthEvents);
-      renderPaymentPanel(monthEvents);
       emptyMessage.style.display = allEvents.length > 0 ? 'none' : 'block';
     }
 
@@ -1374,13 +1315,24 @@
         const freeText = document.createElement('div');
         freeText.className = 'free-text';
 
-        if (dayDate && podeAbrirPlantaoNoCalendario(dayDate)) {
+        if (usuarioLogado && usuarioLogado.tipo === 'admin') {
+          freeText.textContent = 'Adicionar Treinamento';
+        } else if (dayDate && podeAbrirPlantaoNoCalendario(dayDate)) {
           freeText.textContent = usuarioLogado && usuarioLogado.tipo === 'admin_plantao' ? 'Abrir plantão' : 'Disponibilidade';
         } else {
           freeText.textContent = 'Dia Livre';
         }
 
         dayEl.appendChild(freeText);
+      }
+
+      if (!otherMonth && usuarioLogado && usuarioLogado.tipo === 'admin' && dayDate) {
+        dayEl.classList.add('plantao-clickable');
+        dayEl.title = 'Clique para adicionar treinamento';
+
+        dayEl.addEventListener('click', function() {
+          openNewTrainingEventModal(dayDate);
+        });
       }
 
       if (!otherMonth && dayDate && podeAbrirPlantaoNoCalendario(dayDate)) {
@@ -1414,88 +1366,6 @@
       statBusyDays.textContent = Object.keys(diasComAtividade).length;
       statFreeDays.textContent = freeDays;
       statCompanies.textContent = Object.keys(empresasUnicas).length;
-    }
-
-    function renderPaymentPanel(monthEvents) {
-      if (!brigadistaPaymentPanel || !paymentList || !paymentTotal) return;
-
-      if (!usuarioLogado || usuarioLogado.tipo === 'admin' || usuarioLogado.tipo === 'admin_plantao' || !usuarioTemPerfil('brigadista')) {
-        paymentList.innerHTML = '';
-        paymentTotal.textContent = 'R$ 0,00';
-        return;
-      }
-
-      const nomeLogado = normalizarTexto(usuarioLogado.nomeInstrutor);
-
-      const plantoesDoBrigadista = monthEvents
-        .filter(function(event) {
-          return event.plantao === true &&
-            normalizarTexto(event.instrutor).includes(nomeLogado);
-        })
-        .sort(function(a, b) {
-          return a.start - b.start;
-        });
-
-      paymentList.innerHTML = '';
-
-      if (plantoesDoBrigadista.length === 0) {
-        const empty = document.createElement('div');
-        empty.className = 'empty-message';
-        empty.textContent = 'Nenhum plantão aprovado para você neste mês.';
-        paymentList.appendChild(empty);
-        paymentTotal.textContent = formatCurrencyBRL(0);
-        return;
-      }
-
-      let total = 0;
-
-      plantoesDoBrigadista.forEach(function(event) {
-        const valor = getValorPlantao(event);
-        total += valor;
-
-        const item = document.createElement('div');
-        item.className = 'payment-item';
-
-        item.innerHTML =
-          '<strong>' + formatDate(event.start) + ' • ' + formatTimeRange(event.start, event.end) + '</strong><br>' +
-          'Plantão: ' + escapeHTML(getLabelPlantao(event)) + '<br>' +
-          'Equipe: ' + escapeHTML(event.instrutor || 'Não informado') + '<br>' +
-          '<strong>Valor: ' + formatCurrencyBRL(valor) + '</strong>';
-
-        paymentList.appendChild(item);
-      });
-
-      paymentTotal.textContent = formatCurrencyBRL(total);
-    }
-
-    function getValorPlantao(event) {
-      if (event.plantaoShiftKey === 'sabado_tarde') return 264;
-      if (event.plantaoShiftKey === 'sabado_noite') return 340;
-      if (event.plantaoShiftKey === 'domingo_dia') return 304;
-
-      const startDay = event.start ? event.start.getDay() : -1;
-      const startHour = event.start ? event.start.getHours() : -1;
-      const startMinute = event.start ? event.start.getMinutes() : -1;
-
-      if (startDay === 6 && startHour === 13) return 264;
-      if (startDay === 6 && startHour === 22 && startMinute === 30) return 340;
-      if (startDay === 0 && startHour === 10 && startMinute === 30) return 304;
-
-      return 0;
-    }
-
-    function getLabelPlantao(event) {
-      if (event.plantaoShiftKey === 'sabado_tarde') return 'Sábado das 13h às 22:30h';
-      if (event.plantaoShiftKey === 'sabado_noite') return 'Sábado das 22:30h às 10:30h';
-      if (event.plantaoShiftKey === 'domingo_dia') return 'Domingo das 10:30h às 22:30h';
-      return 'Plantão';
-    }
-
-    function formatCurrencyBRL(value) {
-      return value.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      });
     }
 
     function renderEventList(monthEvents) {
@@ -1541,6 +1411,50 @@
       return false;
     }
 
+    function openNewTrainingEventModal(date) {
+      if (!usuarioLogado || usuarioLogado.tipo !== 'admin') return;
+
+      const start = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0);
+      const end = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0);
+
+      const newEvent = {
+        id: createEventId(),
+        start: start,
+        end: end,
+        summary: '',
+        description: '',
+        location: '',
+        empresa: '',
+        tema: '',
+        instrutor: '',
+        plantao: false,
+        plantaoWeekendKey: '',
+        plantaoShiftKey: '',
+        novoEvento: true
+      };
+
+      allEvents.push(newEvent);
+      selectedEventId = newEvent.id;
+
+      modalTitle.textContent = 'Novo treinamento';
+      modalDate.innerHTML = '<strong>Data:</strong> ' + formatDate(newEvent.start);
+      modalTime.innerHTML = '<strong>Horário:</strong> ' + formatTimeRange(newEvent.start, newEvent.end);
+      modalCompany.innerHTML = '<strong>Empresa:</strong> Informe a empresa';
+      modalTheme.innerHTML = '<strong>Tema:</strong> Informe o tema';
+      modalInstructor.innerHTML = '<strong>Instrutor:</strong> Selecione o instrutor';
+      modalDescription.innerHTML = '<strong>Descrição:</strong> Não informado';
+
+      fillEditForm(newEvent);
+
+      viewMode.style.display = 'none';
+      editForm.style.display = 'block';
+      editBtn.style.display = 'none';
+      saveEditBtn.style.display = 'inline-block';
+      cancelEditBtn.style.display = 'inline-block';
+      savedAlert.style.display = 'none';
+      modalOverlay.style.display = 'flex';
+    }
+
     function openModal(eventId) {
       selectedEventId = eventId;
       const event = getSelectedEvent();
@@ -1563,9 +1477,18 @@
     }
 
     function closeModal() {
+      const event = getSelectedEvent();
+
+      if (event && event.novoEvento === true) {
+        allEvents = allEvents.filter(function(item) {
+          return item.id !== event.id;
+        });
+      }
+
       modalOverlay.style.display = 'none';
       selectedEventId = null;
       disableEditMode();
+      renderCalendar();
     }
 
     function getSelectedEvent() {
@@ -1581,9 +1504,11 @@
 
       garantirOpcaoInstrutor(editInstrutor1, instrutores[0]);
       garantirOpcaoInstrutor(editInstrutor2, instrutores[1]);
+      garantirOpcaoInstrutor(editInstrutor3, instrutores[2]);
 
       editInstrutor1.value = instrutores[0] || '';
       editInstrutor2.value = instrutores[1] || '';
+      editInstrutor3.value = instrutores[2] || '';
 
       editData.value = toInputDate(event.start);
       editInicio.value = toInputTime(event.start);
@@ -1594,6 +1519,7 @@
     function preencherSelectEdicao(nomes) {
       preencherSelectLista(editInstrutor1, 'Selecione o 1º nome', nomes);
       preencherSelectLista(editInstrutor2, 'Selecione o 2º nome', nomes);
+      preencherSelectLista(editInstrutor3, 'Selecione o 3º nome', nomes);
     }
 
     function preencherSelectLista(selectElement, textoPlaceholder, nomes) {
@@ -1619,7 +1545,7 @@
         .split(/\s*(?:,|\/|;|\+|&|\be\b)\s*/i)
         .map(function(nome){ return nome.trim(); })
         .filter(function(nome){ return nome.length > 0; })
-        .slice(0,2);
+        .slice(0,3);
     }
 
     function garantirOpcaoInstrutor(selectElement, nome) {
@@ -1637,10 +1563,24 @@
 
     function montarInstrutoresSelecionados() {
       const selecionados = [];
-      if (editInstrutor1.value.trim()) selecionados.push(editInstrutor1.value.trim());
-      if (editInstrutor2.value.trim() && normalizarTexto(editInstrutor2.value) !== normalizarTexto(editInstrutor1.value)) {
-        selecionados.push(editInstrutor2.value.trim());
-      }
+      const valores = [
+        editInstrutor1.value.trim(),
+        editInstrutor2.value.trim(),
+        editInstrutor3.value.trim()
+      ];
+
+      valores.forEach(function(nome) {
+        if (!nome) return;
+
+        const jaExiste = selecionados.some(function(item) {
+          return normalizarTexto(item) === normalizarTexto(nome);
+        });
+
+        if (!jaExiste) {
+          selecionados.push(nome);
+        }
+      });
+
       return selecionados.join(' / ');
     }
 
@@ -1661,10 +1601,22 @@
     }
 
     function disableEditMode() {
+      const event = getSelectedEvent();
+
+      if (event && event.novoEvento === true) {
+        allEvents = allEvents.filter(function(item) {
+          return item.id !== event.id;
+        });
+
+        modalOverlay.style.display = 'none';
+        selectedEventId = null;
+        renderCalendar();
+        return;
+      }
+
       viewMode.style.display = 'block';
       editForm.style.display = 'none';
 
-      const event = getSelectedEvent();
       editBtn.style.display = podeEditarEventoAtual(event) ? 'inline-block' : 'none';
       saveEditBtn.style.display = 'none';
       cancelEditBtn.style.display = 'none';
@@ -1715,6 +1667,7 @@
       event.end = newEnd;
       event.description = editDescricao.value.trim();
       event.summary = event.empresa + ' - ' + event.tema + ' - ' + event.instrutor;
+      event.novoEvento = false;
 
       allEvents.sort(function(a,b){ return a.start - b.start; });
       currentDate = new Date(event.start);
