@@ -589,7 +589,7 @@
       </div>
 
       <div class="payment-note">
-        Valores considerados: Sábado 13h às 22:30h = R$ 264,00; Sábado 22:30h às 10:30h = R$ 340,00; Domingo 10:30h às 22:30h = R$ 304,00.
+        Valores considerados: Sábado 13h às 22:30h = R$ 260,00; Sábado 22:30h às 10:30h = R$ 340,00; Domingo 10:30h às 22:30h = R$ 304,00.
       </div>
     </div>
 
@@ -1555,7 +1555,7 @@
     }
 
     function getValorPlantao(event) {
-      if (event.plantaoShiftKey === 'sabado_tarde') return 264;
+      if (event.plantaoShiftKey === 'sabado_tarde') return 260;
       if (event.plantaoShiftKey === 'sabado_noite') return 340;
       if (event.plantaoShiftKey === 'domingo_dia') return 304;
 
@@ -1563,7 +1563,7 @@
       const startHour = event.start ? event.start.getHours() : -1;
       const startMinute = event.start ? event.start.getMinutes() : -1;
 
-      if (startDay === 6 && startHour === 13) return 264;
+      if (startDay === 6 && startHour === 13) return 260;
       if (startDay === 6 && startHour === 22 && startMinute === 30) return 340;
       if (startDay === 0 && startHour === 10 && startMinute === 30) return 304;
 
