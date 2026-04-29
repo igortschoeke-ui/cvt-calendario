@@ -1257,12 +1257,36 @@
       return String(valor)
         .split(/\s*(?:,|\/|;|\+|&|\be\b)\s*/i)
         .map(function(nome) {
-          return nome.trim();
+          return formatarNomePessoa(nome.trim());
         })
         .filter(function(nome) {
           return nome.length > 0;
         })
         .join(' / ');
+    }
+
+    function formatarNomePessoa(nome) {
+      if (!nome) return '';
+
+      const nomeLimpo = String(nome).trim();
+
+      const usuarioEncontrado = usuarios.find(function(item) {
+        return normalizarTexto(item.nomeInstrutor) === normalizarTexto(nomeLimpo);
+      });
+
+      if (usuarioEncontrado) {
+        return usuarioEncontrado.nomeInstrutor;
+      }
+
+      return nomeLimpo
+        .toLowerCase()
+        .split(/\s+/)
+        .map(function(parte) {
+          if (!parte) return '';
+
+          return parte.charAt(0).toUpperCase() + parte.slice(1);
+        })
+        .join(' ');
     }
 
     function normalizarHora(valor) {
@@ -1764,12 +1788,14 @@
       valores.forEach(function(nome) {
         if (!nome) return;
 
+        const nomeFormatado = formatarNomePessoa(nome);
+
         const jaExiste = selecionados.some(function(item) {
-          return normalizarTexto(item) === normalizarTexto(nome);
+          return normalizarTexto(item) === normalizarTexto(nomeFormatado);
         });
 
         if (!jaExiste) {
-          selecionados.push(nome);
+          selecionados.push(nomeFormatado);
         }
       });
 
