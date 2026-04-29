@@ -254,6 +254,30 @@
       border-color:rgba(255,122,0,.9);
       outline-color:rgba(255,122,0,.55);
     }
+
+    .day.training-clickable{
+      cursor:pointer;
+    }
+    .day.training-weekday{
+      background:#eefbf5;
+      border-color:rgba(26,163,110,.42);
+      outline:2px solid rgba(26,163,110,.12);
+    }
+    .day.training-weekday:hover{
+      background:#ddf7ec;
+      border-color:rgba(26,163,110,.72);
+      outline-color:rgba(26,163,110,.32);
+    }
+    .day.training-weekend{
+      background:#fff0df;
+      border-color:rgba(255,122,0,.65);
+      outline:2px solid rgba(255,122,0,.24);
+    }
+    .day.training-weekend:hover{
+      background:#ffe4c4;
+      border-color:rgba(255,122,0,.9);
+      outline-color:rgba(255,122,0,.5);
+    }
     .day-number{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-weight:700}
     .day-number span:first-child{
       width:34px;
@@ -553,15 +577,15 @@
         </div>
         <div class="edit-row">
           <div class="form-group">
-            <label for="editInstrutor1">Instrutor/Plantonista 1</label>
+            <label for="editInstrutor1">Instrutor 1</label>
             <select id="editInstrutor1"></select>
           </div>
           <div class="form-group">
-            <label for="editInstrutor2">Instrutor/Plantonista 2</label>
+            <label for="editInstrutor2">Instrutor 2</label>
             <select id="editInstrutor2"></select>
           </div>
           <div class="form-group">
-            <label for="editInstrutor3">Instrutor/Plantonista 3</label>
+            <label for="editInstrutor3">Instrutor 3</label>
             <select id="editInstrutor3"></select>
           </div>
         </div>
@@ -1327,7 +1351,14 @@
       }
 
       if (!otherMonth && usuarioLogado && usuarioLogado.tipo === 'admin' && dayDate) {
-        dayEl.classList.add('plantao-clickable');
+        dayEl.classList.add('training-clickable');
+
+        if (dayDate.getDay() === 0 || dayDate.getDay() === 6) {
+          dayEl.classList.add('training-weekend');
+        } else {
+          dayEl.classList.add('training-weekday');
+        }
+
         dayEl.title = 'Clique para adicionar treinamento';
 
         dayEl.addEventListener('click', function() {
