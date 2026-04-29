@@ -1106,13 +1106,18 @@
 
           saveAgenda();
           renderCalendar();
+          fileInput.value = '';
         } catch (error) {
           showError('Não foi possível ler o arquivo Excel. Verifique se a estrutura está correta: DATA, HORARIO, EMPRESA, INSTRUTOR e TEMA.');
           console.error(error);
+          fileInput.value = '';
         }
       };
 
-      reader.onerror = function(){ showError('Erro ao carregar o arquivo Excel.'); };
+      reader.onerror = function(){
+        showError('Erro ao carregar o arquivo Excel.');
+        fileInput.value = '';
+      };
       reader.readAsArrayBuffer(file);
     }
 
