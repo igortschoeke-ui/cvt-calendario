@@ -1445,7 +1445,7 @@
         if (usuarioLogado && usuarioLogado.tipo === 'admin') {
           freeText.textContent = 'Adicionar Treinamento';
         } else if (dayDate && podeAbrirPlantaoNoCalendario(dayDate)) {
-          freeText.textContent = usuarioLogado && usuarioLogado.tipo === 'admin_plantao' ? 'Abrir plantão' : 'Disponibilidade';
+          freeText.textContent = usuarioLogado && usuarioLogado.tipo === 'admin_plantao' ? 'Adicionar Plantão' : 'Disponibilidade';
         } else {
           freeText.textContent = 'Dia Livre';
         }
@@ -1936,9 +1936,14 @@
 
     function podeAbrirPlantaoNoCalendario(date) {
       if (!usuarioLogado || !date) return false;
+
+      // AdminB pode abrir qualquer dia do calendário para adicionar/aprovar plantão.
+      if (usuarioLogado.tipo === 'admin_plantao') return true;
+
+      // Brigadistas continuam acessando somente sábados e domingos para enviar disponibilidade.
       const isWeekend = date.getDay() === 6 || date.getDay() === 0;
       if (!isWeekend) return false;
-      if (usuarioLogado.tipo === 'admin_plantao') return true;
+
       if (usuarioTemPerfil('brigadista')) return true;
       return false;
     }
@@ -1947,14 +1952,25 @@
       if (!date) return;
 
       let sabado = null;
-      if (date.getDay() === 6) sabado = date;
-      else if (date.getDay() === 0) sabado = addDays(date, -1);
-      else return;
+
+      if (usuarioLogado && usuarioLogado.tipo === 'admin_plantao') {
+        // Para o AdminB, qualquer dia pode ser usado para montar/adicionar plantão.
+        sabado = date;
+      } else {
+        if (date.getDay() === 6) sabado = date;
+        else if (date.getDay() === 0) sabado = addDays(date, -1);
+        else return;
+      }
 
       const weekendKey = getPlantaoWeekendKey(sabado);
       const domingo = addDays(sabado, 1);
 
-      plantaoModalTitle.textContent = 'Plantão - ' + formatDate(sabado) + ' e ' + formatDate(domingo);
+      if (usuarioLogado && usuarioLogado.tipo === 'admin_plantao') {
+        plantaoModalTitle.textContent = 'Plantão - ' + formatDate(sabado);
+      } else {
+        plantaoModalTitle.textContent = 'Plantão - ' + formatDate(sabado) + ' e ' + formatDate(domingo);
+      }
+
       plantaoModalContent.innerHTML = '';
 
       if (usuarioLogado.tipo === 'admin_plantao') {
