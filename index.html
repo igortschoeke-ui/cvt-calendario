@@ -85,6 +85,9 @@
     .day.training-weekday:hover{background:#ddf7ec;border-color:rgba(26,163,110,.72);outline-color:rgba(26,163,110,.32)}
     .day.training-weekend,.day.plantao-clickable{background:#fff0df;border-color:rgba(255,122,0,.65);outline:2px solid rgba(255,122,0,.24)}
     .day.training-weekend:hover,.day.plantao-clickable:hover{background:#ffe4c4;border-color:rgba(255,122,0,.9);outline-color:rgba(255,122,0,.5)}
+    .day.plantao-confirmado{background:#eefbf5 !important;border-color:rgba(26,163,110,.72) !important;outline:2px solid rgba(26,163,110,.28) !important}
+    .day.plantao-confirmado:hover{background:#ddf7ec !important;border-color:rgba(26,163,110,.9) !important;outline-color:rgba(26,163,110,.48) !important}
+    .day.plantao-confirmado .tag-busy{background:var(--cvt-green-soft);color:var(--cvt-green-dark);border:1px solid rgba(26,163,110,.18)}
     .day-number{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-weight:700}
     .day-number span:first-child{width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:var(--cvt-gray-1);font-size:14px}
     .tag-free,.tag-busy{font-size:11px;padding:5px 8px;border-radius:999px;font-weight:700;white-space:nowrap}
@@ -98,7 +101,9 @@
     .event-info{color:var(--cvt-gray-4)}
     .event-type{display:inline-flex;align-items:center;width:max-content;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:6px}
     .event-type-training{background:var(--cvt-green-soft);color:var(--cvt-green-dark);border:1px solid rgba(26,163,110,.16)}
-    .event-type-plantao{background:var(--cvt-orange-soft);color:var(--cvt-orange-dark);border:1px solid rgba(255,122,0,.16)}
+    .event-type-plantao{background:var(--cvt-green-soft);color:var(--cvt-green-dark);border:1px solid rgba(26,163,110,.16)}
+    .event.event-plantao-card{border-left-color:var(--cvt-green);background:#f7fdf9;border-color:rgba(26,163,110,.18)}
+    .event.event-plantao-card .event-title{color:var(--cvt-green-dark)}
     .free-text{color:var(--cvt-green-dark);font-size:13px;margin-top:16px;background:var(--cvt-green-soft);border:1px solid rgba(26,163,110,.12);padding:10px;border-radius:14px;text-align:center;font-weight:700}
     .empty-message{text-align:center;padding:42px 18px;color:var(--cvt-gray-4);background:var(--white);border-radius:18px;border:1px dashed var(--cvt-gray-2);line-height:1.5}
     .list-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
@@ -150,6 +155,17 @@
     .plantao-third-toggle-row input{width:auto;transform:scale(1.15)}
     .plantao-third-select-wrap{display:none}
     .plantao-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px}
+
+    .plantao-extra-form{border:1px solid var(--cvt-gray-2);background:var(--cvt-gray-1);border-radius:16px;padding:14px;display:grid;gap:12px;margin-bottom:14px}
+    .plantao-extra-form-title{font-weight:700;color:var(--cvt-gray-5)}
+    .plantao-extra-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end}
+    .plantao-extra-empty{border:1px dashed var(--cvt-gray-2);border-radius:14px;padding:14px;color:var(--cvt-gray-4);background:#fff;text-align:center;font-weight:700}
+    .pending-panel{display:none}
+    .pending-list{display:grid;gap:10px}
+    .pending-item{border:1px solid var(--cvt-gray-2);background:var(--white);border-left:5px solid var(--danger);border-radius:16px;padding:14px;display:grid;gap:6px;color:var(--cvt-gray-4);line-height:1.45}
+    .pending-item strong{color:var(--cvt-gray-5)}
+    .pending-tag{display:inline-flex;align-items:center;width:max-content;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;background:#fff1f1;color:#8a1f1f;border:1px solid rgba(217,75,75,.25)}
+    @media(max-width:700px){.plantao-extra-row{grid-template-columns:1fr}}
     @media(max-width:980px){.upload-area{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.calendar{gap:8px}.day{min-height:155px}}
     @media(max-width:700px){.payment-summary{grid-template-columns:1fr}.page{padding:14px}.hero{padding:20px}.hero h1{font-size:28px}.stats{grid-template-columns:1fr}.controls{padding:14px}.calendar{display:block}.weekday{display:none}.day{margin-bottom:10px;min-height:auto}.day.other-month{display:none}.month-title{min-width:100%}.list-item{grid-template-columns:1fr}.edit-row,.plantao-select-row{grid-template-columns:1fr}}
   </style>
@@ -194,7 +210,7 @@
           <div id="errorBox" class="error"></div>
         </div>
         <div class="tips">
-          <h3>Gerenciamento do administrador</h3>
+          <h3>Gerenciamento Do Administrador</h3>
           <p>Somente o administrador pode incluir dados na agenda.</p>
         </div>
       </div>
@@ -203,15 +219,15 @@
     <div class="panel">
       <div class="controls">
         <div class="month-controls">
-          <button type="button" class="btn-secondary" id="prevMonth">Mês anterior</button>
+          <button type="button" class="btn-secondary" id="prevMonth">Mês Anterior</button>
           <div class="month-title" id="monthTitle">Calendário</div>
-          <button type="button" class="btn-secondary" id="nextMonth">Próximo mês</button>
+          <button type="button" class="btn-secondary" id="nextMonth">Próximo Mês</button>
         </div>
         <div class="month-controls">
           <select id="monthSelect"></select>
           <select id="yearSelect"></select>
           <button type="button" class="btn-primary" id="printBtn">Imprimir</button>
-          <button type="button" class="btn-success admin-plantao-only" id="downloadPlantaoSummaryBtn" style="display:none;">Baixar resumo mensal de plantões</button>
+          <button type="button" class="btn-success admin-plantao-only" id="downloadPlantaoSummaryBtn" style="display:none;">Baixar Resumo Mensal De Plantões</button>
           <button type="button" class="btn-danger admin-only" id="clearBtn">Limpar Agenda</button>
         </div>
       </div>
@@ -226,43 +242,51 @@
       <div id="emptyMessage" class="empty-message" style="margin-top:16px;">Nenhum evento carregado ainda.</div>
     </div>
 
+    <div class="panel pending-panel admin-plantao-only" id="pendingPlantaoPanel" style="display:none;">
+      <div class="list-header">
+        <h2 class="panel-title" style="margin:0;">Plantões Com Brigadista Faltando</h2>
+        <p>Resumo Do Mês Exibido Com Horários Fixos Ou Extras Que Ainda Não Estão Completos/Aprovados.</p>
+      </div>
+      <div id="pendingPlantaoList" class="pending-list"></div>
+    </div>
+
     <div class="panel" id="brigadistaPaymentPanel" style="display:none;">
       <div class="list-header">
-        <h2 class="panel-title" style="margin:0;">Resumo para emissão de nota</h2>
-        <p>Valores referentes aos plantões em que você está escalado no mês exibido.</p>
+        <h2 class="panel-title" style="margin:0;">Resumo Para Emissão De Nota</h2>
+        <p>Valores Referentes Aos Plantões Em Que Você Está Escalado No Mês Exibido.</p>
       </div>
       <div class="payment-summary">
         <div id="paymentList" class="payment-list"></div>
-        <div class="payment-total"><span>Total estimado no mês</span><strong id="paymentTotal">R$ 0,00</strong></div>
+        <div class="payment-total"><span>Total Estimado No Mês</span><strong id="paymentTotal">R$ 0,00</strong></div>
       </div>
       <div class="payment-note">Valores considerados: Sábado 13h às 22:30h = R$ 260,00; Sábado 22:30h às 10:30h = R$ 340,00; Domingo 10:30h às 22:30h = R$ 304,00.</div>
     </div>
 
     <div class="panel treinamento-only" id="trainingListPanel">
       <div class="list-header">
-        <h2 class="panel-title" style="margin:0;">Lista de treinamentos do mês</h2>
-        <p>Visualização complementar para facilitar a conferência da agenda.</p>
+        <h2 class="panel-title" style="margin:0;">Lista De Treinamentos Do Mês</h2>
+        <p>Visualização Complementar Para Facilitar A Conferência Da Agenda.</p>
       </div>
       <div class="export-controls admin-only treinamento-only">
         <div class="export-group">
-          <button type="button" class="btn-primary" id="exportMonthTxtBtn">Baixar mês em bloco de notas</button>
+          <button type="button" class="btn-primary" id="exportMonthTxtBtn">Baixar Mês Em Bloco De Notas</button>
         </div>
         <div class="export-group">
           <div class="export-field">
-            <label for="weekReferenceDate">Semana de referência</label>
+            <label for="weekReferenceDate">Semana De Referência</label>
             <input type="date" id="weekReferenceDate">
           </div>
-          <button type="button" class="btn-success" id="exportWeekTxtBtn">Baixar semana em bloco de notas</button>
+          <button type="button" class="btn-success" id="exportWeekTxtBtn">Baixar Semana Em Bloco De Notas</button>
         </div>
       </div>
-      <div id="eventList" class="event-list"><div class="empty-message">Nenhum treinamento para listar.</div></div>
+      <div id="eventList" class="event-list"><div class="empty-message">Nenhum Treinamento Para Listar.</div></div>
     </div>
   </div>
 
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
       <div class="modal-topbar"></div>
-      <div id="savedAlert" class="saved-alert" style="display:none;">Alterações salvas com sucesso.</div>
+      <div id="savedAlert" class="saved-alert" style="display:none;">Alterações Salvas Com Sucesso.</div>
       <h3 id="modalTitle">Detalhes</h3>
       <div id="viewMode">
         <p id="modalDate"></p>
@@ -282,15 +306,15 @@
         </div>
         <div class="form-group"><label for="editData">Data</label><input type="date" id="editData"></div>
         <div class="edit-row">
-          <div class="form-group"><label for="editInicio">Horário inicial</label><input type="time" id="editInicio"></div>
-          <div class="form-group"><label for="editFim">Horário final</label><input type="time" id="editFim"></div>
+          <div class="form-group"><label for="editInicio">Horário Inicial</label><input type="time" id="editInicio"></div>
+          <div class="form-group"><label for="editFim">Horário Final</label><input type="time" id="editFim"></div>
         </div>
         <div class="form-group"><label for="editDescricao">Descrição</label><textarea id="editDescricao"></textarea></div>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn-secondary admin-only" id="editBtn">Editar</button>
-        <button type="button" class="btn-success admin-only" id="saveEditBtn" style="display:none;">Salvar alterações</button>
-        <button type="button" class="btn-secondary admin-only" id="cancelEditBtn" style="display:none;">Cancelar edição</button>
+        <button type="button" class="btn-success admin-only" id="saveEditBtn" style="display:none;">Salvar Alterações</button>
+        <button type="button" class="btn-secondary admin-only" id="cancelEditBtn" style="display:none;">Cancelar Edição</button>
         <button type="button" class="btn-primary" id="closeModal">Fechar</button>
       </div>
     </div>
@@ -310,6 +334,8 @@
     const STORAGE_KEY = 'agenda_treinamentos_editavel';
     const LOGIN_KEY = 'agenda_usuario_logado';
     const PLANTAO_DISPONIBILIDADE_KEY = 'plantao_disponibilidades_cvt';
+    const PLANTAO_EXTRA_KEY = 'plantao_extras_cvt';
+    const PLANTAO_ESCALA_PARCIAL_KEY = 'plantao_escalas_parciais_cvt';
 
     const usuarios = [
       { usuario: 'Admin', senha: 'CVT#3904', nomeInstrutor: 'Admin', tipo: 'admin', perfis: [] },
@@ -357,6 +383,8 @@
     const brigadistaPaymentPanel = document.getElementById('brigadistaPaymentPanel');
     const paymentList = document.getElementById('paymentList');
     const paymentTotal = document.getElementById('paymentTotal');
+    const pendingPlantaoPanel = document.getElementById('pendingPlantaoPanel');
+    const pendingPlantaoList = document.getElementById('pendingPlantaoList');
     const monthTitle = document.getElementById('monthTitle');
     const monthSelect = document.getElementById('monthSelect');
     const yearSelect = document.getElementById('yearSelect');
@@ -461,7 +489,7 @@
         return usuarioCadastrado === usuarioInformado && item.senha === senhaDigitada;
       });
       if (!encontrado) {
-        loginError.textContent = 'Usuário ou senha incorretos.';
+        loginError.textContent = 'Usuário Ou Senha Incorretos.';
         loginError.style.display = 'block';
         return;
       }
@@ -500,23 +528,23 @@
       appPage.style.display = 'block';
       const heroTitle = document.querySelector('.hero h1');
       if (usuarioLogado.tipo === 'admin') {
-        userInfo.textContent = 'Admin Logado • Agenda de Treinamentos';
+        userInfo.textContent = 'Admin Logado • Agenda De Treinamentos';
         if (heroTitle) heroTitle.innerHTML = 'Calendário <span>CVT</span>';
-        heroDescription.textContent = 'Gerencie a agenda de treinamentos, importe a planilha Excel, edite eventos e exporte a programação do mês ou da semana.';
+        heroDescription.textContent = 'Gerencie A Agenda De Treinamentos, Importe A Planilha Excel, Edite Eventos E Exporte A Programação Do Mês Ou Da Semana.';
       } else if (usuarioLogado.tipo === 'admin_plantao') {
-        userInfo.textContent = 'AdminB Logado • Gerenciamento de Plantões';
-        if (heroTitle) heroTitle.innerHTML = 'Calendário CVT - <span>Plantões de Brigadista</span>';
-        heroDescription.textContent = 'Clique nos sábados ou domingos do calendário para visualizar disponibilidades, escolher os plantonistas e aprovar a escala de plantão.';
+        userInfo.textContent = 'AdminB Logado • Gerenciamento De Plantões';
+        if (heroTitle) heroTitle.innerHTML = 'Calendário CVT - <span>Plantões De Brigadista</span>';
+        heroDescription.textContent = 'Clique Nos Sábados Ou Domingos Do Calendário Para Visualizar Disponibilidades, Escolher Os Plantonistas E Aprovar A Escala De Plantão.';
       } else {
         userInfo.textContent = usuarioLogado.nomeInstrutor + ' • ' + getPerfilTextoUsuario();
         if (heroTitle) {
           heroTitle.innerHTML = usuarioTemPerfil('brigadista') && !usuarioTemPerfil('instrutor')
-            ? 'Calendário CVT - <span>Plantões de Brigadista</span>'
+            ? 'Calendário CVT - <span>Plantões De Brigadista</span>'
             : 'Calendário <span>CVT</span>';
         }
-        if (usuarioTemPerfil('instrutor') && usuarioTemPerfil('brigadista')) heroDescription.textContent = 'Consulte seus treinamentos e acompanhe os plantões aprovados. Para enviar disponibilidade, clique no fim de semana desejado no calendário.';
-        else if (usuarioTemPerfil('brigadista')) heroDescription.textContent = 'Acompanhe os plantões aprovados e clique no fim de semana desejado para enviar sua disponibilidade quando o período estiver liberado.';
-        else heroDescription.textContent = 'Consulte os treinamentos vinculados ao seu nome e acompanhe sua agenda mensal.';
+        if (usuarioTemPerfil('instrutor') && usuarioTemPerfil('brigadista')) heroDescription.textContent = 'Consulte Seus Treinamentos E Acompanhe Os Plantões Aprovados. Para Enviar Disponibilidade, Clique No Fim De Semana Desejado No Calendário.';
+        else if (usuarioTemPerfil('brigadista')) heroDescription.textContent = 'Acompanhe Os Plantões Aprovados E Clique No Fim De Semana Desejado Para Enviar Sua Disponibilidade Quando O Período Estiver Liberado.';
+        else heroDescription.textContent = 'Consulte Os Treinamentos Vinculados Ao Seu Nome E Acompanhe Sua Agenda Mensal.';
       }
       aplicarPermissoes();
       renderCalendar();
@@ -527,7 +555,7 @@
       const isAdminPlantao = usuarioLogado && usuarioLogado.tipo === 'admin_plantao';
       const isAdminGeral = isAdminTreinamento || isAdminPlantao;
       document.querySelectorAll('.admin-only').forEach(function(el){ el.style.display = 'none'; });
-      document.querySelectorAll('.admin-plantao-only').forEach(function(el){ el.style.display = isAdminPlantao ? 'inline-block' : 'none'; });
+      document.querySelectorAll('.admin-plantao-only').forEach(function(el){ el.style.display = isAdminPlantao ? '' : 'none'; });
       document.querySelectorAll('.treinamento-only').forEach(function(el){ el.style.display = isAdminTreinamento ? '' : 'none'; });
       if (uploadPanel) uploadPanel.style.display = isAdminTreinamento ? 'block' : 'none';
       if (trainingListPanel) {
@@ -575,9 +603,9 @@
     function syncSelectors(){ monthSelect.value = currentDate.getMonth(); yearSelect.value = currentDate.getFullYear(); }
 
     function popularSelectInstrutores(){
-      preencherSelectInstrutor(editInstrutor1, 'Selecione o instrutor 1');
-      preencherSelectInstrutor(editInstrutor2, 'Selecione o instrutor 2');
-      preencherSelectInstrutor(editInstrutor3, 'Selecione o instrutor 3');
+      preencherSelectInstrutor(editInstrutor1, 'Selecione O Instrutor 1');
+      preencherSelectInstrutor(editInstrutor2, 'Selecione O Instrutor 2');
+      preencherSelectInstrutor(editInstrutor3, 'Selecione O Instrutor 3');
     }
     function preencherSelectInstrutor(selectElement, textoPlaceholder){
       if (!selectElement) return;
@@ -883,6 +911,7 @@
       updateStats(monthEvents, freeDays);
       renderEventList(monthEvents);
       renderPaymentPanel(monthEvents);
+      renderPendenciasPlantao();
       emptyMessage.style.display = allEvents.length > 0 ? 'none' : 'block';
     }
 
@@ -905,6 +934,14 @@
       dayEl.className = 'day';
       if (otherMonth) dayEl.classList.add('other-month');
 
+      const dateKeyPlantaoVisual = (!otherMonth && dayDate) ? buildDateKey(dayDate.getFullYear(), dayDate.getMonth(), dayDate.getDate()) : '';
+      const temPlantaoAprovadoNoDia = !otherMonth && events.some(function(event){ return event.plantao === true; });
+      const temPlantaoExtraLancadoNoDia = !otherMonth && dayDate && getPlantoesExtrasPorData(dateKeyPlantaoVisual).length > 0;
+
+      if (isPlantaoContext() && (temPlantaoAprovadoNoDia || temPlantaoExtraLancadoNoDia)) {
+        dayEl.classList.add('plantao-confirmado');
+      }
+
       const dayHeader = document.createElement('div');
       dayHeader.className = 'day-number';
       const numberSpan = document.createElement('span');
@@ -926,7 +963,7 @@
       if (!otherMonth && events.length > 0) {
         events.forEach(function(event){
           const eventEl = document.createElement('div');
-          eventEl.className = 'event';
+          eventEl.className = event.plantao === true ? 'event event-plantao-card' : 'event';
 
           const tipoEl = document.createElement('div');
           tipoEl.className = event.plantao === true ? 'event-type event-type-plantao' : 'event-type event-type-training';
@@ -957,7 +994,11 @@
         const freeText = document.createElement('div');
         freeText.className = 'free-text';
         if (usuarioLogado && usuarioLogado.tipo === 'admin') freeText.textContent = 'Adicionar Treinamento';
-        else if (dayDate && podeAbrirPlantaoNoCalendario(dayDate)) freeText.textContent = usuarioLogado && usuarioLogado.tipo === 'admin_plantao' ? 'Adicionar Plantão' : 'Disponibilidade';
+        else if (dayDate && podeAbrirPlantaoNoCalendario(dayDate)) {
+          if (temPlantaoExtraLancadoNoDia && usuarioLogado && usuarioLogado.tipo === 'admin_plantao') freeText.textContent = 'Editar Plantão';
+          else if (temPlantaoExtraLancadoNoDia) freeText.textContent = 'Disponibilidade Plantão Extra';
+          else freeText.textContent = usuarioLogado && usuarioLogado.tipo === 'admin_plantao' ? 'Adicionar Plantão' : 'Disponibilidade';
+        }
         else freeText.textContent = 'Dia Livre';
         dayEl.appendChild(freeText);
       }
@@ -966,13 +1007,13 @@
         dayEl.classList.add('training-clickable');
         if (dayDate.getDay() === 0 || dayDate.getDay() === 6) dayEl.classList.add('training-weekend');
         else dayEl.classList.add('training-weekday');
-        dayEl.title = 'Clique para adicionar treinamento';
+        dayEl.title = 'Clique Para Adicionar Treinamento';
         dayEl.addEventListener('click', function(){ openNewTrainingEventModal(dayDate); });
       }
 
       if (!otherMonth && dayDate && podeAbrirPlantaoNoCalendario(dayDate)) {
         dayEl.classList.add('plantao-clickable');
-        dayEl.title = 'Clique para abrir opções de plantão';
+        dayEl.title = (temPlantaoExtraLancadoNoDia && usuarioLogado && usuarioLogado.tipo === 'admin_plantao') ? 'Clique Para Editar Plantão' : 'Clique Para Abrir Opções De Plantão';
         dayEl.addEventListener('click', function(){ openPlantaoDayModal(dayDate); });
       }
       return dayEl;
@@ -1026,7 +1067,7 @@
       if (plantoesDoBrigadista.length === 0) {
         const empty = document.createElement('div');
         empty.className = 'empty-message';
-        empty.textContent = 'Nenhum plantão aprovado para você neste mês.';
+        empty.textContent = 'Nenhum Plantão Aprovado Para Você Neste Mês.';
         paymentList.appendChild(empty);
         paymentTotal.textContent = formatCurrencyBRL(0);
         return;
@@ -1040,7 +1081,7 @@
         item.innerHTML =
           '<strong>' + formatDate(event.start) + ' • ' + formatTimeRange(event.start,event.end,event.horarioTexto) + '</strong><br>' +
           'Plantão: ' + escapeHTML(getLabelPlantao(event)) + '<br>' +
-          'Equipe: ' + escapeHTML(event.instrutor || 'Não informado') + '<br>' +
+          'Equipe: ' + escapeHTML(event.instrutor || 'Não Informado') + '<br>' +
           '<strong>Valor: ' + formatCurrencyBRL(valor) + '</strong>';
         paymentList.appendChild(item);
       });
@@ -1060,6 +1101,7 @@
       return 0;
     }
     function getLabelPlantao(event){
+      if (event.plantaoExtra === true) return 'Plantão Extra';
       if (event.plantaoShiftKey === 'sabado_tarde') return 'Sábado das 13h às 22:30h';
       if (event.plantaoShiftKey === 'sabado_noite') return 'Sábado das 22:30h às 10:30h';
       if (event.plantaoShiftKey === 'domingo_dia') return 'Domingo das 10:30h às 22:30h';
@@ -1074,7 +1116,7 @@
       if (listEvents.length === 0) {
         const empty = document.createElement('div');
         empty.className = 'empty-message';
-        empty.textContent = 'Nenhum treinamento cadastrado para este mês.';
+        empty.textContent = 'Nenhum Treinamento Cadastrado Para Este Mês.';
         eventListEl.appendChild(empty);
         return;
       }
@@ -1113,13 +1155,13 @@
       };
       allEvents.push(newEvent);
       selectedEventId = newEvent.id;
-      modalTitle.textContent = 'Novo treinamento';
+      modalTitle.textContent = 'Novo Treinamento';
       modalDate.innerHTML = '<strong>Data:</strong> ' + formatDate(newEvent.start);
       modalTime.innerHTML = '<strong>Horário:</strong> ' + formatTimeRange(newEvent.start,newEvent.end,newEvent.horarioTexto);
-      modalCompany.innerHTML = '<strong>Empresa:</strong> Informe a empresa';
-      modalTheme.innerHTML = '<strong>Tema:</strong> Informe o tema';
-      modalInstructor.innerHTML = '<strong>Instrutor:</strong> Selecione o instrutor';
-      modalDescription.innerHTML = '<strong>Descrição:</strong> Não informado';
+      modalCompany.innerHTML = '<strong>Empresa:</strong> Informe A Empresa';
+      modalTheme.innerHTML = '<strong>Tema:</strong> Informe O Tema';
+      modalInstructor.innerHTML = '<strong>Instrutor:</strong> Selecione O Instrutor';
+      modalDescription.innerHTML = '<strong>Descrição:</strong> Não Informado';
       fillEditForm(newEvent);
       viewMode.style.display = 'none';
       editForm.style.display = 'block';
@@ -1142,7 +1184,7 @@
       modalCompany.innerHTML = '<strong>Empresa:</strong> ' + escapeHTML(event.empresa);
       modalTheme.innerHTML = '<strong>Tema:</strong> ' + escapeHTML(event.tema);
       modalInstructor.innerHTML = '<strong>Instrutor/Plantonista:</strong> ' + escapeHTML(event.instrutor);
-      modalDescription.innerHTML = '<strong>Descrição:</strong> ' + (event.description ? escapeHTML(event.description).replace(/\n/g,'<br>') : 'Não informado');
+      modalDescription.innerHTML = '<strong>Descrição:</strong> ' + (event.description ? escapeHTML(event.description).replace(/\n/g,'<br>') : 'Não Informado');
       fillEditForm(event);
       editBtn.style.display = podeEditarEventoAtual(event) ? 'inline-block' : 'none';
       modalOverlay.style.display = 'flex';
@@ -1178,9 +1220,9 @@
     }
 
     function preencherSelectEdicao(nomes){
-      preencherSelectLista(editInstrutor1, 'Selecione o 1º nome', nomes);
-      preencherSelectLista(editInstrutor2, 'Selecione o 2º nome', nomes);
-      preencherSelectLista(editInstrutor3, 'Selecione o 3º nome', nomes);
+      preencherSelectLista(editInstrutor1, 'Selecione O 1º Nome', nomes);
+      preencherSelectLista(editInstrutor2, 'Selecione O 2º Nome', nomes);
+      preencherSelectLista(editInstrutor3, 'Selecione O 3º Nome', nomes);
     }
     function preencherSelectLista(selectElement, textoPlaceholder, nomes){
       if (!selectElement) return;
@@ -1308,7 +1350,7 @@
         return limparPlantao ? event.plantao === true : event.plantao !== true;
       });
       if (eventosDoMes.length === 0) {
-        alert('Não há eventos para limpar em ' + nomeMesAtual + '.');
+        alert('Não Há Eventos Para Limpar Em ' + nomeMesAtual + '.');
         return;
       }
       const tipoAgenda = limparPlantao ? 'plantões' : 'treinamentos';
@@ -1328,17 +1370,39 @@
       if (!usuarioLogado || !date) return false;
 
       const isWeekend = date.getDay() === 6 || date.getDay() === 0;
-      if (!isWeekend) return false;
+      const dateKey = buildDateKey(date.getFullYear(), date.getMonth(), date.getDate());
 
       if (usuarioLogado.tipo === 'admin_plantao') return true;
-      return usuarioTemPerfil('brigadista');
+
+      if (usuarioTemPerfil('brigadista')) {
+        if (isWeekend) return true;
+        return getPlantoesExtrasPorData(dateKey).length > 0;
+      }
+
+      return false;
     }
 
     function openPlantaoDayModal(date){
       if (!date) return;
 
-      let sabado = null;
+      const isWeekend = date.getDay() === 6 || date.getDay() === 0;
+      const dateKey = buildDateKey(date.getFullYear(), date.getMonth(), date.getDate());
 
+      if (!isWeekend) {
+        plantaoModalTitle.textContent = 'Plantão Extra - ' + formatDate(date);
+        plantaoModalContent.innerHTML = '';
+
+        if (usuarioLogado.tipo === 'admin_plantao') {
+          renderPlantaoExtraAdminModal(date, dateKey);
+        } else if (usuarioTemPerfil('brigadista')) {
+          renderPlantaoExtraUsuarioModal(date, dateKey);
+        }
+
+        plantaoModalOverlay.style.display = 'flex';
+        return;
+      }
+
+      let sabado = null;
       if (date.getDay() === 6) sabado = date;
       else if (date.getDay() === 0) sabado = addDays(date, -1);
       else return;
@@ -1356,7 +1420,441 @@
     }
     function closePlantaoModal(){ plantaoModalOverlay.style.display = 'none'; plantaoModalContent.innerHTML = ''; }
 
-    function renderPlantaoUsuarioModal(sabado, weekendKey){
+    
+    function carregarPlantoesExtras(){
+      const saved = localStorage.getItem(PLANTAO_EXTRA_KEY);
+      if (!saved) return [];
+      try {
+        const parsed = JSON.parse(saved);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        localStorage.removeItem(PLANTAO_EXTRA_KEY);
+        return [];
+      }
+    }
+
+    function salvarPlantoesExtras(lista){
+      localStorage.setItem(PLANTAO_EXTRA_KEY, JSON.stringify(lista || []));
+    }
+
+    function carregarEscalasParciaisPlantao(){
+      const saved = localStorage.getItem(PLANTAO_ESCALA_PARCIAL_KEY);
+      if (!saved) return {};
+      try { return JSON.parse(saved) || {}; }
+      catch(error) {
+        localStorage.removeItem(PLANTAO_ESCALA_PARCIAL_KEY);
+        return {};
+      }
+    }
+
+    function salvarEscalasParciaisPlantao(escalas){
+      localStorage.setItem(PLANTAO_ESCALA_PARCIAL_KEY, JSON.stringify(escalas || {}));
+    }
+
+    function criarChaveEscalaParcial(weekendKey, shiftKey){
+      return String(weekendKey) + '|' + String(shiftKey);
+    }
+
+    function getEscalaParcialPlantao(weekendKey, shiftKey){
+      const escalas = carregarEscalasParciaisPlantao();
+      return escalas[criarChaveEscalaParcial(weekendKey, shiftKey)] || null;
+    }
+
+    function setEscalaParcialPlantao(weekendKey, shiftKey, escala){
+      const escalas = carregarEscalasParciaisPlantao();
+      escalas[criarChaveEscalaParcial(weekendKey, shiftKey)] = escala;
+      salvarEscalasParciaisPlantao(escalas);
+    }
+
+    function removerEscalaParcialPlantao(weekendKey, shiftKey){
+      const escalas = carregarEscalasParciaisPlantao();
+      delete escalas[criarChaveEscalaParcial(weekendKey, shiftKey)];
+      salvarEscalasParciaisPlantao(escalas);
+    }
+
+    function getEventoAprovadoPlantao(weekendKey, shiftKey){
+      return allEvents.find(function(event){
+        return event.plantao === true && event.plantaoWeekendKey === weekendKey && event.plantaoShiftKey === shiftKey;
+      }) || null;
+    }
+
+    function getEscalaSelecionadaPlantao(weekendKey, shiftKey){
+      const parcial = getEscalaParcialPlantao(weekendKey, shiftKey);
+      if (parcial) return parcial;
+
+      const evento = getEventoAprovadoPlantao(weekendKey, shiftKey);
+      if (!evento || !evento.instrutor) return null;
+
+      const nomes = separarInstrutores(evento.instrutor || '');
+      return {
+        weekendKey: weekendKey,
+        shiftKey: shiftKey,
+        posicoes: { '1': nomes[0] || '', '2': nomes[1] || '', '3': nomes[2] || '' },
+        terceiroHabilitado: !!nomes[2],
+        aprovado: true
+      };
+    }
+
+    function contarNomesEscala(escala){
+      if (!escala || !escala.posicoes) return 0;
+      return ['1','2','3'].filter(function(pos){ return !!String(escala.posicoes[pos] || '').trim(); }).length;
+    }
+
+    function getQuantidadeNecessariaEscala(escala){
+      return escala && escala.terceiroHabilitado ? 3 : 2;
+    }
+
+    function escalaEstaCompleta(escala){
+      return contarNomesEscala(escala) >= getQuantidadeNecessariaEscala(escala);
+    }
+
+    function getPlantoesExtrasPorData(dateKey){
+      return carregarPlantoesExtras()
+        .filter(function(item){ return item.dateKey === dateKey; })
+        .sort(function(a,b){ return String(a.inicio || '').localeCompare(String(b.inicio || '')); });
+    }
+
+    function criarPlantaoExtraId(dateKey){
+      return 'extra_' + dateKey.replace(/\D/g,'') + '_' + Date.now() + '_' + Math.random().toString(36).substring(2,7);
+    }
+
+    function renderPlantaoExtraAdminModal(date, dateKey){
+      const info = document.createElement('div');
+      info.className = 'plantao-modal-ok';
+      info.textContent = 'Crie um ou mais horários extras neste dia. Após os brigadistas enviarem disponibilidade, aprove a escala abaixo.';
+      plantaoModalContent.appendChild(info);
+
+      const form = document.createElement('div');
+      form.className = 'plantao-extra-form';
+      form.innerHTML =
+        '<div class="plantao-extra-form-title">Adicionar horário de plantão extra</div>' +
+        '<div class="plantao-extra-row">' +
+          '<div><label for="extraInicio">Início</label><input type="time" id="extraInicio"></div>' +
+          '<div><label for="extraFim">Fim</label><input type="time" id="extraFim"></div>' +
+          '<button type="button" class="btn-success" id="addPlantaoExtraBtn">Adicionar horário</button>' +
+        '</div>';
+      plantaoModalContent.appendChild(form);
+
+      const addBtn = form.querySelector('#addPlantaoExtraBtn');
+      addBtn.addEventListener('click', function(){ adicionarHorarioPlantaoExtra(date, dateKey); });
+
+      renderListaPlantaoExtraAdmin(date, dateKey);
+    }
+
+    function adicionarHorarioPlantaoExtra(date, dateKey){
+      const inicioEl = document.getElementById('extraInicio');
+      const fimEl = document.getElementById('extraFim');
+      const inicio = inicioEl ? inicioEl.value : '';
+      const fim = fimEl ? fimEl.value : '';
+
+      if (!inicio || !fim) {
+        alert('Informe o horário de início e fim do plantão extra.');
+        return;
+      }
+
+      const start = buildDateFromInputs(toInputDate(date), inicio);
+      const end = buildDateFromInputs(toInputDate(date), fim);
+      if (end <= start) end.setDate(end.getDate() + 1);
+
+      const extras = carregarPlantoesExtras();
+      const novo = {
+        id: criarPlantaoExtraId(dateKey),
+        dateKey: dateKey,
+        inicio: inicio,
+        fim: fim,
+        label: formatTimeRange(start, end, ''),
+        createdAt: new Date().toISOString()
+      };
+
+      const duplicado = extras.some(function(item){
+        return item.dateKey === dateKey && item.inicio === inicio && item.fim === fim;
+      });
+      if (duplicado) {
+        alert('Esse horário já foi criado para esta data.');
+        return;
+      }
+
+      extras.push(novo);
+      salvarPlantoesExtras(extras);
+      if (inicioEl) inicioEl.value = '';
+      if (fimEl) fimEl.value = '';
+      plantaoModalContent.innerHTML = '';
+      renderPlantaoExtraAdminModal(date, dateKey);
+      renderCalendar();
+    }
+
+    function renderListaPlantaoExtraAdmin(date, dateKey){
+      const extras = getPlantoesExtrasPorData(dateKey);
+      const disponibilidades = carregarDisponibilidadesPlantao();
+      const wrapper = document.createElement('div');
+      wrapper.className = 'plantao-day-card';
+
+      if (extras.length === 0) {
+        wrapper.innerHTML = '<div class="plantao-extra-empty">Nenhum horário extra criado para esta data.</div>';
+        plantaoModalContent.appendChild(wrapper);
+        return;
+      }
+
+      let html = '<div class="plantao-shifts">';
+      extras.forEach(function(extra){
+        const disponiveis = obterDisponiveisTurno(disponibilidades, extra.dateKey, extra.id);
+        html += criarHtmlTurnoPlantao(extra.dateKey, extra.id, 'Plantão Extra ' + formatDate(date) + ' das ' + extra.label, disponiveis);
+        html += '<div class="plantao-actions" style="justify-content:flex-start;margin-top:-6px;margin-bottom:12px;">' +
+          '<button type="button" class="btn-danger delete-extra-shift-btn" data-extra-id="' + escapeAttribute(extra.id) + '">Excluir este horário</button>' +
+        '</div>';
+      });
+      html += '</div><div class="plantao-actions"><button type="button" class="btn-secondary save-extra-modal-btn">Salvar Escala Parcial</button><button type="button" class="btn-success approve-extra-modal-btn">Aprovar Plantão</button></div>';
+      wrapper.innerHTML = html;
+      plantaoModalContent.appendChild(wrapper);
+      ativarToggleTerceiroPlantonista();
+
+      wrapper.querySelectorAll('.delete-extra-shift-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){ excluirHorarioPlantaoExtra(date, dateKey, btn.getAttribute('data-extra-id')); });
+      });
+
+      const saveBtn = wrapper.querySelector('.save-extra-modal-btn');
+      if (saveBtn) saveBtn.addEventListener('click', function(){ salvarEscalaParcialPlantoesExtrasDia(dateKey); });
+
+      const approveBtn = wrapper.querySelector('.approve-extra-modal-btn');
+      if (approveBtn) approveBtn.addEventListener('click', function(){ if (aprovarPlantoesExtrasDia(dateKey)) closePlantaoModal(); });
+    }
+
+    function excluirHorarioPlantaoExtra(date, dateKey, extraId){
+      const confirmar = confirm('Deseja excluir este horário extra? As disponibilidades deste horário também serão ignoradas.');
+      if (!confirmar) return;
+      const extras = carregarPlantoesExtras().filter(function(item){ return item.id !== extraId; });
+      salvarPlantoesExtras(extras);
+      allEvents = allEvents.filter(function(event){ return !(event.plantao === true && event.plantaoExtra === true && event.plantaoShiftKey === extraId); });
+      saveAgenda();
+      plantaoModalContent.innerHTML = '';
+      renderPlantaoExtraAdminModal(date, dateKey);
+      renderCalendar();
+    }
+
+    function renderPlantaoExtraUsuarioModal(date, dateKey){
+      const extras = getPlantoesExtrasPorData(dateKey);
+      const disponibilidades = carregarDisponibilidadesPlantao();
+      const nome = usuarioLogado.nomeInstrutor;
+
+      const aviso = document.createElement('div');
+      aviso.className = extras.length > 0 ? 'plantao-modal-ok' : 'plantao-modal-warning';
+      aviso.textContent = extras.length > 0 ? 'Selecione os horários extras em que você tem disponibilidade.' : 'Nenhum plantão extra foi criado para esta data.';
+      plantaoModalContent.appendChild(aviso);
+
+      if (extras.length === 0) return;
+
+      const card = document.createElement('div');
+      card.className = 'plantao-day-card';
+      let htmlOpcoes = '';
+      extras.forEach(function(extra){
+        const key = criarChaveDisponibilidadePlantao(extra.dateKey, extra.id);
+        const marcado = disponibilidades[key] && disponibilidades[key].includes(nome);
+        htmlOpcoes += '<label class="plantao-checkbox-row" style="margin-bottom:10px;">' +
+          '<input type="checkbox" class="plantao-user-checkbox" data-key="' + escapeAttribute(key) + '" data-weekend-key="' + escapeAttribute(extra.dateKey) + '" data-shift="' + escapeAttribute(extra.id) + '" data-horas="0"' + (marcado ? ' checked' : '') + '>' +
+          '<span>Plantão Extra ' + formatDate(date) + ' das ' + escapeHTML(extra.label) + '</span>' +
+        '</label>';
+      });
+      card.innerHTML = htmlOpcoes;
+      plantaoModalContent.appendChild(card);
+      ativarRegraLimiteHorasPlantao();
+
+      const actions = document.createElement('div');
+      actions.className = 'plantao-actions';
+      const saveBtn = document.createElement('button');
+      saveBtn.type = 'button';
+      saveBtn.className = 'btn-success';
+      saveBtn.textContent = 'Enviar disponibilidade';
+      saveBtn.addEventListener('click', salvarDisponibilidadePlantao);
+      actions.appendChild(saveBtn);
+      plantaoModalContent.appendChild(actions);
+    }
+
+
+    function coletarEscalaSelecionada(weekendKey, shiftKey, label){
+      const select1 = buscarSelectPlantaoAtivo(weekendKey, shiftKey, 1);
+      const select2 = buscarSelectPlantaoAtivo(weekendKey, shiftKey, 2);
+      const select3 = buscarSelectPlantaoAtivo(weekendKey, shiftKey, 3);
+      const toggle3 = buscarToggleTerceiroPlantaoAtivo(weekendKey, shiftKey);
+
+      const nome1 = select1 ? select1.value.trim() : '';
+      const nome2 = select2 ? select2.value.trim() : '';
+      const nome3 = select3 ? select3.value.trim() : '';
+      const terceiroHabilitado = !!(toggle3 && toggle3.checked);
+
+      const nomesSelecionados = [];
+      if (nome1) nomesSelecionados.push(nome1);
+      if (nome2) nomesSelecionados.push(nome2);
+      if (terceiroHabilitado && nome3) nomesSelecionados.push(nome3);
+
+      const nomesUnicos = [];
+      nomesSelecionados.forEach(function(nome){
+        if (!nomesUnicos.some(function(item){ return normalizarTexto(item) === normalizarTexto(nome); })) nomesUnicos.push(nome);
+      });
+
+      if (nomesUnicos.length !== nomesSelecionados.length) {
+        return { ok:false, mensagem:'Não repita o mesmo brigadista no horário: ' + label };
+      }
+
+      return {
+        ok:true,
+        weekendKey:weekendKey,
+        shiftKey:shiftKey,
+        label:label,
+        posicoes:{ '1':nome1, '2':nome2, '3':terceiroHabilitado ? nome3 : '' },
+        nomes:nomesUnicos,
+        terceiroHabilitado:terceiroHabilitado,
+        completo:nomesUnicos.length >= (terceiroHabilitado ? 3 : 2)
+      };
+    }
+
+    function salvarEscalaParcialPlantoesExtrasDia(dateKey){
+      if (!usuarioLogado || usuarioLogado.tipo !== 'admin_plantao') {
+        alert('Apenas o AdminB pode salvar escalas parciais.');
+        return false;
+      }
+
+      const extras = getPlantoesExtrasPorData(dateKey);
+      let salvos = 0;
+
+      for (let i=0;i<extras.length;i++) {
+        const extra = extras[i];
+        const coleta = coletarEscalaSelecionada(extra.dateKey, extra.id, extra.label);
+        if (!coleta.ok) { alert(coleta.mensagem); return false; }
+
+        if (coleta.nomes.length === 0 && !coleta.terceiroHabilitado) {
+          removerEscalaParcialPlantao(extra.dateKey, extra.id);
+          continue;
+        }
+
+        setEscalaParcialPlantao(extra.dateKey, extra.id, {
+          weekendKey: extra.dateKey,
+          shiftKey: extra.id,
+          label: extra.label,
+          tipo: 'extra',
+          posicoes: coleta.posicoes,
+          terceiroHabilitado: coleta.terceiroHabilitado,
+          updatedAt: new Date().toISOString()
+        });
+        salvos++;
+      }
+
+      renderCalendar();
+      alert(salvos > 0 ? 'Escala Parcial Salva Com Sucesso.' : 'Escala Parcial salva. Nenhum plantonista foi selecionado neste dia.');
+      return true;
+    }
+
+    function aprovarPlantoesExtrasDia(dateKey){
+      if (!usuarioLogado || usuarioLogado.tipo !== 'admin_plantao') {
+        alert('Apenas o AdminB pode aprovar plantões extras.');
+        return false;
+      }
+
+      const extras = getPlantoesExtrasPorData(dateKey);
+      if (extras.length === 0) {
+        alert('Nenhum horário extra criado para esta data.');
+        return false;
+      }
+
+      const novosEventos = [];
+      const turnosValidacao = [];
+      const incompletos = [];
+
+      for (let i=0;i<extras.length;i++) {
+        const extra = extras[i];
+        const baseDate = parseDateKeyToDate(extra.dateKey);
+        const start = buildDateTime(baseDate, extra.inicio);
+        const end = buildDateTime(baseDate, extra.fim);
+        if (end <= start) end.setDate(end.getDate() + 1);
+
+        const coleta = coletarEscalaSelecionada(extra.dateKey, extra.id, extra.label);
+        if (!coleta.ok) { alert(coleta.mensagem); return false; }
+
+        if (coleta.nomes.length === 0) {
+          incompletos.push(extra.label + ' - nenhum brigadista selecionado');
+          continue;
+        }
+
+        if (!coleta.completo) {
+          incompletos.push(extra.label + ' - faltando ' + ((coleta.terceiroHabilitado ? 3 : 2) - coleta.nomes.length) + ' brigadista(s)');
+          continue;
+        }
+
+        turnosValidacao.push({ shiftKey: extra.id, start: start, end: end, nomes: coleta.nomes, label: extra.label });
+        novosEventos.push({
+          id:createEventId(),
+          start:start,
+          end:end,
+          horarioTexto:'',
+          summary:'Plantão Extra CVT - Brigadista Particular - ' + coleta.nomes.join(' / '),
+          description:'Plantão Extra aprovado pelo administrador.',
+          location:'',
+          empresa:'Plantão Extra CVT',
+          tema:'Brigadista Particular',
+          instrutor:coleta.nomes.join(', '),
+          plantao:true,
+          plantaoExtra:true,
+          plantaoWeekendKey:extra.dateKey,
+          plantaoShiftKey:extra.id
+        });
+      }
+
+      if (incompletos.length > 0) {
+        alert('Ainda existem horários extras incompletos: \n\n' + incompletos.join('\n') + '\n\nUse “Salvar Escala Parcial” para manter as seleções até completar.');
+        return false;
+      }
+
+      if (novosEventos.length === 0) {
+        alert('Selecione plantonistas em pelo menos um horário extra para aprovar.');
+        return false;
+      }
+
+      const validacao = validarPlantoesExtrasSeguidos(turnosValidacao);
+      if (!validacao.ok) {
+        alert(validacao.mensagem);
+        return false;
+      }
+
+      const idsAprovados = novosEventos.map(function(event){ return event.plantaoShiftKey; });
+      allEvents = allEvents.filter(function(event){
+        return !(event.plantao === true && event.plantaoExtra === true && event.plantaoWeekendKey === dateKey && idsAprovados.includes(event.plantaoShiftKey));
+      });
+      novosEventos.forEach(function(event){
+        allEvents.push(event);
+        removerEscalaParcialPlantao(event.plantaoWeekendKey, event.plantaoShiftKey);
+      });
+      allEvents.sort(function(a,b){ return a.start - b.start; });
+      saveAgenda();
+      renderCalendar();
+      alert('Plantão Extra aprovado e adicionado ao calendário.');
+      return true;
+    }
+
+    function validarPlantoesExtrasSeguidos(turnos){
+      const porBrigadista = {};
+      turnos.forEach(function(turno){
+        turno.nomes.forEach(function(nome){
+          const chave = normalizarTexto(nome);
+          if (!porBrigadista[chave]) porBrigadista[chave] = { nome: nome, turnos: [] };
+          porBrigadista[chave].turnos.push(turno);
+        });
+      });
+
+      const chaves = Object.keys(porBrigadista);
+      for (let i=0;i<chaves.length;i++) {
+        const item = porBrigadista[chaves[i]];
+        item.turnos.sort(function(a,b){ return a.start - b.start; });
+        for (let j=1;j<item.turnos.length;j++) {
+          const anterior = item.turnos[j-1];
+          const atual = item.turnos[j];
+          if (atual.start.getTime() <= anterior.end.getTime()) {
+            return { ok:false, mensagem:'O brigadista ' + item.nome + ' foi selecionado em plantões extras seguidos ou sobrepostos. Ajuste a escala antes de aprovar.' };
+          }
+        }
+      }
+      return { ok:true, mensagem:'' };
+    }
+
+function renderPlantaoUsuarioModal(sabado, weekendKey){
       const mesBrigadista = getMesDisponibilidadeBrigadista();
       const estaNoMesLiberado = sabado.getFullYear() === mesBrigadista.year && sabado.getMonth() === mesBrigadista.month;
       const liberado = podeSolicitarPlantao() && estaNoMesLiberado;
@@ -1479,9 +1977,12 @@
           criarHtmlTurnoPlantao(weekendKey, 'sabado_tarde', 'Sábado ' + formatDate(sabado) + ' das 13h às 22:30h', disponiveisSabadoTarde) +
           criarHtmlTurnoPlantao(weekendKey, 'sabado_noite', 'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h', disponiveisSabadoNoite) +
           criarHtmlTurnoPlantao(weekendKey, 'domingo_dia', 'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h', disponiveisDomingoDia) +
-        '</div><div class="plantao-actions"><button type="button" class="btn-success approve-plantao-modal-btn">Aprovar escala deste fim de semana</button></div>';
+        '</div><div class="plantao-actions"><button type="button" class="btn-secondary save-plantao-modal-btn">Salvar Escala Parcial</button><button type="button" class="btn-success approve-plantao-modal-btn">Aprovar Plantão</button></div>';
       plantaoModalContent.appendChild(card);
       ativarToggleTerceiroPlantonista();
+
+      const saveBtn = plantaoModalContent.querySelector('.save-plantao-modal-btn');
+      if (saveBtn) saveBtn.addEventListener('click', function(){ salvarEscalaParcialPlantaoWeekend(weekendKey); });
 
       const approveBtn = plantaoModalContent.querySelector('.approve-plantao-modal-btn');
       if (approveBtn) approveBtn.addEventListener('click', function(){ if (aprovarPlantaoWeekend(weekendKey)) closePlantaoModal(); });
@@ -1493,14 +1994,14 @@
     }
     function criarHtmlTurnoPlantao(weekendKey, shiftKey, titulo, disponiveis){
       const disponiveisTexto = disponiveis.length > 0 ? disponiveis.join(', ') : 'Nenhum brigadista informou disponibilidade para este horário.';
-      const terceiroJaAprovado = !!buscarAprovadoPlantao(weekendKey, shiftKey, 3);
-      const checkedTerceiro = terceiroJaAprovado ? ' checked' : '';
-      const rowClass = terceiroJaAprovado ? 'plantao-select-row plantao-three-enabled' : 'plantao-select-row';
-      const wrapClass = terceiroJaAprovado ? 'plantao-third-select-wrap is-visible' : 'plantao-third-select-wrap';
+      const terceiroHabilitadoSalvo = buscarTerceiroHabilitadoPlantao(weekendKey, shiftKey);
+      const checkedTerceiro = terceiroHabilitadoSalvo ? ' checked' : '';
+      const rowClass = terceiroHabilitadoSalvo ? 'plantao-select-row plantao-three-enabled' : 'plantao-select-row';
+      const wrapClass = terceiroHabilitadoSalvo ? 'plantao-third-select-wrap is-visible' : 'plantao-third-select-wrap';
 
       return '<div class="plantao-shift" data-weekend-key="' + escapeAttribute(weekendKey) + '" data-shift="' + escapeAttribute(shiftKey) + '">' +
         '<div class="plantao-shift-title">' + titulo + '</div>' +
-        '<div class="plantao-available"><strong>Disponíveis para este horário:</strong> ' + escapeHTML(disponiveisTexto) + '</div>' +
+        '<div class="plantao-available"><strong>Disponíveis Para Este Horário:</strong> ' + escapeHTML(disponiveisTexto) + '</div>' +
         '<div class="' + rowClass + '">' +
           criarSelectPlantao(weekendKey, shiftKey, 1, disponiveis) +
           criarSelectPlantao(weekendKey, shiftKey, 2, disponiveis) +
@@ -1510,7 +2011,7 @@
         '</div>' +
         '<label class="plantao-third-toggle-row">' +
           '<input type="checkbox" class="plantao-third-toggle" data-weekend-key="' + escapeAttribute(weekendKey) + '" data-shift="' + escapeAttribute(shiftKey) + '"' + checkedTerceiro + '>' +
-          '<span>Habilitar 3º brigadista neste horário</span>' +
+          '<span>Habilitar 3º Brigadista Neste Horário</span>' +
         '</label>' +
       '</div>';
     }
@@ -1575,6 +2076,17 @@
       }
     }
 
+    function buscarSelectPlantaoAtivo(weekendKey, shiftKey, posicao){
+      const seletor = '.plantao-select[data-weekend-key="' + String(weekendKey).replace(/"/g, '\"') + '"][data-shift="' + String(shiftKey).replace(/"/g, '\"') + '"][data-posicao="' + posicao + '"]';
+
+      if (plantaoModalOverlay && plantaoModalOverlay.style.display === 'flex') {
+        const selectNoModal = plantaoModalOverlay.querySelector(seletor);
+        if (selectNoModal) return selectNoModal;
+      }
+
+      return document.querySelector(seletor);
+    }
+
     function buscarToggleTerceiroPlantaoAtivo(weekendKey, shiftKey){
       const seletor = '.plantao-third-toggle[data-weekend-key="' + weekendKey + '"][data-shift="' + shiftKey + '"]';
       if (plantaoModalOverlay && plantaoModalOverlay.style.display === 'flex') {
@@ -1584,63 +2096,76 @@
       return document.querySelector(seletor);
     }
 
+
+    function getTurnosFixosPlantao(weekendKey){
+      const sabado = parseDateKeyToDate(weekendKey);
+      const domingo = addDays(sabado, 1);
+      return [
+        { shiftKey:'sabado_tarde', start:buildDateTime(sabado,'13:00'), end:buildDateTime(sabado,'22:30'), label:'Sábado ' + formatDate(sabado) + ' das 13h às 22:30h' },
+        { shiftKey:'sabado_noite', start:buildDateTime(sabado,'22:30'), end:buildDateTime(domingo,'10:30'), label:'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h' },
+        { shiftKey:'domingo_dia', start:buildDateTime(domingo,'10:30'), end:buildDateTime(domingo,'22:30'), label:'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h' }
+      ];
+    }
+
+    function salvarEscalaParcialPlantaoWeekend(weekendKey){
+      if (!usuarioLogado || usuarioLogado.tipo !== 'admin_plantao') {
+        alert('Apenas o AdminB pode salvar escalas parciais.');
+        return false;
+      }
+
+      const turnos = getTurnosFixosPlantao(weekendKey);
+      let salvos = 0;
+
+      for (let i=0;i<turnos.length;i++) {
+        const turno = turnos[i];
+        const coleta = coletarEscalaSelecionada(weekendKey, turno.shiftKey, turno.label);
+        if (!coleta.ok) { alert(coleta.mensagem); return false; }
+
+        if (coleta.nomes.length === 0 && !coleta.terceiroHabilitado) {
+          removerEscalaParcialPlantao(weekendKey, turno.shiftKey);
+          continue;
+        }
+
+        setEscalaParcialPlantao(weekendKey, turno.shiftKey, {
+          weekendKey: weekendKey,
+          shiftKey: turno.shiftKey,
+          label: turno.label,
+          tipo: 'fixo',
+          posicoes: coleta.posicoes,
+          terceiroHabilitado: coleta.terceiroHabilitado,
+          updatedAt: new Date().toISOString()
+        });
+        salvos++;
+      }
+
+      renderCalendar();
+      alert(salvos > 0 ? 'Escala Parcial Salva Com Sucesso.' : 'Escala Parcial salva. Nenhum plantonista foi selecionado neste fim de semana.');
+      return true;
+    }
+
     function aprovarPlantaoWeekend(weekendKey){
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin_plantao') {
         alert('Apenas o AdminB pode aprovar plantões.');
         return false;
       }
 
-      const sabado = parseDateKeyToDate(weekendKey);
-      const domingo = addDays(sabado, 1);
-      const turnos = [
-        { shiftKey:'sabado_tarde', start:buildDateTime(sabado,'13:00'), end:buildDateTime(sabado,'22:30'), label:'Sábado ' + formatDate(sabado) + ' das 13h às 22:30h' },
-        { shiftKey:'sabado_noite', start:buildDateTime(sabado,'22:30'), end:buildDateTime(domingo,'10:30'), label:'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h' },
-        { shiftKey:'domingo_dia', start:buildDateTime(domingo,'10:30'), end:buildDateTime(domingo,'22:30'), label:'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h' }
-      ];
-
-      const validacaoCarga = validarCargaHorariaAprovacaoAdminB(weekendKey, turnos);
-      if (!validacaoCarga.ok) {
-        alert(validacaoCarga.mensagem);
-        return false;
-      }
-
+      const turnos = getTurnosFixosPlantao(weekendKey);
       const novosEventosPlantao = [];
+      const incompletos = [];
 
       for (let i=0;i<turnos.length;i++) {
         const turno = turnos[i];
-        const select1 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 1);
-        const select2 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 2);
-        const select3 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 3);
-        const toggle3 = buscarToggleTerceiroPlantaoAtivo(weekendKey, turno.shiftKey);
+        const coleta = coletarEscalaSelecionada(weekendKey, turno.shiftKey, turno.label);
+        if (!coleta.ok) { alert(coleta.mensagem); return false; }
 
-        const nome1 = select1 ? select1.value.trim() : '';
-        const nome2 = select2 ? select2.value.trim() : '';
-        const terceiroHabilitado = toggle3 && toggle3.checked;
-        const nome3 = terceiroHabilitado && select3 ? select3.value.trim() : '';
-
-        if (!nome1 || !nome2) {
-          alert('Selecione dois plantonistas para o turno: ' + turno.label);
-          return false;
+        if (coleta.nomes.length === 0) {
+          incompletos.push(turno.label + ' - nenhum brigadista selecionado');
+          continue;
         }
 
-        if (terceiroHabilitado && !nome3) {
-          alert('O 3º brigadista foi habilitado, mas não foi selecionado no turno: ' + turno.label);
-          return false;
-        }
-
-        const nomesSelecionados = [nome1, nome2];
-        if (terceiroHabilitado && nome3) nomesSelecionados.push(nome3);
-
-        const nomesUnicos = [];
-        nomesSelecionados.forEach(function(nome){
-          if (!nomesUnicos.some(function(item){ return normalizarTexto(item) === normalizarTexto(nome); })) {
-            nomesUnicos.push(nome);
-          }
-        });
-
-        if (nomesUnicos.length !== nomesSelecionados.length) {
-          alert('Não repita o mesmo brigadista no turno: ' + turno.label);
-          return false;
+        if (!coleta.completo) {
+          incompletos.push(turno.label + ' - faltando ' + ((coleta.terceiroHabilitado ? 3 : 2) - coleta.nomes.length) + ' brigadista(s)');
+          continue;
         }
 
         novosEventosPlantao.push({
@@ -1648,20 +2173,34 @@
           start:turno.start,
           end:turno.end,
           horarioTexto:'',
-          summary:'Plantão CVT - Brigadista Particular - ' + nomesUnicos.join(' / '),
-          description:'Plantão aprovado pelo administrador.',
+          summary:'Plantão CVT - Brigadista Particular - ' + coleta.nomes.join(' / '),
+          description:'Plantão Aprovado Pelo Administrador.',
           location:'',
           empresa:'Plantão CVT',
           tema:'Brigadista Particular',
-          instrutor:nomesUnicos.join(', '),
+          instrutor:coleta.nomes.join(', '),
           plantao:true,
           plantaoWeekendKey:weekendKey,
           plantaoShiftKey:turno.shiftKey
         });
       }
 
-      allEvents = allEvents.filter(function(event){ return !(event.plantao && event.plantaoWeekendKey === weekendKey); });
-      novosEventosPlantao.forEach(function(event){ allEvents.push(event); });
+      if (incompletos.length > 0) {
+        alert('Ainda existem plantões fixos incompletos: \n\n' + incompletos.join('\n') + '\n\nUse “Salvar Escala Parcial” para manter as seleções até completar.');
+        return false;
+      }
+
+      const validacaoCarga = validarCargaHorariaAprovacaoAdminB(weekendKey, turnos);
+      if (!validacaoCarga.ok) {
+        alert(validacaoCarga.mensagem);
+        return false;
+      }
+
+      allEvents = allEvents.filter(function(event){ return !(event.plantao && event.plantaoWeekendKey === weekendKey && event.plantaoExtra !== true); });
+      novosEventosPlantao.forEach(function(event){
+        allEvents.push(event);
+        removerEscalaParcialPlantao(event.plantaoWeekendKey, event.plantaoShiftKey);
+      });
       allEvents.sort(function(a,b){ return a.start - b.start; });
 
       saveAgenda();
@@ -1670,21 +2209,11 @@
       return true;
     }
 
-    function buscarSelectPlantaoAtivo(weekendKey, shiftKey, posicao){
-      const seletor = '.plantao-select[data-weekend-key="' + weekendKey + '"][data-shift="' + shiftKey + '"][data-posicao="' + posicao + '"]';
-      if (plantaoModalOverlay && plantaoModalOverlay.style.display === 'flex') {
-        const selectNoModal = plantaoModalOverlay.querySelector(seletor);
-        if (selectNoModal) return selectNoModal;
-      }
-      return document.querySelector(seletor);
-    }
-
     function validarCargaHorariaAprovacaoAdminB(weekendKey, turnos){
-      const horasPorBrigadista = {};
+      const turnosPorBrigadista = {};
 
       for (let i=0;i<turnos.length;i++) {
         const turno = turnos[i];
-        const horasTurno = calcularHorasEntreDatas(turno.start, turno.end);
         const select1 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 1);
         const select2 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 2);
         const select3 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 3);
@@ -1695,53 +2224,115 @@
         if (select2 && select2.value.trim()) nomes.push(select2.value.trim());
         if (toggle3 && toggle3.checked && select3 && select3.value.trim()) nomes.push(select3.value.trim());
 
-        const nomesUnicos = {};
+        const nomesUnicosNoTurno = {};
         for (let n=0;n<nomes.length;n++) {
           const chaveNomeTurno = normalizarTexto(nomes[n]);
-          if (nomesUnicos[chaveNomeTurno]) {
+          if (nomesUnicosNoTurno[chaveNomeTurno]) {
             return { ok:false, mensagem:'O mesmo brigadista foi selecionado mais de uma vez no mesmo horário. Ajuste a escala antes de aprovar.' };
           }
-          nomesUnicos[chaveNomeTurno] = true;
+          nomesUnicosNoTurno[chaveNomeTurno] = true;
         }
 
         for (let j=0;j<nomes.length;j++) {
           const nome = nomes[j];
           const chave = normalizarTexto(nome);
-          if (!horasPorBrigadista[chave]) horasPorBrigadista[chave] = { nome:nome, horas:0 };
-          horasPorBrigadista[chave].horas += horasTurno;
-          if (horasPorBrigadista[chave].horas > 12) {
-            return { ok:false, mensagem:'O brigadista ' + horasPorBrigadista[chave].nome + ' foi selecionado em horários que ultrapassam 12h de plantão no fim de semana. Ajuste a escala antes de aprovar.' };
+
+          if (!turnosPorBrigadista[chave]) {
+            turnosPorBrigadista[chave] = {
+              nome: nome,
+              turnos: {}
+            };
           }
+
+          turnosPorBrigadista[chave].turnos[turno.shiftKey] = true;
+        }
+      }
+
+      return validarPlantoesSeguidosPorBrigadista(turnosPorBrigadista, 'aprovar');
+    }
+
+    function validarCargaHorariaEdicaoPlantao(eventoEditado, novoInicio, novoFim, novosNomes){
+      if (!novoFim) return { ok:true, mensagem:'' };
+
+      const weekendKey = eventoEditado.plantaoWeekendKey || getWeekendKeyFromPlantaoDate(novoInicio);
+      if (eventoEditado.plantaoExtra === true) return { ok:true, mensagem:'' };
+      const turnoEditado = eventoEditado.plantaoShiftKey || detectarTurnoPlantaoPorHorario(novoInicio, novoFim);
+      const eventoTemporario = {
+        id:eventoEditado.id,
+        start:novoInicio,
+        end:novoFim,
+        instrutor:novosNomes,
+        plantao:true,
+        plantaoWeekendKey:weekendKey,
+        plantaoShiftKey:turnoEditado
+      };
+
+      const eventosDoMesmoFimDeSemana = allEvents.filter(function(event){
+        return event.plantao === true && event.plantaoWeekendKey === weekendKey && event.id !== eventoEditado.id;
+      }).concat([eventoTemporario]);
+
+      const turnosPorBrigadista = {};
+
+      eventosDoMesmoFimDeSemana.forEach(function(event){
+        const shiftKey = event.plantaoShiftKey || detectarTurnoPlantaoPorHorario(event.start, event.end);
+        if (!shiftKey) return;
+
+        const nomes = separarInstrutores(event.instrutor || '');
+
+        nomes.forEach(function(nome){
+          const chaveNome = normalizarTexto(nome);
+
+          if (!turnosPorBrigadista[chaveNome]) {
+            turnosPorBrigadista[chaveNome] = {
+              nome: nome,
+              turnos: {}
+            };
+          }
+
+          turnosPorBrigadista[chaveNome].turnos[shiftKey] = true;
+        });
+      });
+
+      return validarPlantoesSeguidosPorBrigadista(turnosPorBrigadista, 'salvar');
+    }
+
+    function validarPlantoesSeguidosPorBrigadista(turnosPorBrigadista, contexto){
+      const chaves = Object.keys(turnosPorBrigadista);
+
+      for (let i=0;i<chaves.length;i++) {
+        const item = turnosPorBrigadista[chaves[i]];
+        const turnos = item.turnos || {};
+
+        if (turnos.sabado_tarde && turnos.sabado_noite) {
+          return {
+            ok:false,
+            mensagem:'O brigadista ' + item.nome + ' não pode ser escalado em plantões seguidos: sábado 13h às 22:30h e sábado 22:30h às 10:30h. Ajuste a escala antes de ' + (contexto === 'salvar' ? 'salvar.' : 'aprovar.')
+          };
+        }
+
+        if (turnos.sabado_noite && turnos.domingo_dia) {
+          return {
+            ok:false,
+            mensagem:'O brigadista ' + item.nome + ' não pode ser escalado em plantões seguidos: sábado 22:30h às 10:30h e domingo 10:30h às 22:30h. Ajuste a escala antes de ' + (contexto === 'salvar' ? 'salvar.' : 'aprovar.')
+          };
         }
       }
 
       return { ok:true, mensagem:'' };
     }
 
-    function validarCargaHorariaEdicaoPlantao(eventoEditado, novoInicio, novoFim, novosNomes){
-      if (!novoFim) return { ok:true, mensagem:'' };
-      const weekendKey = eventoEditado.plantaoWeekendKey || getWeekendKeyFromPlantaoDate(novoInicio);
-      const eventoTemporario = { id:eventoEditado.id, start:novoInicio, end:novoFim, instrutor:novosNomes, plantao:true, plantaoWeekendKey:weekendKey };
-      const eventosDoMesmoFimDeSemana = allEvents.filter(function(event){
-        return event.plantao === true && event.plantaoWeekendKey === weekendKey && event.id !== eventoEditado.id;
-      }).concat([eventoTemporario]);
-      const horasPorBrigadista = {};
-      eventosDoMesmoFimDeSemana.forEach(function(event){
-        if (!event.start || !event.end) return;
-        const horasEvento = calcularHorasEntreDatas(event.start, event.end);
-        const nomes = separarInstrutores(event.instrutor || '');
-        nomes.forEach(function(nome){
-          const chaveNome = normalizarTexto(nome);
-          if (!horasPorBrigadista[chaveNome]) horasPorBrigadista[chaveNome] = { nome:nome, horas:0 };
-          horasPorBrigadista[chaveNome].horas += horasEvento;
-        });
-      });
-      const chaves = Object.keys(horasPorBrigadista);
-      for (let i=0;i<chaves.length;i++) {
-        const item = horasPorBrigadista[chaves[i]];
-        if (item.horas > 12) return { ok:false, mensagem:'O brigadista ' + item.nome + ' ficará com mais de 12 horas de plantão neste fim de semana. Ajuste a escala antes de salvar.' };
-      }
-      return { ok:true, mensagem:'' };
+    function detectarTurnoPlantaoPorHorario(inicio, fim){
+      if (!inicio) return '';
+
+      const dia = inicio.getDay();
+      const hora = inicio.getHours();
+      const minuto = inicio.getMinutes();
+
+      if (dia === 6 && hora === 13 && minuto === 0) return 'sabado_tarde';
+      if (dia === 6 && hora === 22 && minuto === 30) return 'sabado_noite';
+      if (dia === 0 && hora === 10 && minuto === 30) return 'domingo_dia';
+
+      return '';
     }
 
     function getWeekendKeyFromPlantaoDate(date){
@@ -1751,10 +2342,14 @@
     }
     function calcularHorasEntreDatas(inicio, fim){ return (fim.getTime() - inicio.getTime()) / (1000 * 60 * 60); }
     function buscarAprovadoPlantao(weekendKey, shiftKey, posicao){
-      const evento = allEvents.find(function(event){ return event.plantao && event.plantaoWeekendKey === weekendKey && event.plantaoShiftKey === shiftKey; });
-      if (!evento || !evento.instrutor) return '';
-      const nomes = separarInstrutores(evento.instrutor);
-      return nomes[posicao - 1] || '';
+      const escala = getEscalaSelecionadaPlantao(weekendKey, shiftKey);
+      if (!escala || !escala.posicoes) return '';
+      return escala.posicoes[String(posicao)] || '';
+    }
+
+    function buscarTerceiroHabilitadoPlantao(weekendKey, shiftKey){
+      const escala = getEscalaSelecionadaPlantao(weekendKey, shiftKey);
+      return !!(escala && escala.terceiroHabilitado);
     }
 
     function getTodosInstrutores(){ return usuarios.filter(function(item){ return Array.isArray(item.perfis) && item.perfis.includes('instrutor'); }).map(function(item){ return item.nomeInstrutor; }).sort(function(a,b){ return a.localeCompare(b,'pt-BR'); }); }
@@ -1819,6 +2414,98 @@
       return plantao + '|' + dataInicio + '|' + dataFim + '|' + horarioTexto + '|' + empresa + '|' + tema + '|' + instrutor;
     }
 
+
+    function getTurnosFixosMesPlantao(year, month){
+      const turnos = [];
+      const lastDay = new Date(year, month + 1, 0).getDate();
+      for (let day=1; day<=lastDay; day++) {
+        const date = new Date(year, month, day);
+        if (date.getDay() === 6) {
+          const weekendKey = getPlantaoWeekendKey(date);
+          getTurnosFixosPlantao(weekendKey).forEach(function(turno){ turnos.push(turno); });
+        }
+      }
+      return turnos;
+    }
+
+    function getTurnosExtrasMesPlantao(year, month){
+      const extras = carregarPlantoesExtras().filter(function(extra){
+        const d = parseDateKeyToDate(extra.dateKey);
+        return d.getFullYear() === year && d.getMonth() === month;
+      });
+      return extras.map(function(extra){
+        const baseDate = parseDateKeyToDate(extra.dateKey);
+        const start = buildDateTime(baseDate, extra.inicio);
+        const end = buildDateTime(baseDate, extra.fim);
+        if (end <= start) end.setDate(end.getDate() + 1);
+        return {
+          shiftKey: extra.id,
+          weekendKey: extra.dateKey,
+          start: start,
+          end: end,
+          label: 'Plantão Extra ' + formatDate(baseDate) + ' das ' + extra.label,
+          extra: true
+        };
+      });
+    }
+
+    function renderPendenciasPlantao(){
+      if (!pendingPlantaoPanel || !pendingPlantaoList) return;
+      if (!usuarioLogado || usuarioLogado.tipo !== 'admin_plantao') {
+        pendingPlantaoPanel.style.display = 'none';
+        pendingPlantaoList.innerHTML = '';
+        return;
+      }
+
+      pendingPlantaoPanel.style.display = 'block';
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const turnos = getTurnosFixosMesPlantao(year, month).map(function(turno){
+        return Object.assign({}, turno, { weekendKey: getWeekendKeyFromPlantaoDate(turno.start), extra:false });
+      }).concat(getTurnosExtrasMesPlantao(year, month));
+
+      const pendencias = [];
+      turnos.forEach(function(turno){
+        const weekendKey = turno.weekendKey || getWeekendKeyFromPlantaoDate(turno.start);
+        const eventoAprovado = getEventoAprovadoPlantao(weekendKey, turno.shiftKey);
+        if (eventoAprovado) return;
+
+        const escala = getEscalaParcialPlantao(weekendKey, turno.shiftKey) || {
+          posicoes:{},
+          terceiroHabilitado:false
+        };
+        const selecionados = contarNomesEscala(escala);
+        const necessario = getQuantidadeNecessariaEscala(escala);
+        const faltando = Math.max(0, necessario - selecionados);
+        if (faltando > 0) {
+          pendencias.push({ turno:turno, selecionados:selecionados, necessario:necessario, faltando:faltando });
+        }
+      });
+
+      pendingPlantaoList.innerHTML = '';
+      if (pendencias.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'empty-message';
+        empty.textContent = 'Nenhum plantão pendente no mês exibido.';
+        pendingPlantaoList.appendChild(empty);
+        return;
+      }
+
+      pendencias.sort(function(a,b){ return a.turno.start - b.turno.start; });
+      pendencias.forEach(function(item){
+        const div = document.createElement('div');
+        div.className = 'pending-item';
+        const dataTexto = formatDate(item.turno.start) + ' - ' + weekDays[item.turno.start.getDay()];
+        div.innerHTML =
+          '<span class="pending-tag">Faltando ' + item.faltando + ' brigadista(s)</span>' +
+          '<strong>' + escapeHTML(dataTexto) + '</strong>' +
+          '<span><strong>Horário:</strong> ' + escapeHTML(formatTimeRange(item.turno.start, item.turno.end, '')) + '</span>' +
+          '<span><strong>Tipo:</strong> ' + (item.turno.extra ? 'Plantão Extra' : 'Plantão Fixo') + '</span>' +
+          '<span><strong>Selecionados:</strong> ' + item.selecionados + ' de ' + item.necessario + '</span>';
+        pendingPlantaoList.appendChild(div);
+      });
+    }
+
     function saveAgenda(){
       const serializable = allEvents.map(function(event){
         return {
@@ -1833,6 +2520,7 @@
           tema:event.tema,
           instrutor:event.instrutor,
           plantao:event.plantao || false,
+          plantaoExtra:event.plantaoExtra || false,
           plantaoWeekendKey:event.plantaoWeekendKey || '',
           plantaoShiftKey:event.plantaoShiftKey || ''
         };
@@ -1858,6 +2546,7 @@
             tema:event.tema || '',
             instrutor:event.instrutor || '',
             plantao:event.plantao || false,
+            plantaoExtra:event.plantaoExtra || false,
             plantaoWeekendKey:event.plantaoWeekendKey || '',
             plantaoShiftKey:event.plantaoShiftKey || ''
           };
@@ -1884,18 +2573,32 @@
         .sort(function(a,b){ return a.start - b.start; });
 
       if (eventosDoMes.length === 0) {
-        alert('Nenhum plantão aprovado no mês exibido para gerar a imagem.');
+        alert('Nenhum Plantão Aprovado No Mês Exibido Para Gerar A Imagem.');
         return;
+      }
+
+      function getNomeDiaResumo(date){
+        const nomes = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+        return nomes[date.getDay()] || '';
+      }
+
+      function getWeekendGroupKey(event){
+        if (event.plantaoWeekendKey) return String(event.plantaoWeekendKey);
+        const base = new Date(event.start);
+        if (base.getDay() === 0) base.setDate(base.getDate() - 1);
+        return base.getFullYear() + '-' + String(base.getMonth()+1).padStart(2,'0') + '-' + String(base.getDate()).padStart(2,'0');
       }
 
       const linhas = eventosDoMes.map(function(event){
         const nomes = extrairPlantonistasResumo(event.instrutor || '');
+        const nomeDia = getNomeDiaResumo(event.start);
         return {
-          data: formatDate(event.start),
+          data: formatDate(event.start) + (nomeDia ? ' - ' + nomeDia : ''),
           horario: formatTimeRange(event.start, event.end, event.horarioTexto),
           plantonista1: nomes[0] || '-',
           plantonista2: nomes[1] || '-',
-          plantonista3: nomes[2] || '-'
+          plantonista3: nomes[2] || '-',
+          weekendKey: getWeekendGroupKey(event)
         };
       });
 
@@ -1909,6 +2612,11 @@
       });
       const mapaCores = criarMapaCoresPlantonistas(nomesUnicos);
 
+      let separadores = 0;
+      for (let i = 1; i < linhas.length; i++) {
+        if (linhas[i].weekendKey !== linhas[i - 1].weekendKey) separadores++;
+      }
+
       const padding = 40;
       const titleH = 40;
       const subtitleH = 26;
@@ -1916,15 +2624,16 @@
       const tableTop = padding + headerBlockH;
       const rowH = 44;
       const headerH = 44;
+      const separatorGap = 16;
       const footerH = 36;
-      const colData = 170;
+      const colData = 240;
       const colHorario = 270;
-      const colP1 = 250;
-      const colP2 = 250;
-      const colP3 = incluirTerceiro ? 250 : 0;
+      const colP1 = 240;
+      const colP2 = 240;
+      const colP3 = incluirTerceiro ? 240 : 0;
       const tableW = colData + colHorario + colP1 + colP2 + colP3;
       const width = padding * 2 + tableW;
-      const height = tableTop + headerH + linhas.length * rowH + footerH;
+      const height = tableTop + headerH + (linhas.length * rowH) + (separadores * separatorGap) + footerH;
 
       const canvas = document.createElement('canvas');
       canvas.width = width;
@@ -1937,7 +2646,7 @@
 
       ctx.fillStyle = '#111827';
       ctx.font = '700 28px Inter, Arial, sans-serif';
-      ctx.fillText('Resumo mensal de plantões', padding, padding);
+      ctx.fillText('Resumo Mensal De Plantões', padding, padding);
 
       ctx.fillStyle = '#4b5563';
       ctx.font = '400 18px Inter, Arial, sans-serif';
@@ -1963,8 +2672,20 @@
         headX += header.width;
       });
 
+      let currentY = tableTop + headerH;
       linhas.forEach(function(item, index){
-        const y = tableTop + headerH + index * rowH;
+        if (index > 0 && item.weekendKey !== linhas[index - 1].weekendKey) {
+          const lineY = currentY + Math.floor(separatorGap / 2);
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(padding, lineY);
+          ctx.lineTo(padding + tableW, lineY);
+          ctx.stroke();
+          currentY += separatorGap;
+        }
+
+        const y = currentY;
         ctx.fillStyle = index % 2 === 0 ? '#f9fafb' : '#ffffff';
         ctx.fillRect(padding, y, tableW, rowH);
         let x = padding;
@@ -1978,6 +2699,7 @@
 
         cols.forEach(function(col){
           ctx.strokeStyle = '#d1d5db';
+          ctx.lineWidth = 1;
           ctx.strokeRect(x, y, col.width, rowH);
           if (col.color) {
             ctx.fillStyle = col.color;
@@ -1990,11 +2712,12 @@
           drawTextEllipsis(ctx, col.text, x + 12, y + 12, col.width - 24);
           x += col.width;
         });
+        currentY += rowH;
       });
 
       ctx.fillStyle = '#6b7280';
       ctx.font = '400 12px Inter, Arial, sans-serif';
-      ctx.fillText('Gerado automaticamente pela agenda de plantões CVT.', padding, height - 20);
+      ctx.fillText('Gerado Automaticamente Pela Agenda De Plantões CVT.', padding, height - 20);
 
       const link = document.createElement('a');
       link.href = canvas.toDataURL('image/png');
@@ -2065,7 +2788,7 @@ function exportarMesTxt(){
         return event.plantao !== true && event.start >= inicioSemana && event.start <= fimSemana;
       }).sort(function(a,b){ return a.start - b.start; });
       if (eventosDaSemana.length === 0) {
-        alert('Não há treinamentos para exportar nesta semana.');
+        alert('Não Há Treinamentos Para Exportar Nesta Semana.');
         return;
       }
       const titulo = 'AGENDA SEMANAL DE TREINAMENTOS - ' + formatDate(inicioSemana) + ' A ' + formatDate(fimSemana);
@@ -2091,9 +2814,9 @@ function exportarMesTxt(){
         texto += ''.padEnd(34, '-') + '\n';
         eventosDoDia.forEach(function(event,index){
           texto += (index + 1) + '. ' + formatTimeRange(event.start, event.end, event.horarioTexto) + '\n';
-          texto += 'Empresa: ' + (event.empresa || 'Não informado') + '\n';
-          texto += 'Tema: ' + (event.tema || 'Não informado') + '\n';
-          texto += 'Instrutor: ' + (event.instrutor || 'Não informado') + '\n';
+          texto += 'Empresa: ' + (event.empresa || 'Não Informado') + '\n';
+          texto += 'Tema: ' + (event.tema || 'Não Informado') + '\n';
+          texto += 'Instrutor: ' + (event.instrutor || 'Não Informado') + '\n';
           if (event.description) texto += 'Descrição: ' + String(event.description).replace(/\n/g,' ') + '\n';
           texto += '\n';
         });
