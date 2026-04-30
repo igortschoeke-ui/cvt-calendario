@@ -96,6 +96,9 @@
     .event-time{font-weight:700;margin-bottom:5px}
     .event-title{font-weight:700;color:var(--cvt-orange-dark);margin-bottom:4px}
     .event-info{color:var(--cvt-gray-4)}
+    .event-type{display:inline-flex;align-items:center;width:max-content;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:6px}
+    .event-type-training{background:var(--cvt-green-soft);color:var(--cvt-green-dark);border:1px solid rgba(26,163,110,.16)}
+    .event-type-plantao{background:var(--cvt-orange-soft);color:var(--cvt-orange-dark);border:1px solid rgba(255,122,0,.16)}
     .free-text{color:var(--cvt-green-dark);font-size:13px;margin-top:16px;background:var(--cvt-green-soft);border:1px solid rgba(26,163,110,.12);padding:10px;border-radius:14px;text-align:center;font-weight:700}
     .empty-message{text-align:center;padding:42px 18px;color:var(--cvt-gray-4);background:var(--white);border-radius:18px;border:1px dashed var(--cvt-gray-2);line-height:1.5}
     .list-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
@@ -138,6 +141,14 @@
     .plantao-shift-title{font-weight:700;color:var(--cvt-orange-dark);margin-bottom:10px}
     .plantao-available{font-size:13px;color:var(--cvt-gray-4);line-height:1.5;background:var(--cvt-gray-1);border:1px solid var(--cvt-gray-2);border-radius:12px;padding:10px;margin-bottom:12px}
     .plantao-select-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .plantao-select-row.plantao-three-enabled{grid-template-columns:1fr 1fr 1fr}
+    .plantao-third-select-wrap{display:none}
+    .plantao-third-select-wrap.is-visible{display:block}
+    .plantao-third-toggle-row{display:flex;align-items:center;gap:10px;margin-top:10px;color:var(--cvt-gray-4);font-size:14px}
+    .plantao-third-toggle-row input{width:auto;transform:scale(1.15)}
+    .plantao-third-toggle-row{display:flex;align-items:center;gap:10px;margin:10px 0 0;color:var(--cvt-gray-4);font-size:14px;font-weight:700}
+    .plantao-third-toggle-row input{width:auto;transform:scale(1.15)}
+    .plantao-third-select-wrap{display:none}
     .plantao-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px}
     @media(max-width:980px){.upload-area{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.calendar{gap:8px}.day{min-height:155px}}
     @media(max-width:700px){.payment-summary{grid-template-columns:1fr}.page{padding:14px}.hero{padding:20px}.hero h1{font-size:28px}.stats{grid-template-columns:1fr}.controls{padding:14px}.calendar{display:block}.weekday{display:none}.day{margin-bottom:10px;min-height:auto}.day.other-month{display:none}.month-title{min-width:100%}.list-item{grid-template-columns:1fr}.edit-row,.plantao-select-row{grid-template-columns:1fr}}
@@ -200,6 +211,7 @@
           <select id="monthSelect"></select>
           <select id="yearSelect"></select>
           <button type="button" class="btn-primary" id="printBtn">Imprimir</button>
+          <button type="button" class="btn-success admin-plantao-only" id="downloadPlantaoSummaryBtn" style="display:none;">Baixar resumo mensal de plantões</button>
           <button type="button" class="btn-danger admin-only" id="clearBtn">Limpar Agenda</button>
         </div>
       </div>
@@ -358,6 +370,7 @@
     const statCompanies = document.getElementById('statCompanies');
     const exportMonthTxtBtn = document.getElementById('exportMonthTxtBtn');
     const exportWeekTxtBtn = document.getElementById('exportWeekTxtBtn');
+    const downloadPlantaoSummaryBtn = document.getElementById('downloadPlantaoSummaryBtn');
     const weekReferenceDate = document.getElementById('weekReferenceDate');
     const modalOverlay = document.getElementById('modalOverlay');
     const closeModalBtn = document.getElementById('closeModal');
@@ -421,6 +434,7 @@
     printBtn.addEventListener('click', function(){ window.print(); });
     exportMonthTxtBtn.addEventListener('click', exportarMesTxt);
     exportWeekTxtBtn.addEventListener('click', exportarSemanaTxt);
+    if (downloadPlantaoSummaryBtn) downloadPlantaoSummaryBtn.addEventListener('click', gerarImagemResumoMensalPlantoes);
     clearBtn.addEventListener('click', limparAgendaAtual);
     closeModalBtn.addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', function(event){ if(event.target===modalOverlay) closeModal(); });
@@ -513,6 +527,7 @@
       const isAdminPlantao = usuarioLogado && usuarioLogado.tipo === 'admin_plantao';
       const isAdminGeral = isAdminTreinamento || isAdminPlantao;
       document.querySelectorAll('.admin-only').forEach(function(el){ el.style.display = 'none'; });
+      document.querySelectorAll('.admin-plantao-only').forEach(function(el){ el.style.display = isAdminPlantao ? 'inline-block' : 'none'; });
       document.querySelectorAll('.treinamento-only').forEach(function(el){ el.style.display = isAdminTreinamento ? '' : 'none'; });
       if (uploadPanel) uploadPanel.style.display = isAdminTreinamento ? 'block' : 'none';
       if (trainingListPanel) {
@@ -898,9 +913,7 @@
 
       if (!otherMonth && events.length > 0) {
         tag.className = 'tag-busy';
-        tag.textContent = isPlantaoContext()
-          ? (events.length === 1 ? '1 Plantão' : events.length + ' Plantões')
-          : (events.length === 1 ? '1 Atividade' : events.length + ' Atividades');
+        tag.textContent = montarRotuloResumoDia(events);
       } else if (!otherMonth) {
         tag.className = 'tag-free';
         tag.textContent = 'Livre';
@@ -914,15 +927,24 @@
         events.forEach(function(event){
           const eventEl = document.createElement('div');
           eventEl.className = 'event';
+
+          const tipoEl = document.createElement('div');
+          tipoEl.className = event.plantao === true ? 'event-type event-type-plantao' : 'event-type event-type-training';
+          tipoEl.textContent = event.plantao === true ? 'Plantão' : 'Treinamento';
+
           const timeEl = document.createElement('div');
           timeEl.className = 'event-time';
           timeEl.textContent = formatTimeRange(event.start, event.end, event.horarioTexto);
+
           const titleEl = document.createElement('div');
           titleEl.className = 'event-title';
           titleEl.textContent = event.empresa;
+
           const infoEl = document.createElement('div');
           infoEl.className = 'event-info';
-          infoEl.innerHTML = 'Tema: ' + escapeHTML(event.tema) + '<br>' + 'Instrutor: ' + escapeHTML(event.instrutor);
+          infoEl.innerHTML = 'Tema: ' + escapeHTML(event.tema) + '<br>' + (event.plantao === true ? 'Plantonista: ' : 'Instrutor: ') + escapeHTML(event.instrutor);
+
+          eventEl.appendChild(tipoEl);
           eventEl.appendChild(timeEl);
           eventEl.appendChild(titleEl);
           eventEl.appendChild(infoEl);
@@ -957,6 +979,23 @@
     }
 
     function isPlantaoContext(){ return usuarioLogado && (usuarioLogado.tipo === 'admin_plantao' || usuarioTemPerfil('brigadista')); }
+
+    function montarRotuloResumoDia(events){
+      const treinamentos = events.filter(function(event){ return event.plantao !== true; }).length;
+      const plantoes = events.filter(function(event){ return event.plantao === true; }).length;
+      const partes = [];
+
+      if (treinamentos > 0) {
+        partes.push(treinamentos === 1 ? '1 Treinamento' : treinamentos + ' Treinamentos');
+      }
+
+      if (plantoes > 0) {
+        partes.push(plantoes === 1 ? '1 Plantão' : plantoes + ' Plantões');
+      }
+
+      return partes.join(' / ');
+    }
+
 
     function updateStats(monthEvents, freeDays){
       const empresasUnicas = {};
@@ -1287,29 +1326,32 @@
 
     function podeAbrirPlantaoNoCalendario(date){
       if (!usuarioLogado || !date) return false;
-      if (usuarioLogado.tipo === 'admin_plantao') return true;
+
       const isWeekend = date.getDay() === 6 || date.getDay() === 0;
       if (!isWeekend) return false;
+
+      if (usuarioLogado.tipo === 'admin_plantao') return true;
       return usuarioTemPerfil('brigadista');
     }
 
     function openPlantaoDayModal(date){
       if (!date) return;
+
       let sabado = null;
-      if (usuarioLogado && usuarioLogado.tipo === 'admin_plantao') sabado = date;
-      else {
-        if (date.getDay() === 6) sabado = date;
-        else if (date.getDay() === 0) sabado = addDays(date, -1);
-        else return;
-      }
+
+      if (date.getDay() === 6) sabado = date;
+      else if (date.getDay() === 0) sabado = addDays(date, -1);
+      else return;
+
       const weekendKey = getPlantaoWeekendKey(sabado);
       const domingo = addDays(sabado, 1);
-      plantaoModalTitle.textContent = usuarioLogado.tipo === 'admin_plantao'
-        ? 'Plantão - ' + formatDate(sabado)
-        : 'Plantão - ' + formatDate(sabado) + ' e ' + formatDate(domingo);
+
+      plantaoModalTitle.textContent = 'Plantão - ' + formatDate(sabado) + ' e ' + formatDate(domingo);
       plantaoModalContent.innerHTML = '';
+
       if (usuarioLogado.tipo === 'admin_plantao') renderPlantaoAdminModal(sabado, weekendKey);
       else if (usuarioTemPerfil('brigadista')) renderPlantaoUsuarioModal(sabado, weekendKey);
+
       plantaoModalOverlay.style.display = 'flex';
     }
     function closePlantaoModal(){ plantaoModalOverlay.style.display = 'none'; plantaoModalContent.innerHTML = ''; }
@@ -1439,8 +1481,10 @@
           criarHtmlTurnoPlantao(weekendKey, 'domingo_dia', 'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h', disponiveisDomingoDia) +
         '</div><div class="plantao-actions"><button type="button" class="btn-success approve-plantao-modal-btn">Aprovar escala deste fim de semana</button></div>';
       plantaoModalContent.appendChild(card);
+      ativarToggleTerceiroPlantonista();
+
       const approveBtn = plantaoModalContent.querySelector('.approve-plantao-modal-btn');
-      if (approveBtn) approveBtn.addEventListener('click', function(){ aprovarPlantaoWeekend(weekendKey); closePlantaoModal(); });
+      if (approveBtn) approveBtn.addEventListener('click', function(){ if (aprovarPlantaoWeekend(weekendKey)) closePlantaoModal(); });
     }
 
     function obterDisponiveisTurno(disponibilidades, weekendKey, shiftKey){
@@ -1449,13 +1493,26 @@
     }
     function criarHtmlTurnoPlantao(weekendKey, shiftKey, titulo, disponiveis){
       const disponiveisTexto = disponiveis.length > 0 ? disponiveis.join(', ') : 'Nenhum brigadista informou disponibilidade para este horário.';
-      return '<div class="plantao-shift">' +
+      const terceiroJaAprovado = !!buscarAprovadoPlantao(weekendKey, shiftKey, 3);
+      const checkedTerceiro = terceiroJaAprovado ? ' checked' : '';
+      const rowClass = terceiroJaAprovado ? 'plantao-select-row plantao-three-enabled' : 'plantao-select-row';
+      const wrapClass = terceiroJaAprovado ? 'plantao-third-select-wrap is-visible' : 'plantao-third-select-wrap';
+
+      return '<div class="plantao-shift" data-weekend-key="' + escapeAttribute(weekendKey) + '" data-shift="' + escapeAttribute(shiftKey) + '">' +
         '<div class="plantao-shift-title">' + titulo + '</div>' +
         '<div class="plantao-available"><strong>Disponíveis para este horário:</strong> ' + escapeHTML(disponiveisTexto) + '</div>' +
-        '<div class="plantao-select-row">' +
+        '<div class="' + rowClass + '">' +
           criarSelectPlantao(weekendKey, shiftKey, 1, disponiveis) +
           criarSelectPlantao(weekendKey, shiftKey, 2, disponiveis) +
-        '</div></div>';
+          '<div class="' + wrapClass + '">' +
+            criarSelectPlantao(weekendKey, shiftKey, 3, disponiveis) +
+          '</div>' +
+        '</div>' +
+        '<label class="plantao-third-toggle-row">' +
+          '<input type="checkbox" class="plantao-third-toggle" data-weekend-key="' + escapeAttribute(weekendKey) + '" data-shift="' + escapeAttribute(shiftKey) + '"' + checkedTerceiro + '>' +
+          '<span>Habilitar 3º brigadista neste horário</span>' +
+        '</label>' +
+      '</div>';
     }
     function criarSelectPlantao(weekendKey, shiftKey, posicao, disponiveis){
       const aprovado = buscarAprovadoPlantao(weekendKey, shiftKey, posicao);
@@ -1485,11 +1542,54 @@
       return htmlSelect;
     }
 
+    function ativarToggleTerceiroPlantonista(){
+      document.querySelectorAll('.plantao-third-toggle').forEach(function(toggle){
+        atualizarExibicaoTerceiroPlantonista(toggle);
+        toggle.addEventListener('change', function(){
+          atualizarExibicaoTerceiroPlantonista(toggle);
+        });
+      });
+    }
+
+    function atualizarExibicaoTerceiroPlantonista(toggle){
+      if (!toggle) return;
+
+      const turnoEl = toggle.closest('.plantao-shift');
+      if (!turnoEl) return;
+
+      const wrapper = turnoEl.querySelector('.plantao-third-select-wrap');
+      const row = turnoEl.querySelector('.plantao-select-row');
+      const select3 = turnoEl.querySelector('.plantao-select[data-posicao="3"]');
+
+      if (toggle.checked) {
+        if (wrapper) wrapper.classList.add('is-visible');
+        if (row) row.classList.add('plantao-three-enabled');
+        if (select3) select3.disabled = false;
+      } else {
+        if (wrapper) wrapper.classList.remove('is-visible');
+        if (row) row.classList.remove('plantao-three-enabled');
+        if (select3) {
+          select3.value = '';
+          select3.disabled = true;
+        }
+      }
+    }
+
+    function buscarToggleTerceiroPlantaoAtivo(weekendKey, shiftKey){
+      const seletor = '.plantao-third-toggle[data-weekend-key="' + weekendKey + '"][data-shift="' + shiftKey + '"]';
+      if (plantaoModalOverlay && plantaoModalOverlay.style.display === 'flex') {
+        const toggleNoModal = plantaoModalOverlay.querySelector(seletor);
+        if (toggleNoModal) return toggleNoModal;
+      }
+      return document.querySelector(seletor);
+    }
+
     function aprovarPlantaoWeekend(weekendKey){
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin_plantao') {
         alert('Apenas o AdminB pode aprovar plantões.');
-        return;
+        return false;
       }
+
       const sabado = parseDateKeyToDate(weekendKey);
       const domingo = addDays(sabado, 1);
       const turnos = [
@@ -1497,34 +1597,77 @@
         { shiftKey:'sabado_noite', start:buildDateTime(sabado,'22:30'), end:buildDateTime(domingo,'10:30'), label:'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h' },
         { shiftKey:'domingo_dia', start:buildDateTime(domingo,'10:30'), end:buildDateTime(domingo,'22:30'), label:'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h' }
       ];
+
       const validacaoCarga = validarCargaHorariaAprovacaoAdminB(weekendKey, turnos);
       if (!validacaoCarga.ok) {
         alert(validacaoCarga.mensagem);
-        return;
+        return false;
       }
+
       const novosEventosPlantao = [];
+
       for (let i=0;i<turnos.length;i++) {
         const turno = turnos[i];
         const select1 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 1);
         const select2 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 2);
+        const select3 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 3);
+        const toggle3 = buscarToggleTerceiroPlantaoAtivo(weekendKey, turno.shiftKey);
+
         const nome1 = select1 ? select1.value.trim() : '';
         const nome2 = select2 ? select2.value.trim() : '';
+        const terceiroHabilitado = toggle3 && toggle3.checked;
+        const nome3 = terceiroHabilitado && select3 ? select3.value.trim() : '';
+
         if (!nome1 || !nome2) {
           alert('Selecione dois plantonistas para o turno: ' + turno.label);
-          return;
+          return false;
         }
+
+        if (terceiroHabilitado && !nome3) {
+          alert('O 3º brigadista foi habilitado, mas não foi selecionado no turno: ' + turno.label);
+          return false;
+        }
+
+        const nomesSelecionados = [nome1, nome2];
+        if (terceiroHabilitado && nome3) nomesSelecionados.push(nome3);
+
+        const nomesUnicos = [];
+        nomesSelecionados.forEach(function(nome){
+          if (!nomesUnicos.some(function(item){ return normalizarTexto(item) === normalizarTexto(nome); })) {
+            nomesUnicos.push(nome);
+          }
+        });
+
+        if (nomesUnicos.length !== nomesSelecionados.length) {
+          alert('Não repita o mesmo brigadista no turno: ' + turno.label);
+          return false;
+        }
+
         novosEventosPlantao.push({
-          id:createEventId(), start:turno.start, end:turno.end, horarioTexto:'', summary:'Plantão CVT - Brigadista Particular - ' + nome1 + ' / ' + nome2,
-          description:'Plantão aprovado pelo administrador.', location:'', empresa:'Plantão CVT', tema:'Brigadista Particular',
-          instrutor:nome1 + ', ' + nome2, plantao:true, plantaoWeekendKey:weekendKey, plantaoShiftKey:turno.shiftKey
+          id:createEventId(),
+          start:turno.start,
+          end:turno.end,
+          horarioTexto:'',
+          summary:'Plantão CVT - Brigadista Particular - ' + nomesUnicos.join(' / '),
+          description:'Plantão aprovado pelo administrador.',
+          location:'',
+          empresa:'Plantão CVT',
+          tema:'Brigadista Particular',
+          instrutor:nomesUnicos.join(', '),
+          plantao:true,
+          plantaoWeekendKey:weekendKey,
+          plantaoShiftKey:turno.shiftKey
         });
       }
+
       allEvents = allEvents.filter(function(event){ return !(event.plantao && event.plantaoWeekendKey === weekendKey); });
       novosEventosPlantao.forEach(function(event){ allEvents.push(event); });
       allEvents.sort(function(a,b){ return a.start - b.start; });
+
       saveAgenda();
       renderCalendar();
       alert('Escala de plantão aprovada e adicionada ao calendário.');
+      return true;
     }
 
     function buscarSelectPlantaoAtivo(weekendKey, shiftKey, posicao){
@@ -1538,14 +1681,29 @@
 
     function validarCargaHorariaAprovacaoAdminB(weekendKey, turnos){
       const horasPorBrigadista = {};
+
       for (let i=0;i<turnos.length;i++) {
         const turno = turnos[i];
         const horasTurno = calcularHorasEntreDatas(turno.start, turno.end);
         const select1 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 1);
         const select2 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 2);
+        const select3 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 3);
+        const toggle3 = buscarToggleTerceiroPlantaoAtivo(weekendKey, turno.shiftKey);
         const nomes = [];
+
         if (select1 && select1.value.trim()) nomes.push(select1.value.trim());
         if (select2 && select2.value.trim()) nomes.push(select2.value.trim());
+        if (toggle3 && toggle3.checked && select3 && select3.value.trim()) nomes.push(select3.value.trim());
+
+        const nomesUnicos = {};
+        for (let n=0;n<nomes.length;n++) {
+          const chaveNomeTurno = normalizarTexto(nomes[n]);
+          if (nomesUnicos[chaveNomeTurno]) {
+            return { ok:false, mensagem:'O mesmo brigadista foi selecionado mais de uma vez no mesmo horário. Ajuste a escala antes de aprovar.' };
+          }
+          nomesUnicos[chaveNomeTurno] = true;
+        }
+
         for (let j=0;j<nomes.length;j++) {
           const nome = nomes[j];
           const chave = normalizarTexto(nome);
@@ -1556,6 +1714,7 @@
           }
         }
       }
+
       return { ok:true, mensagem:'' };
     }
 
@@ -1711,7 +1870,168 @@
       }
     }
 
-    function exportarMesTxt(){
+    
+    function gerarImagemResumoMensalPlantoes(){
+      if (!usuarioLogado || usuarioLogado.tipo !== 'admin_plantao') {
+        alert('Apenas o AdminB pode gerar o resumo mensal de plantões.');
+        return;
+      }
+
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const eventosDoMes = getEventsForMonth(year, month, getVisibleEvents())
+        .filter(function(event){ return event.plantao === true; })
+        .sort(function(a,b){ return a.start - b.start; });
+
+      if (eventosDoMes.length === 0) {
+        alert('Nenhum plantão aprovado no mês exibido para gerar a imagem.');
+        return;
+      }
+
+      const linhas = eventosDoMes.map(function(event){
+        const nomes = extrairPlantonistasResumo(event.instrutor || '');
+        return {
+          data: formatDate(event.start),
+          horario: formatTimeRange(event.start, event.end, event.horarioTexto),
+          plantonista1: nomes[0] || '-',
+          plantonista2: nomes[1] || '-',
+          plantonista3: nomes[2] || '-'
+        };
+      });
+
+      const incluirTerceiro = linhas.some(function(item){ return item.plantonista3 !== '-'; });
+      const nomesUnicos = [];
+      linhas.forEach(function(item){
+        [item.plantonista1, item.plantonista2, item.plantonista3].forEach(function(nome){
+          if (!nome || nome === '-') return;
+          if (!nomesUnicos.some(function(existente){ return normalizarTexto(existente) === normalizarTexto(nome); })) nomesUnicos.push(nome);
+        });
+      });
+      const mapaCores = criarMapaCoresPlantonistas(nomesUnicos);
+
+      const padding = 40;
+      const titleH = 40;
+      const subtitleH = 26;
+      const headerBlockH = titleH + subtitleH + 24;
+      const tableTop = padding + headerBlockH;
+      const rowH = 44;
+      const headerH = 44;
+      const footerH = 36;
+      const colData = 170;
+      const colHorario = 270;
+      const colP1 = 250;
+      const colP2 = 250;
+      const colP3 = incluirTerceiro ? 250 : 0;
+      const tableW = colData + colHorario + colP1 + colP2 + colP3;
+      const width = padding * 2 + tableW;
+      const height = tableTop + headerH + linhas.length * rowH + footerH;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.textBaseline = 'top';
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.fillStyle = '#111827';
+      ctx.font = '700 28px Inter, Arial, sans-serif';
+      ctx.fillText('Resumo mensal de plantões', padding, padding);
+
+      ctx.fillStyle = '#4b5563';
+      ctx.font = '400 18px Inter, Arial, sans-serif';
+      ctx.fillText(monthNames[month] + ' de ' + year, padding, padding + 36);
+
+      const headers = [
+        { label:'Data', width:colData },
+        { label:'Horário', width:colHorario },
+        { label:'Plantonista 1', width:colP1 },
+        { label:'Plantonista 2', width:colP2 }
+      ];
+      if (incluirTerceiro) headers.push({ label:'Plantonista 3', width:colP3 });
+
+      let headX = padding;
+      ctx.fillStyle = '#111827';
+      ctx.fillRect(padding, tableTop, tableW, headerH);
+      headers.forEach(function(header){
+        ctx.strokeStyle = '#d1d5db';
+        ctx.strokeRect(headX, tableTop, header.width, headerH);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 15px Inter, Arial, sans-serif';
+        drawTextEllipsis(ctx, header.label, headX + 12, tableTop + 12, header.width - 24);
+        headX += header.width;
+      });
+
+      linhas.forEach(function(item, index){
+        const y = tableTop + headerH + index * rowH;
+        ctx.fillStyle = index % 2 === 0 ? '#f9fafb' : '#ffffff';
+        ctx.fillRect(padding, y, tableW, rowH);
+        let x = padding;
+        const cols = [
+          { text:item.data, width:colData, color:null },
+          { text:item.horario, width:colHorario, color:null },
+          { text:item.plantonista1, width:colP1, color:item.plantonista1 !== '-' ? mapaCores[item.plantonista1] : null },
+          { text:item.plantonista2, width:colP2, color:item.plantonista2 !== '-' ? mapaCores[item.plantonista2] : null }
+        ];
+        if (incluirTerceiro) cols.push({ text:item.plantonista3, width:colP3, color:item.plantonista3 !== '-' ? mapaCores[item.plantonista3] : null });
+
+        cols.forEach(function(col){
+          ctx.strokeStyle = '#d1d5db';
+          ctx.strokeRect(x, y, col.width, rowH);
+          if (col.color) {
+            ctx.fillStyle = col.color;
+            ctx.fillRect(x + 6, y + 6, col.width - 12, rowH - 12);
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.strokeRect(x + 6, y + 6, col.width - 12, rowH - 12);
+          }
+          ctx.fillStyle = '#111827';
+          ctx.font = '500 14px Inter, Arial, sans-serif';
+          drawTextEllipsis(ctx, col.text, x + 12, y + 12, col.width - 24);
+          x += col.width;
+        });
+      });
+
+      ctx.fillStyle = '#6b7280';
+      ctx.font = '400 12px Inter, Arial, sans-serif';
+      ctx.fillText('Gerado automaticamente pela agenda de plantões CVT.', padding, height - 20);
+
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'resumo-plantoes-' + String(month + 1).padStart(2,'0') + '-' + year + '.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function extrairPlantonistasResumo(instrutorTexto){
+      return String(instrutorTexto || '')
+        .split(',')
+        .map(function(nome){ return nome.trim(); })
+        .filter(function(nome){ return !!nome; });
+    }
+
+    function criarMapaCoresPlantonistas(nomes){
+      const paleta = ['#FDE68A','#BFDBFE','#C7D2FE','#BBF7D0','#FBCFE8','#FED7AA','#A7F3D0','#DDD6FE','#FECACA','#BAE6FD','#E9D5FF','#FEF3C7'];
+      const mapa = {};
+      nomes.forEach(function(nome, index){ mapa[nome] = paleta[index % paleta.length]; });
+      return mapa;
+    }
+
+    function drawTextEllipsis(ctx, texto, x, y, maxWidth){
+      const valor = String(texto || '');
+      if (ctx.measureText(valor).width <= maxWidth) {
+        ctx.fillText(valor, x, y);
+        return;
+      }
+      let reduzido = valor;
+      while (reduzido.length > 0 && ctx.measureText(reduzido + '...').width > maxWidth) {
+        reduzido = reduzido.slice(0, -1);
+      }
+      ctx.fillText(reduzido + '...', x, y);
+    }
+
+function exportarMesTxt(){
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin') {
         alert('Apenas o administrador pode exportar a agenda.');
         return;
