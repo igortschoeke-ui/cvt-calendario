@@ -2748,13 +2748,15 @@ function renderPlantaoUsuarioModal(sabado, weekendKey){
           ctx.strokeStyle = '#d1d5db';
           ctx.lineWidth = 1;
           ctx.strokeRect(x, y, col.width, rowH);
+          let corTexto = '#111827';
           if (col.color) {
             ctx.fillStyle = col.color;
             ctx.fillRect(x + 6, y + 6, col.width - 12, rowH - 12);
             ctx.strokeStyle = '#e5e7eb';
             ctx.strokeRect(x + 6, y + 6, col.width - 12, rowH - 12);
+            corTexto = getCorTextoContraste(col.color);
           }
-          ctx.fillStyle = '#111827';
+          ctx.fillStyle = corTexto;
           ctx.font = '500 14px Inter, Arial, sans-serif';
           drawTextEllipsis(ctx, col.text, x + 12, y + 12, col.width - 24);
           x += col.width;
@@ -2782,10 +2784,54 @@ function renderPlantaoUsuarioModal(sabado, weekendKey){
     }
 
     function criarMapaCoresPlantonistas(nomes){
-      const paleta = ['#FDE68A','#BFDBFE','#C7D2FE','#BBF7D0','#FBCFE8','#FED7AA','#A7F3D0','#DDD6FE','#FECACA','#BAE6FD','#E9D5FF','#FEF3C7'];
       const mapa = {};
-      nomes.forEach(function(nome, index){ mapa[nome] = paleta[index % paleta.length]; });
+      nomes.forEach(function(nome, index){
+        const hue = Math.round((index * 137.508) % 360);
+        const saturacoes = [82, 88, 76, 84];
+        const luminosidades = [40, 48, 56, 44, 52, 60];
+        const s = saturacoes[index % saturacoes.length];
+        const l = luminosidades[index % luminosidades.length];
+        mapa[nome] = hslParaHex(hue, s, l);
+      });
       return mapa;
+    }
+
+    function hslParaHex(h, s, l){
+      s /= 100;
+      l /= 100;
+      const c = (1 - Math.abs(2 * l - 1)) * s;
+      const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+      const m = l - c / 2;
+      let r = 0, g = 0, b = 0;
+
+      if (h >= 0 && h < 60) {
+        r = c; g = x; b = 0;
+      } else if (h >= 60 && h < 120) {
+        r = x; g = c; b = 0;
+      } else if (h >= 120 && h < 180) {
+        r = 0; g = c; b = x;
+      } else if (h >= 180 && h < 240) {
+        r = 0; g = x; b = c;
+      } else if (h >= 240 && h < 300) {
+        r = x; g = 0; b = c;
+      } else {
+        r = c; g = 0; b = x;
+      }
+
+      const toHex = function(valor){
+        return Math.round((valor + m) * 255).toString(16).padStart(2, '0');
+      };
+
+      return '#' + toHex(r) + toHex(g) + toHex(b);
+    }
+
+    function getCorTextoContraste(hex){
+      const cor = String(hex || '').replace('#', '');
+      const r = parseInt(cor.substring(0, 2), 16) || 0;
+      const g = parseInt(cor.substring(2, 4), 16) || 0;
+      const b = parseInt(cor.substring(4, 6), 16) || 0;
+      const luminancia = (0.299 * r) + (0.587 * g) + (0.114 * b);
+      return luminancia < 150 ? '#ffffff' : '#111827';
     }
 
     function drawTextEllipsis(ctx, texto, x, y, maxWidth){
