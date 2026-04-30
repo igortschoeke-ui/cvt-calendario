@@ -2754,7 +2754,7 @@ function renderPlantaoUsuarioModal(sabado, weekendKey){
             ctx.fillRect(x + 6, y + 6, col.width - 12, rowH - 12);
             ctx.strokeStyle = '#e5e7eb';
             ctx.strokeRect(x + 6, y + 6, col.width - 12, rowH - 12);
-            corTexto = getCorTextoContraste(col.color);
+            corTexto = getCorTextoPlantonista(col.text, col.color);
           }
           ctx.fillStyle = corTexto;
           ctx.font = '500 14px Inter, Arial, sans-serif';
@@ -2784,45 +2784,58 @@ function renderPlantaoUsuarioModal(sabado, weekendKey){
     }
 
     function criarMapaCoresPlantonistas(nomes){
+      const coresFixas = {
+        bagattoli: '#2563EB',
+        flavia: '#C084FC',
+        celestino: '#39FF14',
+        igor: '#000000',
+        pamela: '#EC4899'
+      };
+      const paletaExtra = ['#0F766E','#7C3AED','#EA580C','#DC2626','#0891B2','#16A34A','#9333EA','#D97706','#BE123C','#0369A1','#65A30D','#7E22CE','#1D4ED8','#B45309','#0F172A','#059669'];
       const mapa = {};
-      nomes.forEach(function(nome, index){
-        const hue = Math.round((index * 137.508) % 360);
-        const saturacoes = [82, 88, 76, 84];
-        const luminosidades = [40, 48, 56, 44, 52, 60];
-        const s = saturacoes[index % saturacoes.length];
-        const l = luminosidades[index % luminosidades.length];
-        mapa[nome] = hslParaHex(hue, s, l);
+      let indiceExtra = 0;
+
+      nomes.forEach(function(nome){
+        const nomeNormalizado = normalizarTexto(nome);
+        if (nomeNormalizado.includes('bagattoli')) {
+          mapa[nome] = coresFixas.bagattoli;
+          return;
+        }
+        if (nomeNormalizado.includes('flavia')) {
+          mapa[nome] = coresFixas.flavia;
+          return;
+        }
+        if (nomeNormalizado.includes('celestino')) {
+          mapa[nome] = coresFixas.celestino;
+          return;
+        }
+        if (nomeNormalizado === 'igor' || nomeNormalizado.includes(' igor') || nomeNormalizado.includes('igor ')) {
+          mapa[nome] = coresFixas.igor;
+          return;
+        }
+        if (nomeNormalizado.includes('pamela') || nomeNormalizado.includes('pâmela')) {
+          mapa[nome] = coresFixas.pamela;
+          return;
+        }
+
+        while (Object.values(coresFixas).includes(paletaExtra[indiceExtra % paletaExtra.length]) || Object.values(mapa).includes(paletaExtra[indiceExtra % paletaExtra.length])) {
+          indiceExtra++;
+        }
+        mapa[nome] = paletaExtra[indiceExtra % paletaExtra.length];
+        indiceExtra++;
       });
+
       return mapa;
     }
 
-    function hslParaHex(h, s, l){
-      s /= 100;
-      l /= 100;
-      const c = (1 - Math.abs(2 * l - 1)) * s;
-      const x = c * (1 - Math.abs((h / 60) % 2 - 1));
-      const m = l - c / 2;
-      let r = 0, g = 0, b = 0;
-
-      if (h >= 0 && h < 60) {
-        r = c; g = x; b = 0;
-      } else if (h >= 60 && h < 120) {
-        r = x; g = c; b = 0;
-      } else if (h >= 120 && h < 180) {
-        r = 0; g = c; b = x;
-      } else if (h >= 180 && h < 240) {
-        r = 0; g = x; b = c;
-      } else if (h >= 240 && h < 300) {
-        r = x; g = 0; b = c;
-      } else {
-        r = c; g = 0; b = x;
-      }
-
-      const toHex = function(valor){
-        return Math.round((valor + m) * 255).toString(16).padStart(2, '0');
-      };
-
-      return '#' + toHex(r) + toHex(g) + toHex(b);
+    function getCorTextoPlantonista(nome, corFundo){
+      const nomeNormalizado = normalizarTexto(nome);
+      if (nomeNormalizado.includes('bagattoli')) return '#ffffff';
+      if (nomeNormalizado.includes('flavia')) return '#111827';
+      if (nomeNormalizado.includes('celestino')) return '#111827';
+      if (nomeNormalizado === 'igor' || nomeNormalizado.includes(' igor') || nomeNormalizado.includes('igor ')) return '#ffffff';
+      if (nomeNormalizado.includes('pamela') || nomeNormalizado.includes('pâmela')) return '#ffffff';
+      return getCorTextoContraste(corFundo);
     }
 
     function getCorTextoContraste(hex){
@@ -2831,7 +2844,7 @@ function renderPlantaoUsuarioModal(sabado, weekendKey){
       const g = parseInt(cor.substring(2, 4), 16) || 0;
       const b = parseInt(cor.substring(4, 6), 16) || 0;
       const luminancia = (0.299 * r) + (0.587 * g) + (0.114 * b);
-      return luminancia < 150 ? '#ffffff' : '#111827';
+      return luminancia < 160 ? '#ffffff' : '#111827';
     }
 
     function drawTextEllipsis(ctx, texto, x, y, maxWidth){
