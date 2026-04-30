@@ -935,8 +935,12 @@
       if (otherMonth) dayEl.classList.add('other-month');
 
       const dateKeyPlantaoVisual = (!otherMonth && dayDate) ? buildDateKey(dayDate.getFullYear(), dayDate.getMonth(), dayDate.getDate()) : '';
+      const plantoesExtrasLancadosDia = (!otherMonth && dayDate) ? getPlantoesExtrasPorData(dateKeyPlantaoVisual) : [];
       const temPlantaoAprovadoNoDia = !otherMonth && events.some(function(event){ return event.plantao === true; });
-      const temPlantaoExtraLancadoNoDia = !otherMonth && dayDate && getPlantoesExtrasPorData(dateKeyPlantaoVisual).length > 0;
+      const temPlantaoExtraLancadoNoDia = plantoesExtrasLancadosDia.length > 0;
+      const temPlantaoExtraPendenteNoDia = temPlantaoExtraLancadoNoDia && plantoesExtrasLancadosDia.some(function(extra){
+        return !getEventoAprovadoPlantao(extra.dateKey, extra.id);
+      });
 
       if (isPlantaoContext() && (temPlantaoAprovadoNoDia || temPlantaoExtraLancadoNoDia)) {
         dayEl.classList.add('plantao-confirmado');
@@ -950,10 +954,16 @@
 
       if (!otherMonth && events.length > 0) {
         tag.className = 'tag-busy';
-        tag.textContent = montarRotuloResumoDia(events);
+        const rotuloBase = montarRotuloResumoDia(events);
+        tag.textContent = temPlantaoExtraPendenteNoDia ? (rotuloBase ? rotuloBase + ' / Plantão Extra' : 'Plantão Extra') : rotuloBase;
       } else if (!otherMonth) {
-        tag.className = 'tag-free';
-        tag.textContent = 'Livre';
+        if (temPlantaoExtraPendenteNoDia) {
+          tag.className = 'tag-busy';
+          tag.textContent = 'Plantão Extra';
+        } else {
+          tag.className = 'tag-free';
+          tag.textContent = 'Livre';
+        }
       }
 
       dayHeader.appendChild(numberSpan);
@@ -990,7 +1000,44 @@
         });
       }
 
-      if (!otherMonth && events.length === 0) {
+      if (!otherMonth && isPlantaoContext() && temPlantaoExtraPendenteNoDia) {
+        plantoesExtrasLancadosDia.forEach(function(extra){
+          if (getEventoAprovadoPlantao(extra.dateKey, extra.id)) return;
+
+          const extraEl = document.createElement('div');
+          extraEl.className = 'event event-plantao-card';
+
+          const tipoEl = document.createElement('div');
+          tipoEl.className = 'event-type event-type-plantao';
+          tipoEl.textContent = 'Plantão Extra';
+
+          const timeEl = document.createElement('div');
+          timeEl.className = 'event-time';
+          timeEl.textContent = extra.label || ((extra.inicio || '') + ' às ' + (extra.fim || ''));
+
+          const titleEl = document.createElement('div');
+          titleEl.className = 'event-title';
+          titleEl.textContent = usuarioLogado && usuarioLogado.tipo === 'admin_plantao' ? 'Editar Plantão' : 'Disponibilidade Plantão Extra';
+
+          const infoEl = document.createElement('div');
+          infoEl.className = 'event-info';
+          infoEl.innerHTML = usuarioLogado && usuarioLogado.tipo === 'admin_plantao'
+            ? 'Plantão Extra Lançado Pelo AdminB<br>Clique Para Editar Ou Aprovar'
+            : 'Plantão Extra Liberado<br>Clique Para Informar Disponibilidade';
+
+          extraEl.appendChild(tipoEl);
+          extraEl.appendChild(timeEl);
+          extraEl.appendChild(titleEl);
+          extraEl.appendChild(infoEl);
+          extraEl.addEventListener('click', function(clickEvent){
+            clickEvent.stopPropagation();
+            openPlantaoDayModal(dayDate);
+          });
+          dayEl.appendChild(extraEl);
+        });
+      }
+
+      if (!otherMonth && events.length === 0 && !temPlantaoExtraPendenteNoDia) {
         const freeText = document.createElement('div');
         freeText.className = 'free-text';
         if (usuarioLogado && usuarioLogado.tipo === 'admin') freeText.textContent = 'Adicionar Treinamento';
