@@ -24,174 +24,39 @@
       --shadow-soft:0 6px 18px rgba(31,45,61,.06);
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      color:var(--cvt-gray-5);
-      background:#353839;
-    }
-    .login-screen{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-    }
-    .login-card{
-      width:100%;
-      max-width:430px;
-      background:var(--white);
-      border:1px solid var(--cvt-gray-2);
-      border-radius:28px;
-      padding:30px;
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .login-card:before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:7px;
-      background:linear-gradient(90deg,var(--cvt-orange),var(--cvt-green));
-    }
-    .login-badge{
-      display:inline-flex;
-      background:var(--cvt-orange-soft);
-      color:var(--cvt-orange-dark);
-      border:1px solid rgba(255,122,0,.18);
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      margin-bottom:16px;
-    }
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--cvt-gray-5);background:#353839}
+    .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .login-card{width:100%;max-width:430px;background:var(--white);border:1px solid var(--cvt-gray-2);border-radius:28px;padding:30px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .login-card:before,.hero:before{content:"";position:absolute;top:0;left:0;width:100%;height:7px;background:linear-gradient(90deg,var(--cvt-orange),var(--cvt-green))}
+    .login-badge,.hero-badge{display:inline-flex;background:var(--cvt-orange-soft);color:var(--cvt-orange-dark);border:1px solid rgba(255,122,0,.18);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:16px}
     .login-card h1{margin:0 0 8px;font-size:28px}
     .login-card p{margin:0 0 22px;color:var(--cvt-gray-4);line-height:1.5;font-size:14px}
-    .page{
-      display:none;
-      width:100%;
-      max-width:1450px;
-      margin:0 auto;
-      padding:28px;
-    }
-    .hero{
-      background:var(--white);
-      border:1px solid var(--cvt-gray-2);
-      border-radius:28px;
-      padding:28px;
-      box-shadow:var(--shadow);
-      margin-bottom:22px;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:6px;
-      background:linear-gradient(90deg,var(--cvt-orange),var(--cvt-green));
-    }
+    .page{display:none;width:100%;max-width:1450px;margin:0 auto;padding:28px}
+    .hero{background:var(--white);border:1px solid var(--cvt-gray-2);border-radius:28px;padding:28px;box-shadow:var(--shadow);margin-bottom:22px;position:relative;overflow:hidden}
+    .hero:before{height:6px}
     .top-user{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-    .user-chip{
-      display:inline-flex;
-      background:var(--cvt-green-soft);
-      color:var(--cvt-green-dark);
-      border:1px solid rgba(26,163,110,.18);
-      padding:9px 14px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-    }
-    .hero-badge{
-      display:inline-flex;
-      background:var(--cvt-orange-soft);
-      color:var(--cvt-orange-dark);
-      border:1px solid rgba(255,122,0,.18);
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      margin-bottom:14px;
-    }
+    .user-chip{display:inline-flex;background:var(--cvt-green-soft);color:var(--cvt-green-dark);border:1px solid rgba(26,163,110,.18);padding:9px 14px;border-radius:999px;font-size:13px;font-weight:700}
     .hero h1{margin:0 0 10px;font-size:34px;line-height:1.1}
     .hero h1 span{color:var(--cvt-orange)}
     .hero p{margin:0;color:var(--cvt-gray-4);line-height:1.6;font-size:15px;max-width:980px}
-    .panel{
-      background:var(--white);
-      border:1px solid var(--cvt-gray-2);
-      border-radius:22px;
-      padding:24px;
-      box-shadow:var(--shadow-soft);
-      margin-bottom:22px;
-    }
+    .panel{background:var(--white);border:1px solid var(--cvt-gray-2);border-radius:22px;padding:24px;box-shadow:var(--shadow-soft);margin-bottom:22px}
     .panel-title{margin:0 0 16px;font-size:22px}
     .upload-area{display:grid;grid-template-columns:1.2fr .9fr;gap:18px;align-items:stretch}
     .file-box,.tips{border-radius:20px;padding:22px}
-    .file-box{
-      background:linear-gradient(180deg,#fff 0%,#fcfcfc 100%);
-      border:2px dashed rgba(255,122,0,.28);
-    }
-    .tips{
-      background:linear-gradient(180deg,var(--cvt-green-soft) 0%,#f7fdfa 100%);
-      border:1px solid rgba(26,163,110,.18);
-    }
+    .file-box{background:linear-gradient(180deg,#fff 0%,#fcfcfc 100%);border:2px dashed rgba(255,122,0,.28)}
+    .tips{background:linear-gradient(180deg,var(--cvt-green-soft) 0%,#f7fdfa 100%);border:1px solid rgba(26,163,110,.18)}
     .tips h3{margin:0 0 12px;color:var(--cvt-green-dark);font-size:18px}
     .tips p{margin:0;color:var(--cvt-gray-4);font-size:14px;line-height:1.55}
     label,.file-box label{display:block;font-size:14px;font-weight:700;color:var(--cvt-gray-5);margin-bottom:8px}
     .file-helper{color:var(--cvt-gray-4);font-size:14px;margin-bottom:14px;line-height:1.5}
-    input[type="file"],input[type="text"],input[type="password"],input[type="date"],input[type="time"],textarea,select{
-      width:100%;
-      padding:12px 14px;
-      border:1px solid var(--cvt-gray-2);
-      border-radius:14px;
-      background:var(--white);
-      font-size:14px;
-      color:var(--cvt-gray-5);
-      outline:none;
-      transition:.2s ease;
-      font-family:Arial,Helvetica,sans-serif;
-    }
+    input[type="file"],input[type="text"],input[type="password"],input[type="date"],input[type="time"],textarea,select{width:100%;padding:12px 14px;border:1px solid var(--cvt-gray-2);border-radius:14px;background:var(--white);font-size:14px;color:var(--cvt-gray-5);outline:none;transition:.2s ease;font-family:Arial,Helvetica,sans-serif}
     input:focus,textarea:focus,select:focus{border-color:rgba(255,122,0,.55);box-shadow:0 0 0 4px rgba(255,122,0,.12)}
     textarea{min-height:100px;resize:vertical}
     .form-group{margin-bottom:14px}
-    .controls{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:18px;
-      background:var(--cvt-gray-1);
-      border:1px solid var(--cvt-gray-2);
-      padding:16px;
-      border-radius:20px;
-    }
+    .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:18px;background:var(--cvt-gray-1);border:1px solid var(--cvt-gray-2);padding:16px;border-radius:20px}
     .month-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .month-title{
-      font-size:24px;
-      font-weight:700;
-      min-width:270px;
-      text-align:center;
-      background:var(--white);
-      border:1px solid var(--cvt-gray-2);
-      border-radius:16px;
-      padding:12px 18px;
-    }
-    button{
-      border:none;
-      border-radius:14px;
-      padding:12px 16px;
-      cursor:pointer;
-      font-weight:700;
-      transition:.2s ease;
-      font-size:14px;
-      font-family:Arial,Helvetica,sans-serif;
-    }
+    .month-title{font-size:24px;font-weight:700;min-width:270px;text-align:center;background:var(--white);border:1px solid var(--cvt-gray-2);border-radius:16px;padding:12px 18px}
+    button{border:none;border-radius:14px;padding:12px 16px;cursor:pointer;font-weight:700;transition:.2s ease;font-size:14px;font-family:Arial,Helvetica,sans-serif}
     .btn-primary{background:var(--cvt-orange);color:#fff;box-shadow:0 8px 18px rgba(255,122,0,.18)}
     .btn-primary:hover{background:var(--cvt-orange-dark);transform:translateY(-1px)}
     .btn-secondary{background:var(--white);color:var(--cvt-gray-5);border:1px solid var(--cvt-gray-2)}
@@ -202,15 +67,7 @@
     .btn-danger:hover{background:#ffe4e4}
     .login-button{width:100%;margin-top:8px}
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
-    .stat-card{
-      position:relative;
-      background:var(--white);
-      border:1px solid var(--cvt-gray-2);
-      border-radius:20px;
-      padding:18px;
-      min-height:110px;
-      overflow:hidden;
-    }
+    .stat-card{position:relative;background:var(--white);border:1px solid var(--cvt-gray-2);border-radius:20px;padding:18px;min-height:110px;overflow:hidden}
     .stat-card:before{content:"";position:absolute;top:0;left:0;width:100%;height:5px}
     .stat-card:nth-child(1):before{background:var(--cvt-orange)}
     .stat-card:nth-child(2):before{background:var(--cvt-green)}
@@ -219,222 +76,49 @@
     .stat-card strong{display:block;font-size:30px;line-height:1}
     .calendar-wrap{background:var(--cvt-gray-1);border:1px solid var(--cvt-gray-2);border-radius:22px;padding:16px}
     .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
-    .weekday{
-      text-align:center;
-      font-weight:700;
-      color:#fff;
-      background:linear-gradient(90deg,var(--cvt-orange),var(--cvt-green));
-      padding:12px 10px;
-      border-radius:14px;
-      font-size:14px;
-    }
-    .day{
-      min-height:175px;
-      background:var(--white);
-      border:1px solid var(--cvt-gray-2);
-      border-radius:18px;
-      padding:12px;
-      position:relative;
-      overflow:hidden;
-      transition:.2s ease;
-    }
+    .weekday{text-align:center;font-weight:700;color:#fff;background:linear-gradient(90deg,var(--cvt-orange),var(--cvt-green));padding:12px 10px;border-radius:14px;font-size:14px}
+    .day{min-height:175px;background:var(--white);border:1px solid var(--cvt-gray-2);border-radius:18px;padding:12px;position:relative;overflow:hidden;transition:.2s ease}
     .day:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(31,45,61,.06)}
     .day.other-month{opacity:.38;background:#f1f3f4}
-    .day.plantao-clickable{
-      cursor:pointer;
-      background:#fff0df;
-      border-color:rgba(255,122,0,.65);
-      outline:2px solid rgba(255,122,0,.28);
-    }
-    .day.plantao-clickable:hover{
-      background:#ffe4c4;
-      border-color:rgba(255,122,0,.9);
-      outline-color:rgba(255,122,0,.55);
-    }
-
-    .day.training-clickable{
-      cursor:pointer;
-    }
-    .day.training-weekday{
-      background:#eefbf5;
-      border-color:rgba(26,163,110,.42);
-      outline:2px solid rgba(26,163,110,.12);
-    }
-    .day.training-weekday:hover{
-      background:#ddf7ec;
-      border-color:rgba(26,163,110,.72);
-      outline-color:rgba(26,163,110,.32);
-    }
-    .day.training-weekend{
-      background:#fff0df;
-      border-color:rgba(255,122,0,.65);
-      outline:2px solid rgba(255,122,0,.24);
-    }
-    .day.training-weekend:hover{
-      background:#ffe4c4;
-      border-color:rgba(255,122,0,.9);
-      outline-color:rgba(255,122,0,.5);
-    }
+    .day.training-clickable,.day.plantao-clickable{cursor:pointer}
+    .day.training-weekday{background:#eefbf5;border-color:rgba(26,163,110,.42);outline:2px solid rgba(26,163,110,.12)}
+    .day.training-weekday:hover{background:#ddf7ec;border-color:rgba(26,163,110,.72);outline-color:rgba(26,163,110,.32)}
+    .day.training-weekend,.day.plantao-clickable{background:#fff0df;border-color:rgba(255,122,0,.65);outline:2px solid rgba(255,122,0,.24)}
+    .day.training-weekend:hover,.day.plantao-clickable:hover{background:#ffe4c4;border-color:rgba(255,122,0,.9);outline-color:rgba(255,122,0,.5)}
     .day-number{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-weight:700}
-    .day-number span:first-child{
-      width:34px;
-      height:34px;
-      border-radius:10px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:var(--cvt-gray-1);
-      font-size:14px;
-    }
-    .tag-free,.tag-busy{
-      font-size:11px;
-      padding:5px 8px;
-      border-radius:999px;
-      font-weight:700;
-      white-space:nowrap;
-    }
+    .day-number span:first-child{width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:var(--cvt-gray-1);font-size:14px}
+    .tag-free,.tag-busy{font-size:11px;padding:5px 8px;border-radius:999px;font-weight:700;white-space:nowrap}
     .tag-free{background:var(--cvt-green-soft);color:var(--cvt-green-dark);border:1px solid rgba(26,163,110,.14)}
     .tag-busy{background:var(--cvt-orange-soft);color:var(--cvt-orange-dark);border:1px solid rgba(255,122,0,.14)}
-    .event{
-      border-left:4px solid var(--cvt-orange);
-      background:#fffaf5;
-      border:1px solid rgba(255,122,0,.12);
-      border-left-width:4px;
-      border-radius:14px;
-      padding:10px;
-      margin-bottom:9px;
-      font-size:12px;
-      line-height:1.4;
-      cursor:pointer;
-      transition:.2s ease;
-    }
+    .event{border-left:4px solid var(--cvt-orange);background:#fffaf5;border:1px solid rgba(255,122,0,.12);border-left-width:4px;border-radius:14px;padding:10px;margin-bottom:9px;font-size:12px;line-height:1.4;cursor:pointer;transition:.2s ease}
     .event:nth-child(even){border-left-color:var(--cvt-green);background:#f7fdf9;border-color:rgba(26,163,110,.12)}
     .event:hover{transform:translateX(2px);box-shadow:0 8px 16px rgba(31,45,61,.06)}
     .event-time{font-weight:700;margin-bottom:5px}
     .event-title{font-weight:700;color:var(--cvt-orange-dark);margin-bottom:4px}
     .event-info{color:var(--cvt-gray-4)}
-    .free-text{
-      color:var(--cvt-green-dark);
-      font-size:13px;
-      margin-top:16px;
-      background:var(--cvt-green-soft);
-      border:1px solid rgba(26,163,110,.12);
-      padding:10px;
-      border-radius:14px;
-      text-align:center;
-      font-weight:700;
-    }
-    .empty-message{
-      text-align:center;
-      padding:42px 18px;
-      color:var(--cvt-gray-4);
-      background:var(--white);
-      border-radius:18px;
-      border:1px dashed var(--cvt-gray-2);
-      line-height:1.5;
-    }
+    .free-text{color:var(--cvt-green-dark);font-size:13px;margin-top:16px;background:var(--cvt-green-soft);border:1px solid rgba(26,163,110,.12);padding:10px;border-radius:14px;text-align:center;font-weight:700}
+    .empty-message{text-align:center;padding:42px 18px;color:var(--cvt-gray-4);background:var(--white);border-radius:18px;border:1px dashed var(--cvt-gray-2);line-height:1.5}
     .list-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
     .list-header p{margin:0;color:var(--cvt-gray-4);font-size:14px}
     .event-list{margin-top:6px;display:grid;gap:12px}
-    .list-item{
-      background:var(--white);
-      border:1px solid var(--cvt-gray-2);
-      border-radius:18px;
-      padding:16px;
-      display:grid;
-      grid-template-columns:140px 1fr;
-      gap:16px;
-      cursor:pointer;
-      transition:.2s ease;
-    }
+    .list-item{background:var(--white);border:1px solid var(--cvt-gray-2);border-radius:18px;padding:16px;display:grid;grid-template-columns:140px 1fr;gap:16px;cursor:pointer;transition:.2s ease}
     .list-item:hover{transform:translateY(-1px);box-shadow:var(--shadow-soft);border-color:rgba(255,122,0,.25)}
     .list-date{font-weight:700;background:var(--cvt-gray-1);border-radius:14px;padding:12px;text-align:center;line-height:1.5;border:1px solid var(--cvt-gray-2)}
     .list-content{line-height:1.55;color:var(--cvt-gray-4)}
     .list-content strong{color:var(--cvt-gray-5)}
-    .payment-summary{
-      display:grid;
-      grid-template-columns:1fr 260px;
-      gap:16px;
-      align-items:stretch;
-    }
-    .payment-list{
-      display:grid;
-      gap:10px;
-    }
-    .payment-item{
-      border:1px solid var(--cvt-gray-2);
-      background:var(--white);
-      border-radius:16px;
-      padding:14px;
-      line-height:1.5;
-      color:var(--cvt-gray-4);
-    }
-    .payment-item strong{
-      color:var(--cvt-gray-5);
-    }
-    .payment-total{
-      border-radius:18px;
-      padding:18px;
-      background:linear-gradient(180deg,var(--cvt-green-soft),#ffffff);
-      border:1px solid rgba(26,163,110,.22);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap:8px;
-    }
-    .payment-total span{
-      color:var(--cvt-gray-4);
-      font-size:13px;
-      font-weight:700;
-    }
-    .payment-total strong{
-      color:var(--cvt-green-dark);
-      font-size:32px;
-      line-height:1;
-    }
-    .payment-note{
-      color:var(--cvt-gray-4);
-      font-size:13px;
-      line-height:1.5;
-      margin-top:10px;
-    }
-
-    .export-controls{
-      display:flex;
-      align-items:end;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      background:var(--cvt-gray-1);
-      border:1px solid var(--cvt-gray-2);
-      border-radius:18px;
-      padding:14px;
-      margin-bottom:16px;
-    }
+    .payment-summary{display:grid;grid-template-columns:1fr 260px;gap:16px;align-items:stretch}
+    .payment-list{display:grid;gap:10px}
+    .payment-item{border:1px solid var(--cvt-gray-2);background:var(--white);border-radius:16px;padding:14px;line-height:1.5;color:var(--cvt-gray-4)}
+    .payment-item strong{color:var(--cvt-gray-5)}
+    .payment-total{border-radius:18px;padding:18px;background:linear-gradient(180deg,var(--cvt-green-soft),#ffffff);border:1px solid rgba(26,163,110,.22);display:flex;flex-direction:column;justify-content:center;gap:8px}
+    .payment-total span{color:var(--cvt-gray-4);font-size:13px;font-weight:700}
+    .payment-total strong{color:var(--cvt-green-dark);font-size:32px;line-height:1}
+    .payment-note{color:var(--cvt-gray-4);font-size:13px;line-height:1.5;margin-top:10px}
+    .export-controls{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--cvt-gray-1);border:1px solid var(--cvt-gray-2);border-radius:18px;padding:14px;margin-bottom:16px}
     .export-group{display:flex;align-items:end;gap:10px;flex-wrap:wrap}
     .export-field{min-width:210px}
-    .modal-overlay{
-      position:fixed;
-      inset:0;
-      background:rgba(32,38,42,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      z-index:9999;
-      backdrop-filter:blur(2px);
-    }
-    .modal{
-      width:100%;
-      max-width:720px;
-      max-height:92vh;
-      overflow-y:auto;
-      background:var(--white);
-      border-radius:24px;
-      padding:24px;
-      box-shadow:0 24px 50px rgba(0,0,0,.18);
-      border:1px solid var(--cvt-gray-2);
-    }
+    .modal-overlay{position:fixed;inset:0;background:rgba(32,38,42,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999;backdrop-filter:blur(2px)}
+    .modal{width:100%;max-width:720px;max-height:92vh;overflow-y:auto;background:var(--white);border-radius:24px;padding:24px;box-shadow:0 24px 50px rgba(0,0,0,.18);border:1px solid var(--cvt-gray-2)}
     .modal-topbar{width:100%;height:6px;border-radius:999px;background:linear-gradient(90deg,var(--cvt-orange),var(--cvt-green));margin-bottom:18px}
     .modal h3{margin:0 0 16px;font-size:24px}
     .modal p{margin:8px 0;line-height:1.55;color:var(--cvt-gray-4)}
@@ -442,40 +126,11 @@
     .modal-actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .edit-form{display:none;margin-top:18px;border-top:1px solid var(--cvt-gray-2);padding-top:18px}
     .edit-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .error{
-      display:none;
-      background:#fff1f1;
-      border:1px solid rgba(217,75,75,.22);
-      color:#8a1f1f;
-      padding:12px 14px;
-      border-radius:14px;
-      margin-top:12px;
-      line-height:1.45;
-      font-size:14px;
-    }
-    .saved-alert,.plantao-modal-ok{
-      display:block;
-      background:var(--cvt-green-soft);
-      border:1px solid rgba(26,163,110,.22);
-      color:var(--cvt-green-dark);
-      padding:13px 14px;
-      border-radius:14px;
-      font-weight:700;
-    }
-    .plantao-modal-warning{
-      border-radius:14px;
-      padding:12px 14px;
-      line-height:1.45;
-      font-size:14px;
-      background:#fff1f1;
-      border:1px solid rgba(217,75,75,.22);
-      color:#8a1f1f;
-    }
+    .error{display:none;background:#fff1f1;border:1px solid rgba(217,75,75,.22);color:#8a1f1f;padding:12px 14px;border-radius:14px;margin-top:12px;line-height:1.45;font-size:14px;white-space:pre-line}
+    .saved-alert,.plantao-modal-ok{display:block;background:var(--cvt-green-soft);border:1px solid rgba(26,163,110,.22);color:var(--cvt-green-dark);padding:13px 14px;border-radius:14px;font-weight:700}
+    .plantao-modal-warning{border-radius:14px;padding:12px 14px;line-height:1.45;font-size:14px;background:#fff1f1;border:1px solid rgba(217,75,75,.22);color:#8a1f1f}
     .plantao-modal-content{display:grid;gap:12px}
     .plantao-day-card{background:var(--white);border:1px solid var(--cvt-gray-2);border-radius:16px;padding:14px}
-    .plantao-day-header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
-    .plantao-day-title{font-weight:700}
-    .plantao-badge{display:inline-flex;border-radius:999px;background:var(--cvt-orange-soft);color:var(--cvt-orange-dark);border:1px solid rgba(255,122,0,.15);padding:5px 9px;font-size:12px;font-weight:700}
     .plantao-checkbox-row{display:flex;align-items:center;gap:10px;color:var(--cvt-gray-4);font-size:14px}
     .plantao-checkbox-row input{width:auto;transform:scale(1.2)}
     .plantao-shifts{display:grid;gap:12px}
@@ -485,10 +140,7 @@
     .plantao-select-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .plantao-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px}
     @media(max-width:980px){.upload-area{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.calendar{gap:8px}.day{min-height:155px}}
-    @media(max-width:700px){.payment-summary{grid-template-columns:1fr}
-      .page{padding:14px}.hero{padding:20px}.hero h1{font-size:28px}.stats{grid-template-columns:1fr}.controls{padding:14px}
-      .calendar{display:block}.weekday{display:none}.day{margin-bottom:10px;min-height:auto}.day.other-month{display:none}.month-title{min-width:100%}.list-item{grid-template-columns:1fr}.edit-row,.plantao-select-row{grid-template-columns:1fr}
-    }
+    @media(max-width:700px){.payment-summary{grid-template-columns:1fr}.page{padding:14px}.hero{padding:20px}.hero h1{font-size:28px}.stats{grid-template-columns:1fr}.controls{padding:14px}.calendar{display:block}.weekday{display:none}.day{margin-bottom:10px;min-height:auto}.day.other-month{display:none}.month-title{min-width:100%}.list-item{grid-template-columns:1fr}.edit-row,.plantao-select-row{grid-template-columns:1fr}}
   </style>
 </head>
 
@@ -553,23 +205,12 @@
       </div>
 
       <div class="stats">
-        <div class="stat-card">
-          <span>Dias em Atividade</span>
-          <strong id="statBusyDays">0</strong>
-        </div>
-        <div class="stat-card">
-          <span>Dias Livres</span>
-          <strong id="statFreeDays">0</strong>
-        </div>
-        <div class="stat-card">
-          <span>Empresas Atendidas</span>
-          <strong id="statCompanies">0</strong>
-        </div>
+        <div class="stat-card"><span>Dias em Atividade</span><strong id="statBusyDays">0</strong></div>
+        <div class="stat-card"><span>Dias Livres</span><strong id="statFreeDays">0</strong></div>
+        <div class="stat-card"><span>Empresas Atendidas</span><strong id="statCompanies">0</strong></div>
       </div>
 
-      <div class="calendar-wrap">
-        <div id="calendar" class="calendar"></div>
-      </div>
+      <div class="calendar-wrap"><div id="calendar" class="calendar"></div></div>
       <div id="emptyMessage" class="empty-message" style="margin-top:16px;">Nenhum evento carregado ainda.</div>
     </div>
 
@@ -578,19 +219,11 @@
         <h2 class="panel-title" style="margin:0;">Resumo para emissão de nota</h2>
         <p>Valores referentes aos plantões em que você está escalado no mês exibido.</p>
       </div>
-
       <div class="payment-summary">
         <div id="paymentList" class="payment-list"></div>
-
-        <div class="payment-total">
-          <span>Total estimado no mês</span>
-          <strong id="paymentTotal">R$ 0,00</strong>
-        </div>
+        <div class="payment-total"><span>Total estimado no mês</span><strong id="paymentTotal">R$ 0,00</strong></div>
       </div>
-
-      <div class="payment-note">
-        Valores considerados: Sábado 13h às 22:30h = R$ 260,00; Sábado 22:30h às 10:30h = R$ 340,00; Domingo 10:30h às 22:30h = R$ 304,00.
-      </div>
+      <div class="payment-note">Valores considerados: Sábado 13h às 22:30h = R$ 260,00; Sábado 22:30h às 10:30h = R$ 340,00; Domingo 10:30h às 22:30h = R$ 304,00.</div>
     </div>
 
     <div class="panel treinamento-only" id="trainingListPanel">
@@ -598,7 +231,6 @@
         <h2 class="panel-title" style="margin:0;">Lista de treinamentos do mês</h2>
         <p>Visualização complementar para facilitar a conferência da agenda.</p>
       </div>
-
       <div class="export-controls admin-only treinamento-only">
         <div class="export-group">
           <button type="button" class="btn-primary" id="exportMonthTxtBtn">Baixar mês em bloco de notas</button>
@@ -611,10 +243,7 @@
           <button type="button" class="btn-success" id="exportWeekTxtBtn">Baixar semana em bloco de notas</button>
         </div>
       </div>
-
-      <div id="eventList" class="event-list">
-        <div class="empty-message">Nenhum treinamento para listar.</div>
-      </div>
+      <div id="eventList" class="event-list"><div class="empty-message">Nenhum treinamento para listar.</div></div>
     </div>
   </div>
 
@@ -632,46 +261,19 @@
         <p id="modalDescription"></p>
       </div>
       <div id="editForm" class="edit-form">
-        <div class="form-group">
-          <label for="editEmpresa">Empresa</label>
-          <input type="text" id="editEmpresa">
-        </div>
-        <div class="form-group">
-          <label for="editTema">Tema</label>
-          <input type="text" id="editTema">
-        </div>
+        <div class="form-group"><label for="editEmpresa">Empresa</label><input type="text" id="editEmpresa"></div>
+        <div class="form-group"><label for="editTema">Tema</label><input type="text" id="editTema"></div>
         <div class="edit-row">
-          <div class="form-group">
-            <label for="editInstrutor1">Instrutor 1</label>
-            <select id="editInstrutor1"></select>
-          </div>
-          <div class="form-group">
-            <label for="editInstrutor2">Instrutor 2</label>
-            <select id="editInstrutor2"></select>
-          </div>
-          <div class="form-group">
-            <label for="editInstrutor3">Instrutor 3</label>
-            <select id="editInstrutor3"></select>
-          </div>
+          <div class="form-group"><label for="editInstrutor1">Instrutor 1</label><select id="editInstrutor1"></select></div>
+          <div class="form-group"><label for="editInstrutor2">Instrutor 2</label><select id="editInstrutor2"></select></div>
+          <div class="form-group"><label for="editInstrutor3">Instrutor 3</label><select id="editInstrutor3"></select></div>
         </div>
-        <div class="form-group">
-          <label for="editData">Data</label>
-          <input type="date" id="editData">
-        </div>
+        <div class="form-group"><label for="editData">Data</label><input type="date" id="editData"></div>
         <div class="edit-row">
-          <div class="form-group">
-            <label for="editInicio">Horário inicial</label>
-            <input type="time" id="editInicio">
-          </div>
-          <div class="form-group">
-            <label for="editFim">Horário final</label>
-            <input type="time" id="editFim">
-          </div>
+          <div class="form-group"><label for="editInicio">Horário inicial</label><input type="time" id="editInicio"></div>
+          <div class="form-group"><label for="editFim">Horário final</label><input type="time" id="editFim"></div>
         </div>
-        <div class="form-group">
-          <label for="editDescricao">Descrição</label>
-          <textarea id="editDescricao"></textarea>
-        </div>
+        <div class="form-group"><label for="editDescricao">Descrição</label><textarea id="editDescricao"></textarea></div>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn-secondary admin-only" id="editBtn">Editar</button>
@@ -687,9 +289,7 @@
       <div class="modal-topbar"></div>
       <h3 id="plantaoModalTitle">Plantão CVT</h3>
       <div id="plantaoModalContent" class="plantao-modal-content"></div>
-      <div class="modal-actions">
-        <button type="button" class="btn-primary" id="closePlantaoModal">Fechar</button>
-      </div>
+      <div class="modal-actions"><button type="button" class="btn-primary" id="closePlantaoModal">Fechar</button></div>
     </div>
   </div>
 
@@ -702,7 +302,6 @@
     const usuarios = [
       { usuario: 'Admin', senha: 'CVT#3904', nomeInstrutor: 'Admin', tipo: 'admin', perfis: [] },
       { usuario: 'AdminB', senha: 'CVT#3904', nomeInstrutor: 'AdminB', tipo: 'admin_plantao', perfis: [] },
-
       { usuario: 'Andre', senha: '4827', nomeInstrutor: 'Andre', tipo: 'usuario', perfis: ['instrutor', 'brigadista'] },
       { usuario: 'Bagattoli', senha: '7391', nomeInstrutor: 'Bagattoli', tipo: 'usuario', perfis: ['instrutor', 'brigadista'] },
       { usuario: 'Batista', senha: '1568', nomeInstrutor: 'Batista', tipo: 'usuario', perfis: ['instrutor'] },
@@ -717,7 +316,6 @@
       { usuario: 'Mueller', senha: '9742', nomeInstrutor: 'Mueller', tipo: 'usuario', perfis: ['instrutor'] },
       { usuario: 'Schlemper', senha: '2519', nomeInstrutor: 'Schlemper', tipo: 'usuario', perfis: ['instrutor', 'brigadista'] },
       { usuario: 'Lucas', senha: '1473', nomeInstrutor: 'Lucas', tipo: 'usuario', perfis: ['instrutor', 'brigadista'] },
-
       { usuario: 'Ana C', senha: '8641', nomeInstrutor: 'Ana C', tipo: 'usuario', perfis: ['brigadista'] },
       { usuario: 'Pessotti', senha: '3927', nomeInstrutor: 'Pessotti', tipo: 'usuario', perfis: ['brigadista'] },
       { usuario: 'Jefferson', senha: '5708', nomeInstrutor: 'Jefferson', tipo: 'usuario', perfis: ['brigadista'] },
@@ -738,7 +336,6 @@
     const logoutBtn = document.getElementById('logoutBtn');
     const userInfo = document.getElementById('userInfo');
     const heroDescription = document.getElementById('heroDescription');
-
     const fileInput = document.getElementById('excelFile');
     const uploadPanel = document.getElementById('uploadPanel');
     const calendarEl = document.getElementById('calendar');
@@ -748,7 +345,6 @@
     const brigadistaPaymentPanel = document.getElementById('brigadistaPaymentPanel');
     const paymentList = document.getElementById('paymentList');
     const paymentTotal = document.getElementById('paymentTotal');
-
     const monthTitle = document.getElementById('monthTitle');
     const monthSelect = document.getElementById('monthSelect');
     const yearSelect = document.getElementById('yearSelect');
@@ -757,15 +353,12 @@
     const printBtn = document.getElementById('printBtn');
     const clearBtn = document.getElementById('clearBtn');
     const errorBox = document.getElementById('errorBox');
-
     const statBusyDays = document.getElementById('statBusyDays');
     const statFreeDays = document.getElementById('statFreeDays');
     const statCompanies = document.getElementById('statCompanies');
-
     const exportMonthTxtBtn = document.getElementById('exportMonthTxtBtn');
     const exportWeekTxtBtn = document.getElementById('exportWeekTxtBtn');
     const weekReferenceDate = document.getElementById('weekReferenceDate');
-
     const modalOverlay = document.getElementById('modalOverlay');
     const closeModalBtn = document.getElementById('closeModal');
     const modalTitle = document.getElementById('modalTitle');
@@ -775,14 +368,12 @@
     const modalTheme = document.getElementById('modalTheme');
     const modalInstructor = document.getElementById('modalInstructor');
     const modalDescription = document.getElementById('modalDescription');
-
     const viewMode = document.getElementById('viewMode');
     const editForm = document.getElementById('editForm');
     const editBtn = document.getElementById('editBtn');
     const saveEditBtn = document.getElementById('saveEditBtn');
     const cancelEditBtn = document.getElementById('cancelEditBtn');
     const savedAlert = document.getElementById('savedAlert');
-
     const editEmpresa = document.getElementById('editEmpresa');
     const editTema = document.getElementById('editTema');
     const editInstrutor1 = document.getElementById('editInstrutor1');
@@ -792,7 +383,6 @@
     const editInicio = document.getElementById('editInicio');
     const editFim = document.getElementById('editFim');
     const editDescricao = document.getElementById('editDescricao');
-
     const plantaoModalOverlay = document.getElementById('plantaoModalOverlay');
     const plantaoModalTitle = document.getElementById('plantaoModalTitle');
     const plantaoModalContent = document.getElementById('plantaoModalContent');
@@ -802,7 +392,6 @@
     let currentDate = new Date();
     let selectedEventId = null;
     let usuarioLogado = null;
-
     const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
     const weekDays = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
 
@@ -810,19 +399,12 @@
     popularSelectInstrutores();
     loadSavedAgenda();
     checkSavedLogin();
-
-    if (weekReferenceDate) {
-      weekReferenceDate.value = toInputDate(new Date());
-    }
-
+    if (weekReferenceDate) weekReferenceDate.value = toInputDate(new Date());
     renderCalendar();
 
     loginBtn.addEventListener('click', fazerLogin);
-    loginPassword.addEventListener('keydown', function(event) {
-      if (event.key === 'Enter') fazerLogin();
-    });
-
-    logoutBtn.addEventListener('click', function() {
+    loginPassword.addEventListener('keydown', function(event){ if (event.key === 'Enter') fazerLogin(); });
+    logoutBtn.addEventListener('click', function(){
       localStorage.removeItem(LOGIN_KEY);
       usuarioLogado = null;
       loginScreen.style.display = 'flex';
@@ -831,7 +413,6 @@
       loginPassword.value = '';
       loginError.style.display = 'none';
     });
-
     fileInput.addEventListener('change', handleFileUpload);
     prevMonthBtn.addEventListener('click', function(){ currentDate.setMonth(currentDate.getMonth()-1); syncSelectors(); renderCalendar(); });
     nextMonthBtn.addEventListener('click', function(){ currentDate.setMonth(currentDate.getMonth()+1); syncSelectors(); renderCalendar(); });
@@ -841,21 +422,16 @@
     exportMonthTxtBtn.addEventListener('click', exportarMesTxt);
     exportWeekTxtBtn.addEventListener('click', exportarSemanaTxt);
     clearBtn.addEventListener('click', limparAgendaAtual);
-
     closeModalBtn.addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', function(event){ if(event.target===modalOverlay) closeModal(); });
     editBtn.addEventListener('click', enableEditMode);
     cancelEditBtn.addEventListener('click', disableEditMode);
     saveEditBtn.addEventListener('click', saveEventEdit);
-
     closePlantaoModalBtn.addEventListener('click', closePlantaoModal);
     plantaoModalOverlay.addEventListener('click', function(event){ if(event.target===plantaoModalOverlay) closePlantaoModal(); });
 
-    function usuarioTemPerfil(perfil) {
-      return usuarioLogado && Array.isArray(usuarioLogado.perfis) && usuarioLogado.perfis.includes(perfil);
-    }
-
-    function getPerfilTextoUsuario() {
+    function usuarioTemPerfil(perfil){ return usuarioLogado && Array.isArray(usuarioLogado.perfis) && usuarioLogado.perfis.includes(perfil); }
+    function getPerfilTextoUsuario(){
       if (!usuarioLogado || !Array.isArray(usuarioLogado.perfis)) return 'Somente Visualização';
       if (usuarioLogado.perfis.includes('instrutor') && usuarioLogado.perfis.includes('brigadista')) return 'Treinamentos e Plantões';
       if (usuarioLogado.perfis.includes('instrutor')) return 'Agenda de Treinamentos';
@@ -863,23 +439,18 @@
       return 'Somente Visualização';
     }
 
-    function fazerLogin() {
-      const usuarioDigitado = normalizarTexto(loginUser.value);
+    function fazerLogin(){
       const senhaDigitada = loginPassword.value.trim();
-
-      const encontrado = usuarios.find(function(item) {
-        const usuarioCadastrado = normalizarTexto(item.usuario).replace(/\s+/g, '');
-        const usuarioInformado = normalizarTexto(loginUser.value).replace(/\s+/g, '');
-
+      const encontrado = usuarios.find(function(item){
+        const usuarioCadastrado = normalizarTexto(item.usuario).replace(/\s+/g,'');
+        const usuarioInformado = normalizarTexto(loginUser.value).replace(/\s+/g,'');
         return usuarioCadastrado === usuarioInformado && item.senha === senhaDigitada;
       });
-
       if (!encontrado) {
         loginError.textContent = 'Usuário ou senha incorretos.';
         loginError.style.display = 'block';
         return;
       }
-
       usuarioLogado = encontrado;
       localStorage.setItem(LOGIN_KEY, JSON.stringify({
         usuario: encontrado.usuario,
@@ -887,40 +458,33 @@
         tipo: encontrado.tipo,
         perfis: encontrado.perfis || []
       }));
-
       loginError.style.display = 'none';
       abrirSistema();
     }
 
-    function checkSavedLogin() {
+    function checkSavedLogin(){
       const saved = localStorage.getItem(LOGIN_KEY);
       if (!saved) {
         loginScreen.style.display = 'flex';
         appPage.style.display = 'none';
         return;
       }
-
       try {
         const usuarioSalvo = JSON.parse(saved);
-        const usuarioCompleto = usuarios.find(function(item) {
-          return normalizarTexto(item.usuario) === normalizarTexto(usuarioSalvo.usuario);
-        });
-
+        const usuarioCompleto = usuarios.find(function(item){ return normalizarTexto(item.usuario) === normalizarTexto(usuarioSalvo.usuario); });
         usuarioLogado = usuarioCompleto || usuarioSalvo;
         abrirSistema();
-      } catch (error) {
+      } catch(error) {
         localStorage.removeItem(LOGIN_KEY);
         loginScreen.style.display = 'flex';
         appPage.style.display = 'none';
       }
     }
 
-    function abrirSistema() {
+    function abrirSistema(){
       loginScreen.style.display = 'none';
       appPage.style.display = 'block';
-
       const heroTitle = document.querySelector('.hero h1');
-
       if (usuarioLogado.tipo === 'admin') {
         userInfo.textContent = 'Admin Logado • Agenda de Treinamentos';
         if (heroTitle) heroTitle.innerHTML = 'Calendário <span>CVT</span>';
@@ -932,84 +496,58 @@
       } else {
         userInfo.textContent = usuarioLogado.nomeInstrutor + ' • ' + getPerfilTextoUsuario();
         if (heroTitle) {
-          if (usuarioTemPerfil('brigadista') && !usuarioTemPerfil('instrutor')) {
-            heroTitle.innerHTML = 'Calendário CVT - <span>Plantões de Brigadista</span>';
-          } else {
-            heroTitle.innerHTML = 'Calendário <span>CVT</span>';
-          }
+          heroTitle.innerHTML = usuarioTemPerfil('brigadista') && !usuarioTemPerfil('instrutor')
+            ? 'Calendário CVT - <span>Plantões de Brigadista</span>'
+            : 'Calendário <span>CVT</span>';
         }
-
-        if (usuarioTemPerfil('instrutor') && usuarioTemPerfil('brigadista')) {
-          heroDescription.textContent = 'Consulte seus treinamentos e acompanhe os plantões aprovados. Para enviar disponibilidade, clique no fim de semana desejado no calendário.';
-        } else if (usuarioTemPerfil('brigadista')) {
-          heroDescription.textContent = 'Acompanhe os plantões aprovados e clique no fim de semana desejado para enviar sua disponibilidade quando o período estiver liberado.';
-        } else {
-          heroDescription.textContent = 'Consulte os treinamentos vinculados ao seu nome e acompanhe sua agenda mensal.';
-        }
+        if (usuarioTemPerfil('instrutor') && usuarioTemPerfil('brigadista')) heroDescription.textContent = 'Consulte seus treinamentos e acompanhe os plantões aprovados. Para enviar disponibilidade, clique no fim de semana desejado no calendário.';
+        else if (usuarioTemPerfil('brigadista')) heroDescription.textContent = 'Acompanhe os plantões aprovados e clique no fim de semana desejado para enviar sua disponibilidade quando o período estiver liberado.';
+        else heroDescription.textContent = 'Consulte os treinamentos vinculados ao seu nome e acompanhe sua agenda mensal.';
       }
-
       aplicarPermissoes();
       renderCalendar();
     }
 
-    function aplicarPermissoes() {
+    function aplicarPermissoes(){
       const isAdminTreinamento = usuarioLogado && usuarioLogado.tipo === 'admin';
       const isAdminPlantao = usuarioLogado && usuarioLogado.tipo === 'admin_plantao';
       const isAdminGeral = isAdminTreinamento || isAdminPlantao;
-
       document.querySelectorAll('.admin-only').forEach(function(el){ el.style.display = 'none'; });
       document.querySelectorAll('.treinamento-only').forEach(function(el){ el.style.display = isAdminTreinamento ? '' : 'none'; });
-
       if (uploadPanel) uploadPanel.style.display = isAdminTreinamento ? 'block' : 'none';
       if (trainingListPanel) {
         if (isAdminTreinamento) trainingListPanel.style.display = 'block';
         else if (isAdminPlantao) trainingListPanel.style.display = 'none';
         else trainingListPanel.style.display = usuarioTemPerfil('instrutor') ? 'block' : 'none';
       }
-      if (brigadistaPaymentPanel) {
-        brigadistaPaymentPanel.style.display = (!isAdminGeral && usuarioTemPerfil('brigadista')) ? 'block' : 'none';
-      }
-
+      if (brigadistaPaymentPanel) brigadistaPaymentPanel.style.display = (!isAdminGeral && usuarioTemPerfil('brigadista')) ? 'block' : 'none';
       if (clearBtn) clearBtn.style.display = isAdminGeral ? 'inline-block' : 'none';
       if (editBtn) editBtn.style.display = 'none';
       if (saveEditBtn) saveEditBtn.style.display = 'none';
       if (cancelEditBtn) cancelEditBtn.style.display = 'none';
     }
 
-    function getVisibleEvents() {
+    function getVisibleEvents(){
       if (!usuarioLogado) return [];
-
-      if (usuarioLogado.tipo === 'admin') {
-        return allEvents.filter(function(event){ return event.plantao !== true; });
-      }
-
-      if (usuarioLogado.tipo === 'admin_plantao') {
-        return allEvents.filter(function(event){ return event.plantao === true; });
-      }
-
+      if (usuarioLogado.tipo === 'admin') return allEvents.filter(function(event){ return event.plantao !== true; });
+      if (usuarioLogado.tipo === 'admin_plantao') return allEvents.filter(function(event){ return event.plantao === true; });
       const nomeLogado = normalizarTexto(usuarioLogado.nomeInstrutor);
-
-      return allEvents.filter(function(event) {
-        if (event.plantao === true) {
-          return usuarioTemPerfil('brigadista');
-        }
-
+      return allEvents.filter(function(event){
+        if (event.plantao === true) return usuarioTemPerfil('brigadista');
         const instrutorEvento = normalizarTexto(event.instrutor);
         return usuarioTemPerfil('instrutor') && instrutorEvento.includes(nomeLogado);
       });
     }
 
-    function initializeSelectors() {
+    function initializeSelectors(){
       monthSelect.innerHTML = '';
       yearSelect.innerHTML = '';
-
-      monthNames.forEach(function(month, index) {
+      monthNames.forEach(function(month,index){
         const option = document.createElement('option');
         option.value = index;
         option.textContent = month;
         monthSelect.appendChild(option);
       });
-
       const currentYear = new Date().getFullYear();
       for (let year = currentYear - 5; year <= currentYear + 5; year++) {
         const option = document.createElement('option');
@@ -1017,33 +555,26 @@
         option.textContent = year;
         yearSelect.appendChild(option);
       }
-
       syncSelectors();
     }
+    function syncSelectors(){ monthSelect.value = currentDate.getMonth(); yearSelect.value = currentDate.getFullYear(); }
 
-    function syncSelectors() {
-      monthSelect.value = currentDate.getMonth();
-      yearSelect.value = currentDate.getFullYear();
-    }
-
-    function popularSelectInstrutores() {
+    function popularSelectInstrutores(){
       preencherSelectInstrutor(editInstrutor1, 'Selecione o instrutor 1');
       preencherSelectInstrutor(editInstrutor2, 'Selecione o instrutor 2');
+      preencherSelectInstrutor(editInstrutor3, 'Selecione o instrutor 3');
     }
-
-    function preencherSelectInstrutor(selectElement, textoPlaceholder) {
+    function preencherSelectInstrutor(selectElement, textoPlaceholder){
       if (!selectElement) return;
       selectElement.innerHTML = '';
-
       const placeholder = document.createElement('option');
       placeholder.value = '';
       placeholder.textContent = textoPlaceholder;
       selectElement.appendChild(placeholder);
-
       usuarios
-        .filter(function(item) { return Array.isArray(item.perfis) && item.perfis.includes('instrutor'); })
+        .filter(function(item){ return Array.isArray(item.perfis) && item.perfis.includes('instrutor'); })
         .sort(function(a,b){ return a.nomeInstrutor.localeCompare(b.nomeInstrutor,'pt-BR'); })
-        .forEach(function(item) {
+        .forEach(function(item){
           const option = document.createElement('option');
           option.value = item.nomeInstrutor;
           option.textContent = item.nomeInstrutor;
@@ -1051,69 +582,67 @@
         });
     }
 
-    function handleFileUpload(event) {
+    function handleFileUpload(event){
       const file = event.target.files[0];
-
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin') {
         showError('Apenas o administrador pode incluir agenda.');
         fileInput.value = '';
         return;
       }
-
       hideError();
       if (!file) return;
-
       const fileName = file.name.toLowerCase();
       if (!fileName.endsWith('.xlsx') && !fileName.endsWith('.xls')) {
         showError('Envie um arquivo Excel no formato .xlsx ou .xls.');
         fileInput.value = '';
         return;
       }
-
       if (typeof XLSX === 'undefined') {
         showError('A biblioteca de leitura do Excel não foi carregada. Verifique a conexão com a internet ou a plataforma de hospedagem.');
+        fileInput.value = '';
         return;
       }
 
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function(e){
         try {
           const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: 'array', cellDates: true });
-
+          const workbook = XLSX.read(data, { type:'array', cellDates:true });
           if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
             showError('Nenhuma aba foi encontrada no arquivo Excel.');
             return;
           }
-
           const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-          const novosEventos = parseExcelWorksheet(worksheet);
+          const resultadoParse = parseExcelWorksheet(worksheet);
+          const novosEventos = resultadoParse.eventos;
+          const errosLinhas = resultadoParse.erros;
 
           if (novosEventos.length === 0) {
-            showError('Nenhum evento válido foi encontrado. Verifique se o Excel possui as colunas: DATA, HORARIO, EMPRESA, INSTRUTOR e TEMA.');
+            let mensagem = 'Nenhum evento válido foi encontrado. Verifique se o Excel possui as colunas: DATA, HORARIO, EMPRESA, INSTRUTOR e TEMA.';
+            if (errosLinhas.length > 0) mensagem += '\n\nMotivos encontrados:\n' + errosLinhas.slice(0,8).join('\n');
+            showError(mensagem);
+            return;
           }
 
-          if (novosEventos.length > 0) {
-            const resultado = adicionarEventosNaAgenda(novosEventos);
-            if (resultado.duplicados > 0) {
-              showError('Agenda importada. ' + resultado.adicionados + ' evento(s) novo(s) adicionado(s) e ' + resultado.duplicados + ' evento(s) duplicado(s) ignorado(s).');
-            } else {
-              hideError();
-            }
-            currentDate = new Date(novosEventos[0].start);
-            syncSelectors();
-          }
+          const resultadoAgenda = adicionarEventosNaAgenda(novosEventos);
 
+          // Mantém o calendário no mês que o usuário estava visualizando ao importar.
+          // Ao abrir o site, ele continua iniciando no mês atual pela função loadSavedAgenda().
+          syncSelectors();
           saveAgenda();
           renderCalendar();
-          fileInput.value = '';
-        } catch (error) {
-          showError('Não foi possível ler o arquivo Excel. Verifique se a estrutura está correta: DATA, HORARIO, EMPRESA, INSTRUTOR e TEMA.');
+
+          let mensagemSucesso = 'Importação concluída com sucesso. ' + resultadoAgenda.adicionados + ' evento(s) novo(s) adicionado(s).';
+          if (resultadoAgenda.duplicados > 0) mensagemSucesso += '\n' + resultadoAgenda.duplicados + ' evento(s) duplicado(s) foram ignorado(s).';
+          if (errosLinhas.length > 0) mensagemSucesso += '\n\nAlgumas linhas foram ignoradas:\n' + errosLinhas.slice(0,8).join('\n');
+          showSuccess(mensagemSucesso);
+        } catch(error) {
           console.error(error);
+          showError('Não foi possível ler o arquivo Excel. Verifique se a estrutura está correta: DATA, HORARIO, EMPRESA, INSTRUTOR e TEMA.\n\nDetalhe: ' + (error.message || error));
+        } finally {
           fileInput.value = '';
         }
       };
-
       reader.onerror = function(){
         showError('Erro ao carregar o arquivo Excel.');
         fileInput.value = '';
@@ -1121,20 +650,20 @@
       reader.readAsArrayBuffer(file);
     }
 
-    function parseExcelWorksheet(worksheet) {
-      const rows = XLSX.utils.sheet_to_json(worksheet, { defval: '', raw: true });
+    function parseExcelWorksheet(worksheet){
+      const rows = XLSX.utils.sheet_to_json(worksheet, { defval:'', raw:true });
       const eventos = [];
-
-      rows.forEach(function(row, index) {
-        const evento = normalizeExcelEvent(row, index + 2);
-        if (evento) eventos.push(evento);
+      const erros = [];
+      rows.forEach(function(row,index){
+        const resultado = normalizeExcelEvent(row, index + 2);
+        if (resultado && resultado.evento) eventos.push(resultado.evento);
+        if (resultado && resultado.erro) erros.push(resultado.erro);
       });
-
       eventos.sort(function(a,b){ return a.start - b.start; });
-      return eventos;
+      return { eventos:eventos, erros:erros };
     }
 
-    function normalizeExcelEvent(row, rowNumber) {
+    function normalizeExcelEvent(row, rowNumber){
       const dataValue = getExcelValue(row, ['DATA','Data','data']);
       const horarioValue = getExcelValue(row, ['HORARIO','Horário','Horario','horario']);
       const empresa = getExcelValue(row, ['EMPRESA','Empresa','empresa']);
@@ -1143,30 +672,28 @@
 
       if (!dataValue && !horarioValue && !empresa && !instrutor && !tema) return null;
       if (!dataValue || !horarioValue || !empresa || !instrutor || !tema) {
-        console.warn('Linha ignorada por falta de informação obrigatória:', rowNumber, row);
-        return null;
+        return { erro:'Linha ' + rowNumber + ' ignorada: falta DATA, HORARIO, EMPRESA, INSTRUTOR ou TEMA.' };
       }
 
       const dataBase = parseExcelDate(dataValue);
-      if (!dataBase) {
-        console.warn('Linha ignorada por data inválida:', rowNumber, dataValue);
-        return null;
-      }
+      if (!dataBase) return { erro:'Linha ' + rowNumber + ' ignorada: data inválida (' + dataValue + ').' };
 
       const horario = parseHorarioExcel(horarioValue);
-      if (!horario.inicio) {
-        console.warn('Linha ignorada por horário inválido:', rowNumber, horarioValue);
-        return null;
-      }
+      if (!horario.inicio) return { erro:'Linha ' + rowNumber + ' ignorada: horário inválido (' + horarioValue + ').' };
 
       const start = buildDateFromInputs(toInputDate(dataBase), horario.inicio);
-      const end = horario.fim ? buildDateFromInputs(toInputDate(dataBase), horario.fim) : null;
+      let end = null;
+      if (horario.fim && !horario.multiplosInicios) {
+        end = buildDateFromInputs(toInputDate(dataBase), horario.fim);
+        if (end < start) end.setDate(end.getDate() + 1);
+      }
 
-      return {
+      const evento = {
         id: createEventId(),
         start: start,
         end: end,
-        summary: empresa + ' - ' + tema + ' - ' + instrutor,
+        horarioTexto: horario.horarioTexto || '',
+        summary: String(empresa).trim() + ' - ' + String(tema).trim() + ' - ' + String(instrutor).trim(),
         description: '',
         location: '',
         empresa: String(empresa).trim(),
@@ -1176,9 +703,11 @@
         plantaoWeekendKey: '',
         plantaoShiftKey: ''
       };
+
+      return { evento:evento };
     }
 
-    function getExcelValue(row, possibleNames) {
+    function getExcelValue(row, possibleNames){
       const keys = Object.keys(row);
       for (let i=0;i<possibleNames.length;i++) {
         const wanted = normalizarCabecalho(possibleNames[i]);
@@ -1188,22 +717,16 @@
       }
       return '';
     }
+    function normalizarCabecalho(texto){ return normalizarTexto(texto).replace(/\s+/g,''); }
 
-    function normalizarCabecalho(texto) {
-      return normalizarTexto(texto).replace(/\s+/g,'');
-    }
-
-    function parseExcelDate(value) {
+    function parseExcelDate(value){
       if (value instanceof Date && !isNaN(value)) return value;
-
       if (typeof value === 'number') {
         const parsed = XLSX.SSF.parse_date_code(value);
         if (parsed) return new Date(parsed.y, parsed.m - 1, parsed.d);
       }
-
       const texto = String(value).trim();
       if (!texto) return null;
-
       let match = texto.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})(?:\s+.*)?$/);
       if (match) {
         let day = parseInt(match[1],10);
@@ -1212,7 +735,6 @@
         if (year < 100) year += 2000;
         if (day >= 1 && day <= 31 && month >= 1 && month <= 12) return new Date(year, month - 1, day);
       }
-
       match = texto.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})(?:\s+.*)?$/);
       if (match) {
         const year = parseInt(match[1],10);
@@ -1220,93 +742,92 @@
         const day = parseInt(match[3],10);
         if (day >= 1 && day <= 31 && month >= 1 && month <= 12) return new Date(year, month - 1, day);
       }
-
       return null;
     }
 
-    function parseHorarioExcel(value) {
-      if (value instanceof Date && !isNaN(value)) return { inicio: toInputTime(value), fim: '' };
-
+    function parseHorarioExcel(value){
+      if (value instanceof Date && !isNaN(value)) {
+        const hora = toInputTime(value);
+        return { inicio:hora, fim:'', horarioTexto:hora, multiplosInicios:false };
+      }
       if (typeof value === 'number') {
         const totalMinutos = Math.round(value * 24 * 60);
         const horas = Math.floor(totalMinutos / 60) % 24;
         const minutos = totalMinutos % 60;
-        return { inicio: String(horas).padStart(2,'0') + ':' + String(minutos).padStart(2,'0'), fim: '' };
+        const hora = String(horas).padStart(2,'0') + ':' + String(minutos).padStart(2,'0');
+        return { inicio:hora, fim:'', horarioTexto:hora, multiplosInicios:false };
       }
-
       const textoOriginal = String(value).trim();
-      if (!textoOriginal) return { inicio: '', fim: '' };
+      if (!textoOriginal) return { inicio:'', fim:'', horarioTexto:'', multiplosInicios:false };
 
       const texto = textoOriginal
         .replace(/h/g, ':')
         .replace(/H/g, ':')
-        .replace(/às/g, ' as ')
-        .replace(/Ás/g, ' as ')
-        .replace(/Até/g, ' ate ')
-        .replace(/até/g, ' ate ');
+        .replace(/às/gi, ' as ')
+        .replace(/até/gi, ' ate ');
 
       const matches = texto.match(/\d{1,2}(?::\d{1,2})?/g) || [];
-      if (matches.length === 0) return { inicio: '', fim: '' };
+      if (matches.length === 0) return { inicio:'', fim:'', horarioTexto:'', multiplosInicios:false };
 
-      return { inicio: normalizarHora(matches[0]), fim: matches[1] ? normalizarHora(matches[1]) : '' };
-    }
+      const horarios = matches.map(function(hora){ return normalizarHora(hora); });
 
-    function normalizarListaNomes(valor) {
-      if (!valor) return '';
-
-      return String(valor)
-        .split(/\s*(?:,|\/|;|\+|&|\be\b)\s*/i)
-        .map(function(nome) {
-          return formatarNomePessoa(nome.trim());
-        })
-        .filter(function(nome) {
-          return nome.length > 0;
-        })
-        .join(' / ');
-    }
-
-    function formatarNomePessoa(nome) {
-      if (!nome) return '';
-
-      const nomeLimpo = String(nome).trim();
-
-      const usuarioEncontrado = usuarios.find(function(item) {
-        return normalizarTexto(item.nomeInstrutor) === normalizarTexto(nomeLimpo);
-      });
-
-      if (usuarioEncontrado) {
-        return usuarioEncontrado.nomeInstrutor;
+      if (horarios.length === 1) {
+        return { inicio:horarios[0], fim:'', horarioTexto:horarios[0], multiplosInicios:false };
       }
 
-      return nomeLimpo
-        .toLowerCase()
-        .split(/\s+/)
-        .map(function(parte) {
-          if (!parte) return '';
+      if (horarios.length === 2) {
+        return {
+          inicio:horarios[0],
+          fim:horarios[1],
+          horarioTexto:horarios[0] + ' às ' + horarios[1],
+          multiplosInicios:false
+        };
+      }
 
-          return parte.charAt(0).toUpperCase() + parte.slice(1);
-        })
-        .join(' ');
+      return {
+        inicio:horarios[0],
+        fim:'',
+        horarioTexto:horarios.join(' / '),
+        multiplosInicios:true
+      };
     }
 
-    function normalizarHora(valor) {
+    function normalizarListaNomes(valor){
+      if (!valor) return '';
+      return String(valor)
+        .split(/\s*(?:,|\/|;|\+|&|\be\b)\s*/i)
+        .map(function(nome){ return formatarNomePessoa(nome.trim()); })
+        .filter(function(nome){ return nome.length > 0; })
+        .join(', ');
+    }
+
+    function formatarNomePessoa(nome){
+      if (!nome) return '';
+      const nomeLimpo = String(nome).trim();
+      const usuarioEncontrado = usuarios.find(function(item){ return normalizarTexto(item.nomeInstrutor) === normalizarTexto(nomeLimpo); });
+      if (usuarioEncontrado) return usuarioEncontrado.nomeInstrutor;
+      return nomeLimpo.toLowerCase().split(/\s+/).map(function(parte){
+        if (!parte) return '';
+        return parte.charAt(0).toUpperCase() + parte.slice(1);
+      }).join(' ');
+    }
+
+    function normalizarHora(valor){
       const partes = String(valor).split(':');
       const hora = String(parseInt(partes[0],10)).padStart(2,'0');
       const minuto = partes[1] !== undefined && partes[1] !== '' ? String(parseInt(partes[1],10)).padStart(2,'0') : '00';
       return hora + ':' + minuto;
     }
 
-    function renderCalendar() {
+    function renderCalendar(){
       calendarEl.innerHTML = '';
-
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth();
-
       monthTitle.textContent = monthNames[month] + ' de ' + year;
       monthSelect.value = month;
       yearSelect.value = year;
 
-      weekDays.forEach(function(day) {
+      weekDays.forEach(function(day){
         const weekdayEl = document.createElement('div');
         weekdayEl.className = 'weekday';
         weekdayEl.textContent = day;
@@ -1318,37 +839,30 @@
       const startWeekday = firstDay.getDay();
       const totalDays = lastDay.getDate();
       const previousMonthLastDay = new Date(year, month, 0).getDate();
-
       const visibleEvents = getVisibleEvents();
       const monthEvents = getEventsForMonth(year, month, visibleEvents);
       const eventsByDay = groupEventsByDay(monthEvents);
-
       let freeDays = 0;
 
       for (let i = startWeekday - 1; i >= 0; i--) {
         const dayNumber = previousMonthLastDay - i;
         const dayDate = new Date(year, month - 1, dayNumber);
-        const dayEl = createDayElement(dayNumber, true, [], dayDate);
-        calendarEl.appendChild(dayEl);
+        calendarEl.appendChild(createDayElement(dayNumber, true, [], dayDate));
       }
 
       for (let day = 1; day <= totalDays; day++) {
         const key = buildDateKey(year, month, day);
         const events = eventsByDay[key] || [];
         if (events.length === 0) freeDays++;
-
         const dayDate = new Date(year, month, day);
-        const dayEl = createDayElement(day, false, events, dayDate);
-        calendarEl.appendChild(dayEl);
+        calendarEl.appendChild(createDayElement(day, false, events, dayDate));
       }
 
       const totalCells = startWeekday + totalDays;
       const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
-
       for (let day = 1; day <= remaining; day++) {
         const dayDate = new Date(year, month + 1, day);
-        const dayEl = createDayElement(day, true, [], dayDate);
-        calendarEl.appendChild(dayEl);
+        calendarEl.appendChild(createDayElement(day, true, [], dayDate));
       }
 
       updateStats(monthEvents, freeDays);
@@ -1357,51 +871,39 @@
       emptyMessage.style.display = allEvents.length > 0 ? 'none' : 'block';
     }
 
-    function getEventsForMonth(year, month, sourceEvents) {
-      return sourceEvents.filter(function(event) {
-        return event.start.getFullYear() === year && event.start.getMonth() === month;
-      });
+    function getEventsForMonth(year, month, sourceEvents){
+      return sourceEvents.filter(function(event){ return event.start.getFullYear() === year && event.start.getMonth() === month; });
     }
-
-    function groupEventsByDay(events) {
+    function groupEventsByDay(events){
       const grouped = {};
-      events.forEach(function(event) {
+      events.forEach(function(event){
         const key = buildDateKey(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
         if (!grouped[key]) grouped[key] = [];
         grouped[key].push(event);
       });
       return grouped;
     }
+    function buildDateKey(year, month, day){ return year + '-' + String(month + 1).padStart(2,'0') + '-' + String(day).padStart(2,'0'); }
 
-    function buildDateKey(year, month, day) {
-      return year + '-' + String(month + 1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
-    }
-
-    function createDayElement(dayNumber, otherMonth, events, dayDate) {
+    function createDayElement(dayNumber, otherMonth, events, dayDate){
       const dayEl = document.createElement('div');
       dayEl.className = 'day';
       if (otherMonth) dayEl.classList.add('other-month');
 
       const dayHeader = document.createElement('div');
       dayHeader.className = 'day-number';
-
       const numberSpan = document.createElement('span');
       numberSpan.textContent = dayNumber;
-
       const tag = document.createElement('span');
 
       if (!otherMonth && events.length > 0) {
         tag.className = 'tag-busy';
-        if (isPlantaoContext()) {
-          tag.textContent = events.length === 1 ? '1 Plantão' : events.length + ' Plantões';
-        } else {
-          tag.textContent = events.length === 1 ? '1 Atividade' : events.length + ' Atividades';
-        }
+        tag.textContent = isPlantaoContext()
+          ? (events.length === 1 ? '1 Plantão' : events.length + ' Plantões')
+          : (events.length === 1 ? '1 Atividade' : events.length + ' Atividades');
       } else if (!otherMonth) {
         tag.className = 'tag-free';
         tag.textContent = 'Livre';
-      } else {
-        tag.textContent = '';
       }
 
       dayHeader.appendChild(numberSpan);
@@ -1409,31 +911,22 @@
       dayEl.appendChild(dayHeader);
 
       if (!otherMonth && events.length > 0) {
-        events.forEach(function(event) {
+        events.forEach(function(event){
           const eventEl = document.createElement('div');
           eventEl.className = 'event';
-
           const timeEl = document.createElement('div');
           timeEl.className = 'event-time';
-          timeEl.textContent = formatTimeRange(event.start, event.end);
-
+          timeEl.textContent = formatTimeRange(event.start, event.end, event.horarioTexto);
           const titleEl = document.createElement('div');
           titleEl.className = 'event-title';
           titleEl.textContent = event.empresa;
-
           const infoEl = document.createElement('div');
           infoEl.className = 'event-info';
           infoEl.innerHTML = 'Tema: ' + escapeHTML(event.tema) + '<br>' + 'Instrutor: ' + escapeHTML(event.instrutor);
-
           eventEl.appendChild(timeEl);
           eventEl.appendChild(titleEl);
           eventEl.appendChild(infoEl);
-
-          eventEl.addEventListener('click', function(clickEvent) {
-            clickEvent.stopPropagation();
-            openModal(event.id);
-          });
-
+          eventEl.addEventListener('click', function(clickEvent){ clickEvent.stopPropagation(); openModal(event.id); });
           dayEl.appendChild(eventEl);
         });
       }
@@ -1441,32 +934,18 @@
       if (!otherMonth && events.length === 0) {
         const freeText = document.createElement('div');
         freeText.className = 'free-text';
-
-        if (usuarioLogado && usuarioLogado.tipo === 'admin') {
-          freeText.textContent = 'Adicionar Treinamento';
-        } else if (dayDate && podeAbrirPlantaoNoCalendario(dayDate)) {
-          freeText.textContent = usuarioLogado && usuarioLogado.tipo === 'admin_plantao' ? 'Adicionar Plantão' : 'Disponibilidade';
-        } else {
-          freeText.textContent = 'Dia Livre';
-        }
-
+        if (usuarioLogado && usuarioLogado.tipo === 'admin') freeText.textContent = 'Adicionar Treinamento';
+        else if (dayDate && podeAbrirPlantaoNoCalendario(dayDate)) freeText.textContent = usuarioLogado && usuarioLogado.tipo === 'admin_plantao' ? 'Adicionar Plantão' : 'Disponibilidade';
+        else freeText.textContent = 'Dia Livre';
         dayEl.appendChild(freeText);
       }
 
       if (!otherMonth && usuarioLogado && usuarioLogado.tipo === 'admin' && dayDate) {
         dayEl.classList.add('training-clickable');
-
-        if (dayDate.getDay() === 0 || dayDate.getDay() === 6) {
-          dayEl.classList.add('training-weekend');
-        } else {
-          dayEl.classList.add('training-weekday');
-        }
-
+        if (dayDate.getDay() === 0 || dayDate.getDay() === 6) dayEl.classList.add('training-weekend');
+        else dayEl.classList.add('training-weekday');
         dayEl.title = 'Clique para adicionar treinamento';
-
-        dayEl.addEventListener('click', function() {
-          openNewTrainingEventModal(dayDate);
-        });
+        dayEl.addEventListener('click', function(){ openNewTrainingEventModal(dayDate); });
       }
 
       if (!otherMonth && dayDate && podeAbrirPlantaoNoCalendario(dayDate)) {
@@ -1474,56 +953,37 @@
         dayEl.title = 'Clique para abrir opções de plantão';
         dayEl.addEventListener('click', function(){ openPlantaoDayModal(dayDate); });
       }
-
       return dayEl;
     }
 
-    function isPlantaoContext() {
-      return usuarioLogado && (usuarioLogado.tipo === 'admin_plantao' || usuarioTemPerfil('brigadista'));
-    }
+    function isPlantaoContext(){ return usuarioLogado && (usuarioLogado.tipo === 'admin_plantao' || usuarioTemPerfil('brigadista')); }
 
-    function updateStats(monthEvents, freeDays) {
+    function updateStats(monthEvents, freeDays){
       const empresasUnicas = {};
       const diasComAtividade = {};
-
-      monthEvents.forEach(function(event) {
+      monthEvents.forEach(function(event){
         const empresaNormalizada = normalizarTexto(event.empresa);
         const dataEvento = buildDateKey(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
-
-        if (empresaNormalizada && empresaNormalizada !== 'nao informado') {
-          empresasUnicas[empresaNormalizada] = true;
-        }
-
+        if (empresaNormalizada && empresaNormalizada !== 'nao informado') empresasUnicas[empresaNormalizada] = true;
         diasComAtividade[dataEvento] = true;
       });
-
       statBusyDays.textContent = Object.keys(diasComAtividade).length;
       statFreeDays.textContent = freeDays;
       statCompanies.textContent = Object.keys(empresasUnicas).length;
     }
 
-    function renderPaymentPanel(monthEvents) {
+    function renderPaymentPanel(monthEvents){
       if (!brigadistaPaymentPanel || !paymentList || !paymentTotal) return;
-
       if (!usuarioLogado || usuarioLogado.tipo === 'admin' || usuarioLogado.tipo === 'admin_plantao' || !usuarioTemPerfil('brigadista')) {
         paymentList.innerHTML = '';
         paymentTotal.textContent = 'R$ 0,00';
         return;
       }
-
       const nomeLogado = normalizarTexto(usuarioLogado.nomeInstrutor);
-
       const plantoesDoBrigadista = monthEvents
-        .filter(function(event) {
-          return event.plantao === true &&
-            normalizarTexto(event.instrutor).includes(nomeLogado);
-        })
-        .sort(function(a, b) {
-          return a.start - b.start;
-        });
-
+        .filter(function(event){ return event.plantao === true && normalizarTexto(event.instrutor).includes(nomeLogado); })
+        .sort(function(a,b){ return a.start - b.start; });
       paymentList.innerHTML = '';
-
       if (plantoesDoBrigadista.length === 0) {
         const empty = document.createElement('div');
         empty.className = 'empty-message';
@@ -1532,87 +992,64 @@
         paymentTotal.textContent = formatCurrencyBRL(0);
         return;
       }
-
       let total = 0;
-
-      plantoesDoBrigadista.forEach(function(event) {
+      plantoesDoBrigadista.forEach(function(event){
         const valor = getValorPlantao(event);
         total += valor;
-
         const item = document.createElement('div');
         item.className = 'payment-item';
-
         item.innerHTML =
-          '<strong>' + formatDate(event.start) + ' • ' + formatTimeRange(event.start, event.end) + '</strong><br>' +
+          '<strong>' + formatDate(event.start) + ' • ' + formatTimeRange(event.start,event.end,event.horarioTexto) + '</strong><br>' +
           'Plantão: ' + escapeHTML(getLabelPlantao(event)) + '<br>' +
           'Equipe: ' + escapeHTML(event.instrutor || 'Não informado') + '<br>' +
           '<strong>Valor: ' + formatCurrencyBRL(valor) + '</strong>';
-
         paymentList.appendChild(item);
       });
-
       paymentTotal.textContent = formatCurrencyBRL(total);
     }
 
-    function getValorPlantao(event) {
+    function getValorPlantao(event){
       if (event.plantaoShiftKey === 'sabado_tarde') return 260;
       if (event.plantaoShiftKey === 'sabado_noite') return 340;
       if (event.plantaoShiftKey === 'domingo_dia') return 304;
-
       const startDay = event.start ? event.start.getDay() : -1;
       const startHour = event.start ? event.start.getHours() : -1;
       const startMinute = event.start ? event.start.getMinutes() : -1;
-
       if (startDay === 6 && startHour === 13) return 260;
       if (startDay === 6 && startHour === 22 && startMinute === 30) return 340;
       if (startDay === 0 && startHour === 10 && startMinute === 30) return 304;
-
       return 0;
     }
-
-    function getLabelPlantao(event) {
+    function getLabelPlantao(event){
       if (event.plantaoShiftKey === 'sabado_tarde') return 'Sábado das 13h às 22:30h';
       if (event.plantaoShiftKey === 'sabado_noite') return 'Sábado das 22:30h às 10:30h';
       if (event.plantaoShiftKey === 'domingo_dia') return 'Domingo das 10:30h às 22:30h';
       return 'Plantão';
     }
+    function formatCurrencyBRL(value){ return value.toLocaleString('pt-BR', { style:'currency', currency:'BRL' }); }
 
-    function formatCurrencyBRL(value) {
-      return value.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      });
-    }
-
-    function renderEventList(monthEvents) {
+    function renderEventList(monthEvents){
       eventListEl.innerHTML = '';
-
       if (!trainingListPanel || trainingListPanel.style.display === 'none') return;
-
       const listEvents = monthEvents.filter(function(event){ return event.plantao !== true; });
-
       if (listEvents.length === 0) {
         const empty = document.createElement('div');
         empty.className = 'empty-message';
-        empty.textContent = allEvents.length === 0 ? 'Nenhum treinamento cadastrado para este mês.' : 'Nenhum treinamento cadastrado para este mês.';
+        empty.textContent = 'Nenhum treinamento cadastrado para este mês.';
         eventListEl.appendChild(empty);
         return;
       }
-
-      listEvents.forEach(function(event) {
+      listEvents.forEach(function(event){
         const item = document.createElement('div');
         item.className = 'list-item';
-
         const date = document.createElement('div');
         date.className = 'list-date';
-        date.innerHTML = formatDate(event.start) + '<br>' + formatTimeRange(event.start, event.end);
-
+        date.innerHTML = formatDate(event.start) + '<br>' + formatTimeRange(event.start, event.end, event.horarioTexto);
         const content = document.createElement('div');
         content.className = 'list-content';
         content.innerHTML = '<strong>Empresa:</strong> ' + escapeHTML(event.empresa) + '<br>' +
           '<strong>Tema:</strong> ' + escapeHTML(event.tema) + '<br>' +
           '<strong>Instrutor:</strong> ' + escapeHTML(event.instrutor);
-
         item.appendChild(date);
         item.appendChild(content);
         item.addEventListener('click', function(){ openModal(event.id); });
@@ -1620,48 +1057,31 @@
       });
     }
 
-    function podeEditarEventoAtual(event) {
+    function podeEditarEventoAtual(event){
       if (!usuarioLogado || !event) return false;
       if (usuarioLogado.tipo === 'admin') return event.plantao !== true;
       if (usuarioLogado.tipo === 'admin_plantao') return event.plantao === true;
       return false;
     }
 
-    function openNewTrainingEventModal(date) {
+    function openNewTrainingEventModal(date){
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin') return;
-
       const start = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0);
       const end = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0);
-
       const newEvent = {
-        id: createEventId(),
-        start: start,
-        end: end,
-        summary: '',
-        description: '',
-        location: '',
-        empresa: '',
-        tema: '',
-        instrutor: '',
-        plantao: false,
-        plantaoWeekendKey: '',
-        plantaoShiftKey: '',
-        novoEvento: true
+        id:createEventId(), start:start, end:end, horarioTexto:'', summary:'', description:'', location:'',
+        empresa:'', tema:'', instrutor:'', plantao:false, plantaoWeekendKey:'', plantaoShiftKey:'', novoEvento:true
       };
-
       allEvents.push(newEvent);
       selectedEventId = newEvent.id;
-
       modalTitle.textContent = 'Novo treinamento';
       modalDate.innerHTML = '<strong>Data:</strong> ' + formatDate(newEvent.start);
-      modalTime.innerHTML = '<strong>Horário:</strong> ' + formatTimeRange(newEvent.start, newEvent.end);
+      modalTime.innerHTML = '<strong>Horário:</strong> ' + formatTimeRange(newEvent.start,newEvent.end,newEvent.horarioTexto);
       modalCompany.innerHTML = '<strong>Empresa:</strong> Informe a empresa';
       modalTheme.innerHTML = '<strong>Tema:</strong> Informe o tema';
       modalInstructor.innerHTML = '<strong>Instrutor:</strong> Selecione o instrutor';
       modalDescription.innerHTML = '<strong>Descrição:</strong> Não informado';
-
       fillEditForm(newEvent);
-
       viewMode.style.display = 'none';
       editForm.style.display = 'block';
       editBtn.style.display = 'none';
@@ -1671,104 +1091,79 @@
       modalOverlay.style.display = 'flex';
     }
 
-    function openModal(eventId) {
+    function openModal(eventId){
       selectedEventId = eventId;
       const event = getSelectedEvent();
       if (!event) return;
-
       disableEditMode();
       savedAlert.style.display = 'none';
-
       modalTitle.textContent = event.empresa || 'Evento';
       modalDate.innerHTML = '<strong>Data:</strong> ' + formatDate(event.start);
-      modalTime.innerHTML = '<strong>Horário:</strong> ' + formatTimeRange(event.start, event.end);
+      modalTime.innerHTML = '<strong>Horário:</strong> ' + formatTimeRange(event.start, event.end, event.horarioTexto);
       modalCompany.innerHTML = '<strong>Empresa:</strong> ' + escapeHTML(event.empresa);
       modalTheme.innerHTML = '<strong>Tema:</strong> ' + escapeHTML(event.tema);
       modalInstructor.innerHTML = '<strong>Instrutor/Plantonista:</strong> ' + escapeHTML(event.instrutor);
       modalDescription.innerHTML = '<strong>Descrição:</strong> ' + (event.description ? escapeHTML(event.description).replace(/\n/g,'<br>') : 'Não informado');
-
       fillEditForm(event);
       editBtn.style.display = podeEditarEventoAtual(event) ? 'inline-block' : 'none';
       modalOverlay.style.display = 'flex';
     }
 
-    function closeModal() {
+    function closeModal(){
       const event = getSelectedEvent();
-
       if (event && event.novoEvento === true) {
-        allEvents = allEvents.filter(function(item) {
-          return item.id !== event.id;
-        });
+        allEvents = allEvents.filter(function(item){ return item.id !== event.id; });
       }
-
       modalOverlay.style.display = 'none';
       selectedEventId = null;
       disableEditMode();
       renderCalendar();
     }
+    function getSelectedEvent(){ return allEvents.find(function(event){ return event.id === selectedEventId; }); }
 
-    function getSelectedEvent() {
-      return allEvents.find(function(event){ return event.id === selectedEventId; });
-    }
-
-    function fillEditForm(event) {
+    function fillEditForm(event){
       editEmpresa.value = event.empresa || '';
       editTema.value = event.tema || '';
-
       const instrutores = separarInstrutores(event.instrutor || '');
       preencherSelectEdicao(event.plantao === true ? getTodosBrigadistas() : getTodosInstrutores());
-
       garantirOpcaoInstrutor(editInstrutor1, instrutores[0]);
       garantirOpcaoInstrutor(editInstrutor2, instrutores[1]);
       garantirOpcaoInstrutor(editInstrutor3, instrutores[2]);
-
       editInstrutor1.value = instrutores[0] || '';
       editInstrutor2.value = instrutores[1] || '';
       editInstrutor3.value = instrutores[2] || '';
-
       editData.value = toInputDate(event.start);
       editInicio.value = toInputTime(event.start);
       editFim.value = event.end ? toInputTime(event.end) : '';
       editDescricao.value = event.description || '';
     }
 
-    function preencherSelectEdicao(nomes) {
+    function preencherSelectEdicao(nomes){
       preencherSelectLista(editInstrutor1, 'Selecione o 1º nome', nomes);
       preencherSelectLista(editInstrutor2, 'Selecione o 2º nome', nomes);
       preencherSelectLista(editInstrutor3, 'Selecione o 3º nome', nomes);
     }
-
-    function preencherSelectLista(selectElement, textoPlaceholder, nomes) {
+    function preencherSelectLista(selectElement, textoPlaceholder, nomes){
       if (!selectElement) return;
       selectElement.innerHTML = '';
-
       const placeholder = document.createElement('option');
       placeholder.value = '';
       placeholder.textContent = textoPlaceholder;
       selectElement.appendChild(placeholder);
-
-      nomes.forEach(function(nome) {
+      nomes.forEach(function(nome){
         const option = document.createElement('option');
         option.value = nome;
         option.textContent = nome;
         selectElement.appendChild(option);
       });
     }
-
-    function separarInstrutores(texto) {
+    function separarInstrutores(texto){
       if (!texto) return [];
-      return String(texto)
-        .split(/\s*(?:,|\/|;|\+|&|\be\b)\s*/i)
-        .map(function(nome){ return nome.trim(); })
-        .filter(function(nome){ return nome.length > 0; })
-        .slice(0,3);
+      return String(texto).split(/\s*(?:,|\/|;|\+|&|\be\b)\s*/i).map(function(nome){ return nome.trim(); }).filter(function(nome){ return nome.length > 0; }).slice(0,3);
     }
-
-    function garantirOpcaoInstrutor(selectElement, nome) {
+    function garantirOpcaoInstrutor(selectElement, nome){
       if (!selectElement || !nome) return;
-      const existe = Array.from(selectElement.options).some(function(option){
-        return normalizarTexto(option.value) === normalizarTexto(nome);
-      });
+      const existe = Array.from(selectElement.options).some(function(option){ return normalizarTexto(option.value) === normalizarTexto(nome); });
       if (!existe) {
         const option = document.createElement('option');
         option.value = nome;
@@ -1776,40 +1171,23 @@
         selectElement.appendChild(option);
       }
     }
-
-    function montarInstrutoresSelecionados() {
+    function montarInstrutoresSelecionados(){
       const selecionados = [];
-      const valores = [
-        editInstrutor1.value.trim(),
-        editInstrutor2.value.trim(),
-        editInstrutor3.value.trim()
-      ];
-
-      valores.forEach(function(nome) {
+      [editInstrutor1.value.trim(), editInstrutor2.value.trim(), editInstrutor3.value.trim()].forEach(function(nome){
         if (!nome) return;
-
         const nomeFormatado = formatarNomePessoa(nome);
-
-        const jaExiste = selecionados.some(function(item) {
-          return normalizarTexto(item) === normalizarTexto(nomeFormatado);
-        });
-
-        if (!jaExiste) {
-          selecionados.push(nomeFormatado);
-        }
+        const jaExiste = selecionados.some(function(item){ return normalizarTexto(item) === normalizarTexto(nomeFormatado); });
+        if (!jaExiste) selecionados.push(nomeFormatado);
       });
-
-      return selecionados.join(' / ');
+      return selecionados.join(', ');
     }
 
-    function enableEditMode() {
+    function enableEditMode(){
       const event = getSelectedEvent();
-
       if (!podeEditarEventoAtual(event)) {
         alert('Você não tem permissão para editar este evento.');
         return;
       }
-
       viewMode.style.display = 'none';
       editForm.style.display = 'block';
       editBtn.style.display = 'none';
@@ -1818,216 +1196,152 @@
       savedAlert.style.display = 'none';
     }
 
-    function disableEditMode() {
+    function disableEditMode(){
       const event = getSelectedEvent();
-
       if (event && event.novoEvento === true) {
-        allEvents = allEvents.filter(function(item) {
-          return item.id !== event.id;
-        });
-
+        allEvents = allEvents.filter(function(item){ return item.id !== event.id; });
         modalOverlay.style.display = 'none';
         selectedEventId = null;
         renderCalendar();
         return;
       }
-
       viewMode.style.display = 'block';
       editForm.style.display = 'none';
-
       editBtn.style.display = podeEditarEventoAtual(event) ? 'inline-block' : 'none';
       saveEditBtn.style.display = 'none';
       cancelEditBtn.style.display = 'none';
     }
 
-    function saveEventEdit() {
+    function saveEventEdit(){
       const event = getSelectedEvent();
-
       if (!podeEditarEventoAtual(event)) {
         alert('Você não tem permissão para salvar alterações neste evento.');
         return;
       }
-
       if (!event) return;
-
       const selecionados = montarInstrutoresSelecionados();
-
       if (!editEmpresa.value.trim() || !editTema.value.trim() || !selecionados || !editData.value || !editInicio.value) {
         alert('Preencha empresa, tema, pelo menos um nome, data e horário inicial.');
         return;
       }
-
       const newStart = buildDateFromInputs(editData.value, editInicio.value);
       const newEnd = editFim.value ? buildDateFromInputs(editData.value, editFim.value) : null;
-
       if (newEnd && newEnd < newStart) {
-        if (event.plantao === true) {
-          newEnd.setDate(newEnd.getDate() + 1);
-        } else {
-          alert('O horário final não pode ser menor que o horário inicial.');
-          return;
-        }
+        newEnd.setDate(newEnd.getDate() + 1);
       }
-
       if (event.plantao === true) {
         const validacaoPlantao = validarCargaHorariaEdicaoPlantao(event, newStart, newEnd, selecionados);
-
         if (!validacaoPlantao.ok) {
           alert(validacaoPlantao.mensagem);
           return;
         }
       }
-
       event.empresa = editEmpresa.value.trim();
       event.tema = editTema.value.trim();
       event.instrutor = selecionados;
       event.start = newStart;
       event.end = newEnd;
+      event.horarioTexto = '';
       event.description = editDescricao.value.trim();
       event.summary = event.empresa + ' - ' + event.tema + ' - ' + event.instrutor;
       event.novoEvento = false;
-
       allEvents.sort(function(a,b){ return a.start - b.start; });
       currentDate = new Date(event.start);
       syncSelectors();
-
       saveAgenda();
       renderCalendar();
       openModal(event.id);
       savedAlert.style.display = 'block';
     }
 
-    function limparAgendaAtual() {
+    function limparAgendaAtual(){
       if (!usuarioLogado || (usuarioLogado.tipo !== 'admin' && usuarioLogado.tipo !== 'admin_plantao')) {
         alert('Apenas o administrador pode excluir a agenda.');
         return;
       }
-
       const mesAtual = currentDate.getMonth();
       const anoAtual = currentDate.getFullYear();
       const nomeMesAtual = monthNames[mesAtual] + ' de ' + anoAtual;
       const limparPlantao = usuarioLogado.tipo === 'admin_plantao';
-
-      const eventosDoMes = allEvents.filter(function(event) {
+      const eventosDoMes = allEvents.filter(function(event){
         const mesmoMes = event.start.getMonth() === mesAtual && event.start.getFullYear() === anoAtual;
         if (!mesmoMes) return false;
         return limparPlantao ? event.plantao === true : event.plantao !== true;
       });
-
       if (eventosDoMes.length === 0) {
         alert('Não há eventos para limpar em ' + nomeMesAtual + '.');
         return;
       }
-
       const tipoAgenda = limparPlantao ? 'plantões' : 'treinamentos';
       const confirmar = confirm('Deseja limpar somente a agenda de ' + tipoAgenda + ' exibida na tela (' + nomeMesAtual + ')?\n\nOs outros meses salvos serão mantidos.');
-
       if (confirmar) {
-        allEvents = allEvents.filter(function(event) {
+        allEvents = allEvents.filter(function(event){
           const mesmoMes = event.start.getMonth() === mesAtual && event.start.getFullYear() === anoAtual;
           if (!mesmoMes) return true;
           return limparPlantao ? event.plantao !== true : event.plantao === true;
         });
-
         saveAgenda();
         renderCalendar();
       }
     }
 
-    function podeAbrirPlantaoNoCalendario(date) {
+    function podeAbrirPlantaoNoCalendario(date){
       if (!usuarioLogado || !date) return false;
-
-      // AdminB pode abrir qualquer dia do calendário para adicionar/aprovar plantão.
       if (usuarioLogado.tipo === 'admin_plantao') return true;
-
-      // Brigadistas continuam acessando somente sábados e domingos para enviar disponibilidade.
       const isWeekend = date.getDay() === 6 || date.getDay() === 0;
       if (!isWeekend) return false;
-
-      if (usuarioTemPerfil('brigadista')) return true;
-      return false;
+      return usuarioTemPerfil('brigadista');
     }
 
-    function openPlantaoDayModal(date) {
+    function openPlantaoDayModal(date){
       if (!date) return;
-
       let sabado = null;
-
-      if (usuarioLogado && usuarioLogado.tipo === 'admin_plantao') {
-        // Para o AdminB, qualquer dia pode ser usado para montar/adicionar plantão.
-        sabado = date;
-      } else {
+      if (usuarioLogado && usuarioLogado.tipo === 'admin_plantao') sabado = date;
+      else {
         if (date.getDay() === 6) sabado = date;
         else if (date.getDay() === 0) sabado = addDays(date, -1);
         else return;
       }
-
       const weekendKey = getPlantaoWeekendKey(sabado);
       const domingo = addDays(sabado, 1);
-
-      if (usuarioLogado && usuarioLogado.tipo === 'admin_plantao') {
-        plantaoModalTitle.textContent = 'Plantão - ' + formatDate(sabado);
-      } else {
-        plantaoModalTitle.textContent = 'Plantão - ' + formatDate(sabado) + ' e ' + formatDate(domingo);
-      }
-
+      plantaoModalTitle.textContent = usuarioLogado.tipo === 'admin_plantao'
+        ? 'Plantão - ' + formatDate(sabado)
+        : 'Plantão - ' + formatDate(sabado) + ' e ' + formatDate(domingo);
       plantaoModalContent.innerHTML = '';
-
-      if (usuarioLogado.tipo === 'admin_plantao') {
-        renderPlantaoAdminModal(sabado, weekendKey);
-      } else if (usuarioTemPerfil('brigadista')) {
-        renderPlantaoUsuarioModal(sabado, weekendKey);
-      }
-
+      if (usuarioLogado.tipo === 'admin_plantao') renderPlantaoAdminModal(sabado, weekendKey);
+      else if (usuarioTemPerfil('brigadista')) renderPlantaoUsuarioModal(sabado, weekendKey);
       plantaoModalOverlay.style.display = 'flex';
     }
+    function closePlantaoModal(){ plantaoModalOverlay.style.display = 'none'; plantaoModalContent.innerHTML = ''; }
 
-    function closePlantaoModal() {
-      plantaoModalOverlay.style.display = 'none';
-      plantaoModalContent.innerHTML = '';
-    }
-
-    function renderPlantaoUsuarioModal(sabado, weekendKey) {
-      const domingo = addDays(sabado, 1);
+    function renderPlantaoUsuarioModal(sabado, weekendKey){
       const mesBrigadista = getMesDisponibilidadeBrigadista();
       const estaNoMesLiberado = sabado.getFullYear() === mesBrigadista.year && sabado.getMonth() === mesBrigadista.month;
       const liberado = podeSolicitarPlantao() && estaNoMesLiberado;
       const disponibilidades = carregarDisponibilidadesPlantao();
       const nome = usuarioLogado.nomeInstrutor;
-
       const aviso = document.createElement('div');
       aviso.className = liberado ? 'plantao-modal-ok' : 'plantao-modal-warning';
-
       if (liberado) aviso.textContent = 'Selecione o horário em que você tem disponibilidade para este plantão.';
       else if (!podeSolicitarPlantao()) aviso.textContent = 'A solicitação de disponibilidade para o próximo mês será liberada somente no dia 20.';
       else aviso.textContent = 'A disponibilidade só pode ser enviada após o dia ' + getDataLiberacaoDisponibilidade(sabado) + '.';
-
       plantaoModalContent.appendChild(aviso);
-
       const opcoes = getPlantaoShiftOptions(sabado, weekendKey);
       const card = document.createElement('div');
       card.className = 'plantao-day-card';
-
       let htmlOpcoes = '';
-
-      opcoes.forEach(function(opcao) {
+      opcoes.forEach(function(opcao){
         const marcado = disponibilidades[opcao.key] && disponibilidades[opcao.key].includes(nome);
         const disabledAttr = liberado ? '' : ' disabled';
-
-        htmlOpcoes +=
-          '<label class="plantao-checkbox-row" style="margin-bottom:10px; ' + (!liberado ? 'opacity:0.55; cursor:not-allowed;' : '') + '">' +
-            '<input type="checkbox" class="plantao-user-checkbox" data-key="' + opcao.key + '" data-weekend-key="' + opcao.weekendKey + '" data-shift="' + opcao.shiftKey + '" data-horas="' + opcao.horas + '"' + (marcado ? ' checked' : '') + disabledAttr + '>' +
-            '<span>' + opcao.label + '</span>' +
-          '</label>';
+        htmlOpcoes += '<label class="plantao-checkbox-row" style="margin-bottom:10px;' + (!liberado ? 'opacity:0.55;cursor:not-allowed;' : '') + '">' +
+          '<input type="checkbox" class="plantao-user-checkbox" data-key="' + opcao.key + '" data-weekend-key="' + opcao.weekendKey + '" data-shift="' + opcao.shiftKey + '" data-horas="' + opcao.horas + '"' + (marcado ? ' checked' : '') + disabledAttr + '>' +
+          '<span>' + opcao.label + '</span></label>';
       });
-
       card.innerHTML = htmlOpcoes;
       plantaoModalContent.appendChild(card);
       ativarRegraLimiteHorasPlantao();
-
       const actions = document.createElement('div');
       actions.className = 'plantao-actions';
-
       const saveBtn = document.createElement('button');
       saveBtn.type = 'button';
       saveBtn.className = 'btn-success';
@@ -2036,41 +1350,22 @@
       saveBtn.style.opacity = liberado ? '1' : '0.55';
       saveBtn.style.cursor = liberado ? 'pointer' : 'not-allowed';
       saveBtn.addEventListener('click', salvarDisponibilidadePlantao);
-
       actions.appendChild(saveBtn);
       plantaoModalContent.appendChild(actions);
     }
 
-    function getPlantaoShiftOptions(sabado, weekendKey) {
+    function getPlantaoShiftOptions(sabado, weekendKey){
       const domingo = addDays(sabado, 1);
       return [
-        {
-          key: criarChaveDisponibilidadePlantao(weekendKey, 'sabado_tarde'),
-          weekendKey: weekendKey,
-          shiftKey: 'sabado_tarde',
-          horas: 9.5,
-          label: 'Sábado ' + formatDate(sabado) + ' das 13h às 22:30h'
-        },
-        {
-          key: criarChaveDisponibilidadePlantao(weekendKey, 'sabado_noite'),
-          weekendKey: weekendKey,
-          shiftKey: 'sabado_noite',
-          horas: 12,
-          label: 'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h'
-        },
-        {
-          key: criarChaveDisponibilidadePlantao(weekendKey, 'domingo_dia'),
-          weekendKey: weekendKey,
-          shiftKey: 'domingo_dia',
-          horas: 12,
-          label: 'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h'
-        }
+        { key:criarChaveDisponibilidadePlantao(weekendKey,'sabado_tarde'), weekendKey:weekendKey, shiftKey:'sabado_tarde', horas:9.5, label:'Sábado ' + formatDate(sabado) + ' das 13h às 22:30h' },
+        { key:criarChaveDisponibilidadePlantao(weekendKey,'sabado_noite'), weekendKey:weekendKey, shiftKey:'sabado_noite', horas:12, label:'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h' },
+        { key:criarChaveDisponibilidadePlantao(weekendKey,'domingo_dia'), weekendKey:weekendKey, shiftKey:'domingo_dia', horas:12, label:'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h' }
       ];
     }
 
-    function ativarRegraLimiteHorasPlantao() {
-      document.querySelectorAll('.plantao-user-checkbox').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
+    function ativarRegraLimiteHorasPlantao(){
+      document.querySelectorAll('.plantao-user-checkbox').forEach(function(checkbox){
+        checkbox.addEventListener('change', function(){
           const validacao = validarLimiteHorasPlantaoCheckboxes();
           if (!validacao.ok) {
             checkbox.checked = false;
@@ -2080,626 +1375,418 @@
       });
     }
 
-    function validarLimiteHorasPlantaoCheckboxes() {
+    function validarLimiteHorasPlantaoCheckboxes(){
       const selecionadosPorFimDeSemana = {};
-
-      document.querySelectorAll('.plantao-user-checkbox:checked').forEach(function(checkbox) {
+      document.querySelectorAll('.plantao-user-checkbox:checked').forEach(function(checkbox){
         const weekendKey = checkbox.getAttribute('data-weekend-key');
         const shiftKey = checkbox.getAttribute('data-shift');
-
         if (!selecionadosPorFimDeSemana[weekendKey]) selecionadosPorFimDeSemana[weekendKey] = {};
         selecionadosPorFimDeSemana[weekendKey][shiftKey] = true;
       });
-
       const keys = Object.keys(selecionadosPorFimDeSemana);
       for (let i=0;i<keys.length;i++) {
         const selecionados = selecionadosPorFimDeSemana[keys[i]];
         const sabadoTarde = selecionados.sabado_tarde === true;
         const sabadoNoite = selecionados.sabado_noite === true;
         const domingoDia = selecionados.domingo_dia === true;
-
-        if (sabadoTarde && sabadoNoite) {
-          return { ok:false, mensagem:'Você não pode selecionar plantões seguidos: sábado 13h às 22:30h e sábado 22:30h às 10:30h.' };
-        }
-
-        if (sabadoNoite && domingoDia) {
-          return { ok:false, mensagem:'Você não pode selecionar plantões seguidos: sábado 22:30h às 10:30h e domingo 10:30h às 22:30h.' };
-        }
+        if (sabadoTarde && sabadoNoite) return { ok:false, mensagem:'Você não pode selecionar plantões seguidos: sábado 13h às 22:30h e sábado 22:30h às 10:30h.' };
+        if (sabadoNoite && domingoDia) return { ok:false, mensagem:'Você não pode selecionar plantões seguidos: sábado 22:30h às 10:30h e domingo 10:30h às 22:30h.' };
       }
-
       return { ok:true, mensagem:'' };
     }
 
-    function salvarDisponibilidadePlantao() {
+    function salvarDisponibilidadePlantao(){
       if (!usuarioLogado || usuarioLogado.tipo === 'admin' || usuarioLogado.tipo === 'admin_plantao' || !usuarioTemPerfil('brigadista')) {
         alert('Apenas brigadistas podem enviar disponibilidade.');
         return;
       }
-
       if (!podeSolicitarPlantao()) {
         alert('A solicitação de disponibilidade para o plantão do próximo mês será liberada somente no dia 20.');
         return;
       }
-
       const validacao = validarLimiteHorasPlantaoCheckboxes();
       if (!validacao.ok) {
         alert(validacao.mensagem);
         return;
       }
-
       const disponibilidades = carregarDisponibilidadesPlantao();
       const nome = usuarioLogado.nomeInstrutor;
       const checkboxes = document.querySelectorAll('.plantao-user-checkbox');
-
-      checkboxes.forEach(function(checkbox) {
+      checkboxes.forEach(function(checkbox){
         const key = checkbox.getAttribute('data-key');
         if (!disponibilidades[key]) disponibilidades[key] = [];
-
-        disponibilidades[key] = disponibilidades[key].filter(function(item) {
-          return normalizarTexto(item) !== normalizarTexto(nome);
-        });
-
+        disponibilidades[key] = disponibilidades[key].filter(function(item){ return normalizarTexto(item) !== normalizarTexto(nome); });
         if (checkbox.checked) disponibilidades[key].push(nome);
       });
-
       salvarDisponibilidadesPlantao(disponibilidades);
       alert('Disponibilidade enviada com sucesso.');
       closePlantaoModal();
       renderCalendar();
     }
 
-    function renderPlantaoAdminModal(sabado, weekendKey) {
+    function renderPlantaoAdminModal(sabado, weekendKey){
       const domingo = addDays(sabado, 1);
       const disponibilidades = carregarDisponibilidadesPlantao();
-
       const disponiveisSabadoTarde = obterDisponiveisTurno(disponibilidades, weekendKey, 'sabado_tarde');
       const disponiveisSabadoNoite = obterDisponiveisTurno(disponibilidades, weekendKey, 'sabado_noite');
       const disponiveisDomingoDia = obterDisponiveisTurno(disponibilidades, weekendKey, 'domingo_dia');
-
       const card = document.createElement('div');
       card.className = 'plantao-day-card';
-
       card.innerHTML =
         '<div class="plantao-shifts">' +
           criarHtmlTurnoPlantao(weekendKey, 'sabado_tarde', 'Sábado ' + formatDate(sabado) + ' das 13h às 22:30h', disponiveisSabadoTarde) +
           criarHtmlTurnoPlantao(weekendKey, 'sabado_noite', 'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h', disponiveisSabadoNoite) +
           criarHtmlTurnoPlantao(weekendKey, 'domingo_dia', 'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h', disponiveisDomingoDia) +
-        '</div>' +
-        '<div class="plantao-actions">' +
-          '<button type="button" class="btn-success approve-plantao-modal-btn">Aprovar escala deste fim de semana</button>' +
-        '</div>';
-
+        '</div><div class="plantao-actions"><button type="button" class="btn-success approve-plantao-modal-btn">Aprovar escala deste fim de semana</button></div>';
       plantaoModalContent.appendChild(card);
-
       const approveBtn = plantaoModalContent.querySelector('.approve-plantao-modal-btn');
-      if (approveBtn) {
-        approveBtn.addEventListener('click', function() {
-          aprovarPlantaoWeekend(weekendKey);
-          closePlantaoModal();
-        });
-      }
+      if (approveBtn) approveBtn.addEventListener('click', function(){ aprovarPlantaoWeekend(weekendKey); closePlantaoModal(); });
     }
 
-    function obterDisponiveisTurno(disponibilidades, weekendKey, shiftKey) {
+    function obterDisponiveisTurno(disponibilidades, weekendKey, shiftKey){
       const key = criarChaveDisponibilidadePlantao(weekendKey, shiftKey);
-      const lista = disponibilidades[key] || [];
-      return lista.slice().sort(function(a,b){ return a.localeCompare(b,'pt-BR'); });
+      return (disponibilidades[key] || []).slice().sort(function(a,b){ return a.localeCompare(b,'pt-BR'); });
     }
-
-    function criarHtmlTurnoPlantao(weekendKey, shiftKey, titulo, disponiveis) {
+    function criarHtmlTurnoPlantao(weekendKey, shiftKey, titulo, disponiveis){
       const disponiveisTexto = disponiveis.length > 0 ? disponiveis.join(', ') : 'Nenhum brigadista informou disponibilidade para este horário.';
-
       return '<div class="plantao-shift">' +
         '<div class="plantao-shift-title">' + titulo + '</div>' +
         '<div class="plantao-available"><strong>Disponíveis para este horário:</strong> ' + escapeHTML(disponiveisTexto) + '</div>' +
         '<div class="plantao-select-row">' +
           criarSelectPlantao(weekendKey, shiftKey, 1, disponiveis) +
           criarSelectPlantao(weekendKey, shiftKey, 2, disponiveis) +
-        '</div>' +
-      '</div>';
+        '</div></div>';
     }
-
-    function criarSelectPlantao(weekendKey, shiftKey, posicao, disponiveis) {
+    function criarSelectPlantao(weekendKey, shiftKey, posicao, disponiveis){
       const aprovado = buscarAprovadoPlantao(weekendKey, shiftKey, posicao);
       const todosBrigadistas = getTodosBrigadistas();
       const disponiveisNormalizados = {};
-
       disponiveis.forEach(function(nome){ disponiveisNormalizados[normalizarTexto(nome)] = true; });
-
       let htmlSelect = '<select class="plantao-select" data-weekend-key="' + weekendKey + '" data-shift="' + shiftKey + '" data-posicao="' + posicao + '">';
       htmlSelect += '<option value="">Plantonista ' + posicao + '</option>';
-
       htmlSelect += '<optgroup label="Disponíveis para este horário">';
       if (disponiveis.length > 0) {
-        disponiveis.forEach(function(nome) {
+        disponiveis.forEach(function(nome){
           const selected = normalizarTexto(nome) === normalizarTexto(aprovado) ? ' selected' : '';
           htmlSelect += '<option value="' + escapeAttribute(nome) + '"' + selected + '>' + escapeHTML(nome) + '</option>';
         });
-      } else {
-        htmlSelect += '<option value="" disabled>Nenhum disponível informado</option>';
-      }
-      htmlSelect += '</optgroup>';
-
-      htmlSelect += '<optgroup label="Todos os brigadistas">';
-      todosBrigadistas.forEach(function(nome) {
+      } else htmlSelect += '<option value="" disabled>Nenhum disponível informado</option>';
+      htmlSelect += '</optgroup><optgroup label="Todos os brigadistas">';
+      todosBrigadistas.forEach(function(nome){
         if (disponiveisNormalizados[normalizarTexto(nome)]) return;
         const selected = normalizarTexto(nome) === normalizarTexto(aprovado) ? ' selected' : '';
         htmlSelect += '<option value="' + escapeAttribute(nome) + '"' + selected + '>' + escapeHTML(nome) + '</option>';
       });
       htmlSelect += '</optgroup>';
-
-      if (
-        aprovado &&
-        !todosBrigadistas.some(function(nome){ return normalizarTexto(nome) === normalizarTexto(aprovado); }) &&
-        !disponiveis.some(function(nome){ return normalizarTexto(nome) === normalizarTexto(aprovado); })
-      ) {
+      if (aprovado && !todosBrigadistas.some(function(nome){ return normalizarTexto(nome) === normalizarTexto(aprovado); }) && !disponiveis.some(function(nome){ return normalizarTexto(nome) === normalizarTexto(aprovado); })) {
         htmlSelect += '<option value="' + escapeAttribute(aprovado) + '" selected>' + escapeHTML(aprovado) + ' (aprovado anteriormente)</option>';
       }
-
       htmlSelect += '</select>';
       return htmlSelect;
     }
 
-    function aprovarPlantaoWeekend(weekendKey) {
+    function aprovarPlantaoWeekend(weekendKey){
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin_plantao') {
         alert('Apenas o AdminB pode aprovar plantões.');
         return;
       }
-
       const sabado = parseDateKeyToDate(weekendKey);
       const domingo = addDays(sabado, 1);
-
       const turnos = [
-        {
-          shiftKey: 'sabado_tarde',
-          start: buildDateTime(sabado, '13:00'),
-          end: buildDateTime(sabado, '22:30'),
-          label: 'Sábado ' + formatDate(sabado) + ' das 13h às 22:30h'
-        },
-        {
-          shiftKey: 'sabado_noite',
-          start: buildDateTime(sabado, '22:30'),
-          end: buildDateTime(domingo, '10:30'),
-          label: 'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h'
-        },
-        {
-          shiftKey: 'domingo_dia',
-          start: buildDateTime(domingo, '10:30'),
-          end: buildDateTime(domingo, '22:30'),
-          label: 'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h'
-        }
+        { shiftKey:'sabado_tarde', start:buildDateTime(sabado,'13:00'), end:buildDateTime(sabado,'22:30'), label:'Sábado ' + formatDate(sabado) + ' das 13h às 22:30h' },
+        { shiftKey:'sabado_noite', start:buildDateTime(sabado,'22:30'), end:buildDateTime(domingo,'10:30'), label:'Sábado ' + formatDate(sabado) + ' das 22:30h às 10:30h' },
+        { shiftKey:'domingo_dia', start:buildDateTime(domingo,'10:30'), end:buildDateTime(domingo,'22:30'), label:'Domingo ' + formatDate(domingo) + ' das 10:30h às 22:30h' }
       ];
-
       const validacaoCarga = validarCargaHorariaAprovacaoAdminB(weekendKey, turnos);
       if (!validacaoCarga.ok) {
         alert(validacaoCarga.mensagem);
         return;
       }
-
       const novosEventosPlantao = [];
-
       for (let i=0;i<turnos.length;i++) {
         const turno = turnos[i];
         const select1 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 1);
         const select2 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 2);
-
         const nome1 = select1 ? select1.value.trim() : '';
         const nome2 = select2 ? select2.value.trim() : '';
-
         if (!nome1 || !nome2) {
           alert('Selecione dois plantonistas para o turno: ' + turno.label);
           return;
         }
-
         novosEventosPlantao.push({
-          id: createEventId(),
-          start: turno.start,
-          end: turno.end,
-          summary: 'Plantão CVT - Brigadista Particular - ' + nome1 + ' / ' + nome2,
-          description: 'Plantão aprovado pelo administrador.',
-          location: '',
-          empresa: 'Plantão CVT',
-          tema: 'Brigadista Particular',
-          instrutor: nome1 + ' / ' + nome2,
-          plantao: true,
-          plantaoWeekendKey: weekendKey,
-          plantaoShiftKey: turno.shiftKey
+          id:createEventId(), start:turno.start, end:turno.end, horarioTexto:'', summary:'Plantão CVT - Brigadista Particular - ' + nome1 + ' / ' + nome2,
+          description:'Plantão aprovado pelo administrador.', location:'', empresa:'Plantão CVT', tema:'Brigadista Particular',
+          instrutor:nome1 + ', ' + nome2, plantao:true, plantaoWeekendKey:weekendKey, plantaoShiftKey:turno.shiftKey
         });
       }
-
       allEvents = allEvents.filter(function(event){ return !(event.plantao && event.plantaoWeekendKey === weekendKey); });
       novosEventosPlantao.forEach(function(event){ allEvents.push(event); });
       allEvents.sort(function(a,b){ return a.start - b.start; });
-
       saveAgenda();
       renderCalendar();
       alert('Escala de plantão aprovada e adicionada ao calendário.');
     }
 
-    function buscarSelectPlantaoAtivo(weekendKey, shiftKey, posicao) {
+    function buscarSelectPlantaoAtivo(weekendKey, shiftKey, posicao){
       const seletor = '.plantao-select[data-weekend-key="' + weekendKey + '"][data-shift="' + shiftKey + '"][data-posicao="' + posicao + '"]';
-
       if (plantaoModalOverlay && plantaoModalOverlay.style.display === 'flex') {
         const selectNoModal = plantaoModalOverlay.querySelector(seletor);
         if (selectNoModal) return selectNoModal;
       }
-
       return document.querySelector(seletor);
     }
 
-    function validarCargaHorariaAprovacaoAdminB(weekendKey, turnos) {
+    function validarCargaHorariaAprovacaoAdminB(weekendKey, turnos){
       const horasPorBrigadista = {};
-
       for (let i=0;i<turnos.length;i++) {
         const turno = turnos[i];
         const horasTurno = calcularHorasEntreDatas(turno.start, turno.end);
         const select1 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 1);
         const select2 = buscarSelectPlantaoAtivo(weekendKey, turno.shiftKey, 2);
-
         const nomes = [];
         if (select1 && select1.value.trim()) nomes.push(select1.value.trim());
         if (select2 && select2.value.trim()) nomes.push(select2.value.trim());
-
         for (let j=0;j<nomes.length;j++) {
           const nome = nomes[j];
           const chave = normalizarTexto(nome);
-
-          if (!horasPorBrigadista[chave]) horasPorBrigadista[chave] = { nome: nome, horas: 0 };
+          if (!horasPorBrigadista[chave]) horasPorBrigadista[chave] = { nome:nome, horas:0 };
           horasPorBrigadista[chave].horas += horasTurno;
-
           if (horasPorBrigadista[chave].horas > 12) {
-            return {
-              ok:false,
-              mensagem:'O brigadista ' + horasPorBrigadista[chave].nome + ' foi selecionado em horários que ultrapassam 12h de plantão no fim de semana. Ajuste a escala antes de aprovar.'
-            };
+            return { ok:false, mensagem:'O brigadista ' + horasPorBrigadista[chave].nome + ' foi selecionado em horários que ultrapassam 12h de plantão no fim de semana. Ajuste a escala antes de aprovar.' };
           }
         }
       }
-
       return { ok:true, mensagem:'' };
     }
 
-    function validarCargaHorariaEdicaoPlantao(eventoEditado, novoInicio, novoFim, novosNomes) {
+    function validarCargaHorariaEdicaoPlantao(eventoEditado, novoInicio, novoFim, novosNomes){
+      if (!novoFim) return { ok:true, mensagem:'' };
       const weekendKey = eventoEditado.plantaoWeekendKey || getWeekendKeyFromPlantaoDate(novoInicio);
-      const eventoTemporario = {
-        id: eventoEditado.id,
-        start: novoInicio,
-        end: novoFim,
-        instrutor: novosNomes,
-        plantao: true,
-        plantaoWeekendKey: weekendKey
-      };
-
-      const eventosDoMesmoFimDeSemana = allEvents
-        .filter(function(event) {
-          return event.plantao === true &&
-            event.plantaoWeekendKey === weekendKey &&
-            event.id !== eventoEditado.id;
-        })
-        .concat([eventoTemporario]);
-
+      const eventoTemporario = { id:eventoEditado.id, start:novoInicio, end:novoFim, instrutor:novosNomes, plantao:true, plantaoWeekendKey:weekendKey };
+      const eventosDoMesmoFimDeSemana = allEvents.filter(function(event){
+        return event.plantao === true && event.plantaoWeekendKey === weekendKey && event.id !== eventoEditado.id;
+      }).concat([eventoTemporario]);
       const horasPorBrigadista = {};
-
-      eventosDoMesmoFimDeSemana.forEach(function(event) {
+      eventosDoMesmoFimDeSemana.forEach(function(event){
         if (!event.start || !event.end) return;
-
         const horasEvento = calcularHorasEntreDatas(event.start, event.end);
         const nomes = separarInstrutores(event.instrutor || '');
-
-        nomes.forEach(function(nome) {
+        nomes.forEach(function(nome){
           const chaveNome = normalizarTexto(nome);
-
-          if (!horasPorBrigadista[chaveNome]) {
-            horasPorBrigadista[chaveNome] = {
-              nome: nome,
-              horas: 0
-            };
-          }
-
+          if (!horasPorBrigadista[chaveNome]) horasPorBrigadista[chaveNome] = { nome:nome, horas:0 };
           horasPorBrigadista[chaveNome].horas += horasEvento;
         });
       });
-
       const chaves = Object.keys(horasPorBrigadista);
-
-      for (let i = 0; i < chaves.length; i++) {
+      for (let i=0;i<chaves.length;i++) {
         const item = horasPorBrigadista[chaves[i]];
-
-        if (item.horas > 12) {
-          return {
-            ok: false,
-            mensagem:
-              'O brigadista ' +
-              item.nome +
-              ' ficará com mais de 12 horas de plantão neste fim de semana. Ajuste a escala antes de salvar.'
-          };
-        }
+        if (item.horas > 12) return { ok:false, mensagem:'O brigadista ' + item.nome + ' ficará com mais de 12 horas de plantão neste fim de semana. Ajuste a escala antes de salvar.' };
       }
-
-      return {
-        ok: true,
-        mensagem: ''
-      };
+      return { ok:true, mensagem:'' };
     }
 
-    function getWeekendKeyFromPlantaoDate(date) {
-      if (date.getDay() === 6) {
-        return getPlantaoWeekendKey(date);
-      }
-
-      if (date.getDay() === 0) {
-        return getPlantaoWeekendKey(addDays(date, -1));
-      }
-
+    function getWeekendKeyFromPlantaoDate(date){
+      if (date.getDay() === 6) return getPlantaoWeekendKey(date);
+      if (date.getDay() === 0) return getPlantaoWeekendKey(addDays(date, -1));
       return getPlantaoWeekendKey(date);
     }
-
-    function calcularHorasEntreDatas(inicio, fim) {
-      return (fim.getTime() - inicio.getTime()) / (1000 * 60 * 60);
-    }
-
-    function buscarAprovadoPlantao(weekendKey, shiftKey, posicao) {
-      const evento = allEvents.find(function(event){
-        return event.plantao && event.plantaoWeekendKey === weekendKey && event.plantaoShiftKey === shiftKey;
-      });
-
+    function calcularHorasEntreDatas(inicio, fim){ return (fim.getTime() - inicio.getTime()) / (1000 * 60 * 60); }
+    function buscarAprovadoPlantao(weekendKey, shiftKey, posicao){
+      const evento = allEvents.find(function(event){ return event.plantao && event.plantaoWeekendKey === weekendKey && event.plantaoShiftKey === shiftKey; });
       if (!evento || !evento.instrutor) return '';
       const nomes = separarInstrutores(evento.instrutor);
       return nomes[posicao - 1] || '';
     }
 
-    function getTodosInstrutores() {
-      return usuarios
-        .filter(function(item){ return Array.isArray(item.perfis) && item.perfis.includes('instrutor'); })
-        .map(function(item){ return item.nomeInstrutor; })
-        .sort(function(a,b){ return a.localeCompare(b,'pt-BR'); });
-    }
+    function getTodosInstrutores(){ return usuarios.filter(function(item){ return Array.isArray(item.perfis) && item.perfis.includes('instrutor'); }).map(function(item){ return item.nomeInstrutor; }).sort(function(a,b){ return a.localeCompare(b,'pt-BR'); }); }
+    function getTodosBrigadistas(){ return usuarios.filter(function(item){ return Array.isArray(item.perfis) && item.perfis.includes('brigadista'); }).map(function(item){ return item.nomeInstrutor; }).sort(function(a,b){ return a.localeCompare(b,'pt-BR'); }); }
 
-    function getTodosBrigadistas() {
-      return usuarios
-        .filter(function(item){ return Array.isArray(item.perfis) && item.perfis.includes('brigadista'); })
-        .map(function(item){ return item.nomeInstrutor; })
-        .sort(function(a,b){ return a.localeCompare(b,'pt-BR'); });
-    }
-
-    function carregarDisponibilidadesPlantao() {
+    function carregarDisponibilidadesPlantao(){
       const saved = localStorage.getItem(PLANTAO_DISPONIBILIDADE_KEY);
       if (!saved) return {};
-
       try { return JSON.parse(saved) || {}; }
-      catch (error) {
-        localStorage.removeItem(PLANTAO_DISPONIBILIDADE_KEY);
-        return {};
-      }
+      catch(error) { localStorage.removeItem(PLANTAO_DISPONIBILIDADE_KEY); return {}; }
     }
-
-    function salvarDisponibilidadesPlantao(disponibilidades) {
-      localStorage.setItem(PLANTAO_DISPONIBILIDADE_KEY, JSON.stringify(disponibilidades));
+    function salvarDisponibilidadesPlantao(disponibilidades){ localStorage.setItem(PLANTAO_DISPONIBILIDADE_KEY, JSON.stringify(disponibilidades)); }
+    function criarChaveDisponibilidadePlantao(weekendKey, shiftKey){ return weekendKey + '_' + shiftKey; }
+    function podeSolicitarPlantao(){ return new Date().getDate() >= 20; }
+    function getDataLiberacaoDisponibilidade(sabadoPlantao){
+      const dataLiberacao = new Date(sabadoPlantao.getFullYear(), sabadoPlantao.getMonth() - 1, 20);
+      return String(dataLiberacao.getDate()).padStart(2,'0') + '/' + String(dataLiberacao.getMonth() + 1).padStart(2,'0');
     }
-
-    function criarChaveDisponibilidadePlantao(weekendKey, shiftKey) {
-      return weekendKey + '_' + shiftKey;
-    }
-
-    function podeSolicitarPlantao() {
-      const hoje = new Date();
-      return hoje.getDate() >= 20;
-    }
-
-    function getDataLiberacaoDisponibilidade(sabadoPlantao) {
-      const dataLiberacao = new Date(
-        sabadoPlantao.getFullYear(),
-        sabadoPlantao.getMonth() - 1,
-        20
-      );
-
-      return String(dataLiberacao.getDate()).padStart(2, '0') + '/' +
-        String(dataLiberacao.getMonth() + 1).padStart(2, '0');
-    }
-
-    function getMesDisponibilidadeBrigadista() {
+    function getMesDisponibilidadeBrigadista(){
       const hoje = new Date();
       const referencia = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 1);
-      return { year: referencia.getFullYear(), month: referencia.getMonth() };
+      return { year:referencia.getFullYear(), month:referencia.getMonth() };
     }
-
-    function getPlantaoWeekendKey(sabado) {
-      return buildDateKey(sabado.getFullYear(), sabado.getMonth(), sabado.getDate());
-    }
-
-    function parseDateKeyToDate(key) {
+    function getPlantaoWeekendKey(sabado){ return buildDateKey(sabado.getFullYear(), sabado.getMonth(), sabado.getDate()); }
+    function parseDateKeyToDate(key){
       const partes = key.split('-');
       return new Date(parseInt(partes[0],10), parseInt(partes[1],10)-1, parseInt(partes[2],10), 0, 0, 0);
     }
-
-    function buildDateTime(date, timeValue) {
+    function buildDateTime(date, timeValue){
       const partes = timeValue.split(':');
       return new Date(date.getFullYear(), date.getMonth(), date.getDate(), parseInt(partes[0],10), parseInt(partes[1],10), 0);
     }
+    function addDays(date, days){ return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days); }
 
-    function addDays(date, days) {
-      return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
-    }
-
-    function adicionarEventosNaAgenda(novosEventos) {
+    function adicionarEventosNaAgenda(novosEventos){
       let adicionados = 0;
       let duplicados = 0;
       const chavesExistentes = {};
-
       allEvents.forEach(function(event){ chavesExistentes[criarChaveEvento(event)] = true; });
-
-      novosEventos.forEach(function(event) {
+      novosEventos.forEach(function(event){
         const chave = criarChaveEvento(event);
-
         if (chavesExistentes[chave]) {
           duplicados++;
           return;
         }
-
         allEvents.push(event);
         chavesExistentes[chave] = true;
         adicionados++;
       });
-
       allEvents.sort(function(a,b){ return a.start - b.start; });
-      return { adicionados: adicionados, duplicados: duplicados };
+      return { adicionados:adicionados, duplicados:duplicados };
     }
 
-    function criarChaveEvento(event) {
+    function criarChaveEvento(event){
       const dataInicio = event.start ? event.start.toISOString() : '';
       const dataFim = event.end ? event.end.toISOString() : '';
+      const horarioTexto = normalizarTexto(event.horarioTexto || '');
       const empresa = normalizarTexto(event.empresa);
       const tema = normalizarTexto(event.tema);
       const instrutor = normalizarTexto(event.instrutor);
       const plantao = event.plantao ? 'plantao' : 'treinamento';
-      return plantao + '|' + dataInicio + '|' + dataFim + '|' + empresa + '|' + tema + '|' + instrutor;
+      return plantao + '|' + dataInicio + '|' + dataFim + '|' + horarioTexto + '|' + empresa + '|' + tema + '|' + instrutor;
     }
 
-    function saveAgenda() {
-      const serializable = allEvents.map(function(event) {
+    function saveAgenda(){
+      const serializable = allEvents.map(function(event){
         return {
-          id: event.id,
-          start: event.start ? event.start.toISOString() : null,
-          end: event.end ? event.end.toISOString() : null,
-          summary: event.summary,
-          description: event.description,
-          location: event.location,
-          empresa: event.empresa,
-          tema: event.tema,
-          instrutor: event.instrutor,
-          plantao: event.plantao || false,
-          plantaoWeekendKey: event.plantaoWeekendKey || '',
-          plantaoShiftKey: event.plantaoShiftKey || ''
+          id:event.id,
+          start:event.start ? event.start.toISOString() : null,
+          end:event.end ? event.end.toISOString() : null,
+          horarioTexto:event.horarioTexto || '',
+          summary:event.summary,
+          description:event.description,
+          location:event.location,
+          empresa:event.empresa,
+          tema:event.tema,
+          instrutor:event.instrutor,
+          plantao:event.plantao || false,
+          plantaoWeekendKey:event.plantaoWeekendKey || '',
+          plantaoShiftKey:event.plantaoShiftKey || ''
         };
       });
-
       localStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
     }
 
-    function loadSavedAgenda() {
+    function loadSavedAgenda(){
       const saved = localStorage.getItem(STORAGE_KEY);
       if (!saved) return;
-
       try {
         const parsed = JSON.parse(saved);
-        allEvents = parsed.map(function(event) {
+        allEvents = parsed.map(function(event){
           return {
-            id: event.id || createEventId(),
-            start: event.start ? new Date(event.start) : null,
-            end: event.end ? new Date(event.end) : null,
-            summary: event.summary || '',
-            description: event.description || '',
-            location: event.location || '',
-            empresa: event.empresa || '',
-            tema: event.tema || '',
-            instrutor: event.instrutor || '',
-            plantao: event.plantao || false,
-            plantaoWeekendKey: event.plantaoWeekendKey || '',
-            plantaoShiftKey: event.plantaoShiftKey || ''
+            id:event.id || createEventId(),
+            start:event.start ? new Date(event.start) : null,
+            end:event.end ? new Date(event.end) : null,
+            horarioTexto:event.horarioTexto || '',
+            summary:event.summary || '',
+            description:event.description || '',
+            location:event.location || '',
+            empresa:event.empresa || '',
+            tema:event.tema || '',
+            instrutor:event.instrutor || '',
+            plantao:event.plantao || false,
+            plantaoWeekendKey:event.plantaoWeekendKey || '',
+            plantaoShiftKey:event.plantaoShiftKey || ''
           };
         }).filter(function(event){ return event.start instanceof Date && !isNaN(event.start); });
-
-        if (allEvents.length > 0) {
-          currentDate = new Date(allEvents[0].start);
-          syncSelectors();
-        }
-      } catch (error) {
+        // Ao abrir o site, sempre inicia no mês atual, independentemente das datas salvas.
+        currentDate = new Date();
+        syncSelectors();
+      } catch(error) {
         localStorage.removeItem(STORAGE_KEY);
       }
     }
 
-    function exportarMesTxt() {
+    function exportarMesTxt(){
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin') {
         alert('Apenas o administrador pode exportar a agenda.');
         return;
       }
-
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth();
       const eventosDoMes = getEventsForMonth(year, month, getVisibleEvents()).filter(function(event){ return event.plantao !== true; });
-
       if (eventosDoMes.length === 0) {
         alert('Não há treinamentos para exportar neste mês.');
         return;
       }
-
       const titulo = 'AGENDA DE TREINAMENTOS - ' + monthNames[month].toUpperCase() + ' DE ' + year;
       const conteudo = montarTextoAgenda(titulo, eventosDoMes);
       const nomeArquivo = 'agenda_' + monthNames[month].toLowerCase() + '_' + year + '.txt';
       baixarArquivoTxt(nomeArquivo, conteudo);
     }
 
-    function exportarSemanaTxt() {
+    function exportarSemanaTxt(){
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin') {
         alert('Apenas o administrador pode exportar a agenda.');
         return;
       }
-
       if (!weekReferenceDate.value) {
         alert('Selecione uma data de referência para gerar a semana.');
         return;
       }
-
       const dataReferencia = buildDateOnlyFromInput(weekReferenceDate.value);
       const inicioSemana = obterSegundaFeira(dataReferencia);
       const fimSemana = obterDomingo(inicioSemana);
-
-      const eventosDaSemana = getVisibleEvents()
-        .filter(function(event){ return event.plantao !== true && event.start >= inicioSemana && event.start <= fimSemana; })
-        .sort(function(a,b){ return a.start - b.start; });
-
+      const eventosDaSemana = getVisibleEvents().filter(function(event){
+        return event.plantao !== true && event.start >= inicioSemana && event.start <= fimSemana;
+      }).sort(function(a,b){ return a.start - b.start; });
       if (eventosDaSemana.length === 0) {
         alert('Não há treinamentos para exportar nesta semana.');
         return;
       }
-
       const titulo = 'AGENDA SEMANAL DE TREINAMENTOS - ' + formatDate(inicioSemana) + ' A ' + formatDate(fimSemana);
       const conteudo = montarTextoAgenda(titulo, eventosDaSemana);
       const nomeArquivo = 'agenda_semanal_' + toInputDate(inicioSemana) + '_a_' + toInputDate(fimSemana) + '.txt';
       baixarArquivoTxt(nomeArquivo, conteudo);
     }
 
-    function montarTextoAgenda(titulo, eventos) {
+    function montarTextoAgenda(titulo, eventos){
       const eventosPorData = {};
-
-      eventos.forEach(function(event) {
+      eventos.forEach(function(event){
         const chave = buildDateKey(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
         if (!eventosPorData[chave]) eventosPorData[chave] = [];
         eventosPorData[chave].push(event);
       });
-
       let texto = '';
       texto += titulo + '\n';
       texto += ''.padEnd(titulo.length, '=') + '\n\n';
-
-      Object.keys(eventosPorData).sort().forEach(function(chave) {
+      Object.keys(eventosPorData).sort().forEach(function(chave){
         const eventosDoDia = eventosPorData[chave].sort(function(a,b){ return a.start - b.start; });
         const dataEvento = eventosDoDia[0].start;
-
         texto += formatDate(dataEvento) + ' - ' + weekDays[dataEvento.getDay()] + '\n';
         texto += ''.padEnd(34, '-') + '\n';
-
-        eventosDoDia.forEach(function(event, index) {
-          texto += (index + 1) + '. ' + formatTimeRange(event.start, event.end) + '\n';
+        eventosDoDia.forEach(function(event,index){
+          texto += (index + 1) + '. ' + formatTimeRange(event.start, event.end, event.horarioTexto) + '\n';
           texto += 'Empresa: ' + (event.empresa || 'Não informado') + '\n';
           texto += 'Tema: ' + (event.tema || 'Não informado') + '\n';
           texto += 'Instrutor: ' + (event.instrutor || 'Não informado') + '\n';
           if (event.description) texto += 'Descrição: ' + String(event.description).replace(/\n/g,' ') + '\n';
           texto += '\n';
         });
-
         texto += '\n';
       });
-
       texto += 'Gerado pelo Calendário CVT.\n';
       return texto;
     }
 
-    function baixarArquivoTxt(nomeArquivo, conteudo) {
+    function baixarArquivoTxt(nomeArquivo, conteudo){
       const blob = new Blob([conteudo], { type:'text/plain;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
-
       link.href = url;
       link.download = nomeArquivo;
       document.body.appendChild(link);
@@ -2708,12 +1795,11 @@
       URL.revokeObjectURL(url);
     }
 
-    function buildDateOnlyFromInput(dateValue) {
+    function buildDateOnlyFromInput(dateValue){
       const partes = dateValue.split('-');
       return new Date(parseInt(partes[0],10), parseInt(partes[1],10)-1, parseInt(partes[2],10), 0, 0, 0);
     }
-
-    function obterSegundaFeira(date) {
+    function obterSegundaFeira(date){
       const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
       const diaSemana = d.getDay();
       const diferenca = diaSemana === 0 ? -6 : 1 - diaSemana;
@@ -2721,91 +1807,55 @@
       d.setHours(0,0,0,0);
       return d;
     }
-
-    function obterDomingo(inicioSemana) {
-      return new Date(inicioSemana.getFullYear(), inicioSemana.getMonth(), inicioSemana.getDate() + 6, 23, 59, 59);
-    }
-
-    function createEventId() {
-      return 'evento_' + Date.now() + '_' + Math.random().toString(36).substring(2,10);
-    }
-
-    function buildDateFromInputs(dateValue, timeValue) {
+    function obterDomingo(inicioSemana){ return new Date(inicioSemana.getFullYear(), inicioSemana.getMonth(), inicioSemana.getDate() + 6, 23, 59, 59); }
+    function createEventId(){ return 'evento_' + Date.now() + '_' + Math.random().toString(36).substring(2,10); }
+    function buildDateFromInputs(dateValue, timeValue){
       const dateParts = dateValue.split('-');
       const timeParts = timeValue.split(':');
-      return new Date(
-        parseInt(dateParts[0],10),
-        parseInt(dateParts[1],10)-1,
-        parseInt(dateParts[2],10),
-        parseInt(timeParts[0],10),
-        parseInt(timeParts[1],10),
-        0
-      );
+      return new Date(parseInt(dateParts[0],10), parseInt(dateParts[1],10)-1, parseInt(dateParts[2],10), parseInt(timeParts[0],10), parseInt(timeParts[1],10), 0);
     }
-
-    function formatDate(date) {
-      return String(date.getDate()).padStart(2,'0') + '/' +
-        String(date.getMonth() + 1).padStart(2,'0') + '/' +
-        date.getFullYear();
-    }
-
-    function formatTimeRange(start, end) {
+    function formatDate(date){ return String(date.getDate()).padStart(2,'0') + '/' + String(date.getMonth() + 1).padStart(2,'0') + '/' + date.getFullYear(); }
+    function formatTimeRange(start, end, horarioTexto){
+      if (horarioTexto) return horarioTexto;
       const startTime = formatTime(start);
       if (!end) return startTime;
       return startTime + ' às ' + formatTime(end);
     }
-
-    function formatTime(date) {
-      return String(date.getHours()).padStart(2,'0') + ':' + String(date.getMinutes()).padStart(2,'0');
-    }
-
-    function toInputDate(date) {
-      return date.getFullYear() + '-' +
-        String(date.getMonth() + 1).padStart(2,'0') + '-' +
-        String(date.getDate()).padStart(2,'0');
-    }
-
-    function toInputTime(date) {
-      return String(date.getHours()).padStart(2,'0') + ':' + String(date.getMinutes()).padStart(2,'0');
-    }
-
-    function normalizarTexto(texto) {
+    function formatTime(date){ return String(date.getHours()).padStart(2,'0') + ':' + String(date.getMinutes()).padStart(2,'0'); }
+    function toInputDate(date){ return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0'); }
+    function toInputTime(date){ return String(date.getHours()).padStart(2,'0') + ':' + String(date.getMinutes()).padStart(2,'0'); }
+    function normalizarTexto(texto){
       if (!texto) return '';
-      return String(texto)
-        .trim()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g,'')
-        .replace(/\s+/g,' ');
+      return String(texto).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');
     }
-
-    function escapeHTML(value) {
+    function escapeHTML(value){
       if (!value) return '';
-      return String(value)
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;')
-        .replace(/'/g,'&#039;');
+      return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
     }
-
-    function escapeAttribute(value) {
+    function escapeAttribute(value){
       if (!value) return '';
-      return String(value)
-        .replace(/&/g,'&amp;')
-        .replace(/"/g,'&quot;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;');
+      return String(value).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
-
-    function showError(message) {
+    function showError(message){
       errorBox.textContent = message;
       errorBox.style.display = 'block';
+      errorBox.style.background = '#fff1f1';
+      errorBox.style.borderColor = 'rgba(217,75,75,.22)';
+      errorBox.style.color = '#8a1f1f';
     }
-
-    function hideError() {
+    function showSuccess(message){
+      errorBox.textContent = message;
+      errorBox.style.display = 'block';
+      errorBox.style.background = 'var(--cvt-green-soft)';
+      errorBox.style.borderColor = 'rgba(26,163,110,.22)';
+      errorBox.style.color = 'var(--cvt-green-dark)';
+    }
+    function hideError(){
       errorBox.textContent = '';
       errorBox.style.display = 'none';
+      errorBox.style.background = '#fff1f1';
+      errorBox.style.borderColor = 'rgba(217,75,75,.22)';
+      errorBox.style.color = '#8a1f1f';
     }
   </script>
 </body>
