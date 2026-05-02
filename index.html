@@ -107,6 +107,14 @@
     .event-type-plantao{background:var(--cvt-green-soft);color:var(--cvt-green-dark);border:1px solid rgba(26,163,110,.16)}
     .event.event-plantao-card{border-left-color:var(--cvt-green);background:#f7fdf9;border-color:rgba(26,163,110,.18)}
     .event.event-plantao-card .event-title{color:var(--cvt-green-dark)}
+    .event.cancelado{background:#e5e7eb !important;border-color:#9ca3af !important;border-left-color:#6b7280 !important;color:#374151 !important;opacity:.96}
+    .event.cancelado .event-title{color:#374151 !important;text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:#6b7280}
+    .event.cancelado .event-info,.event.cancelado .event-time{color:#4b5563 !important}
+    .event.cancelado:hover{box-shadow:0 8px 16px rgba(55,65,81,.08)}
+    .tag-cancelado{display:inline-flex;align-items:center;justify-content:center;background:#dc2626;color:#ffffff;font-size:10px;font-weight:800;text-transform:uppercase;padding:3px 7px;border-radius:999px;margin-left:6px;letter-spacing:.02em;vertical-align:middle}
+    .event-type-cancelado{background:#fee2e2 !important;color:#991b1b !important;border:1px solid rgba(220,38,38,.22) !important}
+    .list-item.cancelado{background:#f3f4f6 !important;border-color:#9ca3af !important;color:#374151 !important;opacity:.96}
+    .list-item.cancelado .list-date{background:#e5e7eb !important;border-color:#9ca3af !important;color:#374151 !important}
     .free-text{color:var(--cvt-green-dark);font-size:13px;margin-top:16px;background:var(--cvt-green-soft);border:1px solid rgba(26,163,110,.12);padding:10px;border-radius:14px;text-align:center;font-weight:700}
     .empty-message{text-align:center;padding:42px 18px;color:var(--cvt-gray-4);background:var(--white);border-radius:18px;border:1px dashed var(--cvt-gray-2);line-height:1.5}
     .list-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
@@ -687,6 +695,7 @@
           <p id="modalCompany"></p>
           <p id="modalTheme"></p>
           <p id="modalInstructor"></p>
+          <p id="modalStatus"></p>
           <p id="modalDescription"></p>
         </div>
         <div class="modal-logo-side">
@@ -707,11 +716,19 @@
           <div class="form-group"><label for="editFim">Horário Final</label><input type="time" id="editFim"></div>
         </div>
         <div class="form-group"><label for="editDescricao">Descrição</label><textarea id="editDescricao"></textarea></div>
+        <div class="form-group" id="canceladoGroup">
+          <label style="display:flex;align-items:center;gap:10px;margin:0;cursor:pointer;">
+            <input type="checkbox" id="editCancelado" style="width:auto;accent-color:#dc2626;">
+            Cancelado
+          </label>
+          <div style="font-size:12px;color:var(--cvt-gray-4);margin-top:6px;line-height:1.4;">Ao marcar como cancelado, o treinamento permanece na agenda, mas o card ficará cinza com a tag vermelha Cancelado.</div>
+        </div>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn-secondary admin-only" id="editBtn">Editar</button>
         <button type="button" class="btn-success admin-only" id="saveEditBtn" style="display:none;">Salvar Alterações</button>
         <button type="button" class="btn-secondary admin-only" id="cancelEditBtn" style="display:none;">Cancelar Edição</button>
+        <button type="button" class="btn-danger admin-only" id="deleteEventBtn" style="display:none;">Excluir</button>
         <button type="button" class="btn-primary" id="closeModal">Fechar</button>
       </div>
     </div>
@@ -805,12 +822,14 @@
     const modalCompany = document.getElementById('modalCompany');
     const modalTheme = document.getElementById('modalTheme');
     const modalInstructor = document.getElementById('modalInstructor');
+    const modalStatus = document.getElementById('modalStatus');
     const modalDescription = document.getElementById('modalDescription');
     const viewMode = document.getElementById('viewMode');
     const editForm = document.getElementById('editForm');
     const editBtn = document.getElementById('editBtn');
     const saveEditBtn = document.getElementById('saveEditBtn');
     const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const deleteEventBtn = document.getElementById('deleteEventBtn');
     const savedAlert = document.getElementById('savedAlert');
     const editEmpresa = document.getElementById('editEmpresa');
     const editTema = document.getElementById('editTema');
@@ -821,6 +840,8 @@
     const editInicio = document.getElementById('editInicio');
     const editFim = document.getElementById('editFim');
     const editDescricao = document.getElementById('editDescricao');
+    const editCancelado = document.getElementById('editCancelado');
+    const canceladoGroup = document.getElementById('canceladoGroup');
     const plantaoModalOverlay = document.getElementById('plantaoModalOverlay');
     const plantaoModalTitle = document.getElementById('plantaoModalTitle');
     const plantaoModalContent = document.getElementById('plantaoModalContent');
@@ -866,6 +887,7 @@
     editBtn.addEventListener('click', enableEditMode);
     cancelEditBtn.addEventListener('click', disableEditMode);
     saveEditBtn.addEventListener('click', saveEventEdit);
+    if (deleteEventBtn) deleteEventBtn.addEventListener('click', excluirEventoSelecionado);
     closePlantaoModalBtn.addEventListener('click', closePlantaoModal);
     plantaoModalOverlay.addEventListener('click', function(event){ if(event.target===plantaoModalOverlay) closePlantaoModal(); });
 
@@ -1371,10 +1393,12 @@
         events.forEach(function(event){
           const eventEl = document.createElement('div');
           eventEl.className = event.plantao === true ? 'event event-plantao-card' : 'event';
+          if (event.cancelado === true && event.plantao !== true) eventEl.classList.add('cancelado');
 
           const tipoEl = document.createElement('div');
           tipoEl.className = event.plantao === true ? 'event-type event-type-plantao' : 'event-type event-type-training';
-          tipoEl.textContent = event.plantao === true ? 'Plantão' : 'Treinamento';
+          if (event.cancelado === true && event.plantao !== true) tipoEl.classList.add('event-type-cancelado');
+          tipoEl.innerHTML = (event.cancelado === true && event.plantao !== true) ? '<span class="tag-cancelado">Cancelado</span>' : (event.plantao === true ? 'Plantão' : 'Treinamento');
 
           const timeEl = document.createElement('div');
           timeEl.className = 'event-time';
@@ -1567,13 +1591,14 @@
       listEvents.forEach(function(event){
         const item = document.createElement('div');
         item.className = 'list-item';
+        if (event.cancelado === true) item.classList.add('cancelado');
         const date = document.createElement('div');
         date.className = 'list-date';
         date.innerHTML = formatDate(event.start) + '<br>' + formatTimeRange(event.start, event.end, event.horarioTexto);
         const content = document.createElement('div');
         content.className = 'list-content';
         content.innerHTML = '<strong>Empresa:</strong> ' + escapeHTML(event.empresa) + '<br>' +
-          '<strong>Tema:</strong> ' + escapeHTML(event.tema) + '<br>' +
+          '<strong>Tema:</strong> ' + escapeHTML(event.tema) + (event.cancelado === true ? ' <span class="tag-cancelado">Cancelado</span>' : '') + '<br>' +
           '<strong>Instrutor:</strong> ' + escapeHTML(event.instrutor);
         item.appendChild(date);
         item.appendChild(content);
@@ -1589,13 +1614,17 @@
       return false;
     }
 
+    function podeExcluirEventoAtual(event){
+      return !!(usuarioLogado && usuarioLogado.tipo === 'admin' && event && event.plantao !== true);
+    }
+
     function openNewTrainingEventModal(date){
       if (!usuarioLogado || usuarioLogado.tipo !== 'admin') return;
       const start = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0);
       const end = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0);
       const newEvent = {
         id:createEventId(), start:start, end:end, horarioTexto:'', summary:'', description:'', location:'',
-        empresa:'', tema:'', instrutor:'', plantao:false, plantaoWeekendKey:'', plantaoShiftKey:'', novoEvento:true
+        empresa:'', tema:'', instrutor:'', plantao:false, plantaoWeekendKey:'', plantaoShiftKey:'', cancelado:false, novoEvento:true
       };
       allEvents.push(newEvent);
       selectedEventId = newEvent.id;
@@ -1605,11 +1634,14 @@
       modalCompany.innerHTML = '<strong>Empresa:</strong> Informe A Empresa';
       modalTheme.innerHTML = '<strong>Tema:</strong> Informe O Tema';
       modalInstructor.innerHTML = '<strong>Instrutor:</strong> Selecione O Instrutor';
+      modalStatus.innerHTML = '';
+      modalStatus.style.display = 'none';
       modalDescription.innerHTML = '<strong>Descrição:</strong> Não Informado';
       fillEditForm(newEvent);
       viewMode.style.display = 'none';
       editForm.style.display = 'block';
       editBtn.style.display = 'none';
+      if (deleteEventBtn) deleteEventBtn.style.display = 'none';
       saveEditBtn.style.display = 'inline-block';
       cancelEditBtn.style.display = 'inline-block';
       savedAlert.style.display = 'none';
@@ -1628,9 +1660,17 @@
       modalCompany.innerHTML = '<strong>Empresa:</strong> ' + escapeHTML(event.empresa);
       modalTheme.innerHTML = '<strong>Tema:</strong> ' + escapeHTML(event.tema);
       modalInstructor.innerHTML = '<strong>Instrutor/Plantonista:</strong> ' + escapeHTML(event.instrutor);
+      if (event.cancelado === true && event.plantao !== true) {
+        modalStatus.style.display = 'block';
+        modalStatus.innerHTML = '<strong>Status:</strong> <span class="tag-cancelado">Cancelado</span>';
+      } else {
+        modalStatus.style.display = 'none';
+        modalStatus.innerHTML = '';
+      }
       modalDescription.innerHTML = '<strong>Descrição:</strong> ' + (event.description ? escapeHTML(event.description).replace(/\n/g,'<br>') : 'Não Informado');
       fillEditForm(event);
       editBtn.style.display = podeEditarEventoAtual(event) ? 'inline-block' : 'none';
+      deleteEventBtn.style.display = podeExcluirEventoAtual(event) ? 'inline-block' : 'none';
       modalOverlay.style.display = 'flex';
     }
 
@@ -1641,6 +1681,7 @@
       }
       modalOverlay.style.display = 'none';
       selectedEventId = null;
+      if (deleteEventBtn) deleteEventBtn.style.display = 'none';
       disableEditMode();
       renderCalendar();
     }
@@ -1661,6 +1702,8 @@
       editInicio.value = toInputTime(event.start);
       editFim.value = event.end ? toInputTime(event.end) : '';
       editDescricao.value = event.description || '';
+      if (editCancelado) editCancelado.checked = event.cancelado === true && event.plantao !== true;
+      if (canceladoGroup) canceladoGroup.style.display = event.plantao === true ? 'none' : 'block';
     }
 
     function preencherSelectEdicao(nomes){
@@ -1733,6 +1776,7 @@
       viewMode.style.display = 'block';
       editForm.style.display = 'none';
       editBtn.style.display = podeEditarEventoAtual(event) ? 'inline-block' : 'none';
+      if (deleteEventBtn) deleteEventBtn.style.display = podeExcluirEventoAtual(event) ? 'inline-block' : 'none';
       saveEditBtn.style.display = 'none';
       cancelEditBtn.style.display = 'none';
     }
@@ -1768,6 +1812,7 @@
       event.end = newEnd;
       event.horarioTexto = '';
       event.description = editDescricao.value.trim();
+      event.cancelado = event.plantao === true ? false : !!(editCancelado && editCancelado.checked);
       event.summary = event.empresa + ' - ' + event.tema + ' - ' + event.instrutor;
       event.novoEvento = false;
       allEvents.sort(function(a,b){ return a.start - b.start; });
@@ -1777,6 +1822,23 @@
       renderCalendar();
       openModal(event.id);
       savedAlert.style.display = 'block';
+    }
+
+    function excluirEventoSelecionado(){
+      const event = getSelectedEvent();
+      if (!podeExcluirEventoAtual(event)) {
+        alert('Você não tem permissão para excluir este evento.');
+        return;
+      }
+      const confirmar = confirm('Deseja realmente excluir este treinamento? Esta ação não poderá ser desfeita.');
+      if (!confirmar) return;
+      allEvents = allEvents.filter(function(item){ return item.id !== event.id; });
+      saveAgenda();
+      modalOverlay.style.display = 'none';
+      selectedEventId = null;
+      disableEditMode();
+      renderCalendar();
+      alert('Treinamento excluído com sucesso.');
     }
 
     function limparAgendaAtual(){
