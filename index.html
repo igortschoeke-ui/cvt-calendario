@@ -594,7 +594,7 @@
         </div>
       </div>
       <div class="hero-logo-wrap">
-        <img src="assets/logo-cvt.png" alt="Logo CVT" class="header-cvt-logo">
+        <img src="logo-cvt.png" data-logo-fallback="assets/logo-cvt.png" alt="Logo CVT" class="header-cvt-logo">
       </div>
       <div class="hero-badge">Agenda Inteligente • Visual Mensal</div>
       <h1>Calendário <span>CVT</span></h1>
@@ -699,7 +699,7 @@
           <p id="modalDescription"></p>
         </div>
         <div class="modal-logo-side">
-          <img src="assets/logo-cvt.png" alt="Logo CVT">
+          <img src="logo-cvt.png" data-logo-fallback="assets/logo-cvt.png" alt="Logo CVT">
         </div>
       </div>
       <div id="editForm" class="edit-form">
@@ -745,6 +745,16 @@
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script>
+    function configurarFallbackLogo(){
+      document.querySelectorAll('img[data-logo-fallback]').forEach(function(img){
+        img.addEventListener('error', function(){
+          if (img.dataset.logoTentativa === 'fallback') return;
+          img.dataset.logoTentativa = 'fallback';
+          img.src = img.dataset.logoFallback;
+        });
+      });
+    }
+
     const STORAGE_KEY = 'agenda_treinamentos_editavel';
     const LOGIN_KEY = 'agenda_usuario_logado';
     const PLANTAO_DISPONIBILIDADE_KEY = 'plantao_disponibilidades_cvt';
@@ -858,6 +868,7 @@
     popularSelectInstrutores();
     loadSavedAgenda();
     checkSavedLogin();
+    configurarFallbackLogo();
     if (weekReferenceDate) weekReferenceDate.value = toInputDate(new Date());
     renderCalendar();
 
@@ -3267,9 +3278,9 @@ function exportarMesTxt(){
       }
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth();
-      const eventosDoMes = getEventsForMonth(year, month, getVisibleEvents()).filter(function(event){ return event.plantao !== true; });
+      const eventosDoMes = getEventsForMonth(year, month, getVisibleEvents()).filter(function(event){ return event.plantao !== true && event.cancelado !== true; });
       if (eventosDoMes.length === 0) {
-        alert('Não há treinamentos para exportar neste mês.');
+        alert('Não há treinamentos ativos para exportar neste mês.');
         return;
       }
       const titulo = 'AGENDA DE TREINAMENTOS - ' + monthNames[month].toUpperCase() + ' DE ' + year;
@@ -3291,10 +3302,10 @@ function exportarMesTxt(){
       const inicioSemana = obterSegundaFeira(dataReferencia);
       const fimSemana = obterDomingo(inicioSemana);
       const eventosDaSemana = getVisibleEvents().filter(function(event){
-        return event.plantao !== true && event.start >= inicioSemana && event.start <= fimSemana;
+        return event.plantao !== true && event.cancelado !== true && event.start >= inicioSemana && event.start <= fimSemana;
       }).sort(function(a,b){ return a.start - b.start; });
       if (eventosDaSemana.length === 0) {
-        alert('Não Há Treinamentos Para Exportar Nesta Semana.');
+        alert('Não Há Treinamentos Ativos Para Exportar Nesta Semana.');
         return;
       }
       const titulo = 'AGENDA SEMANAL DE TREINAMENTOS - ' + formatDate(inicioSemana) + ' A ' + formatDate(fimSemana);
